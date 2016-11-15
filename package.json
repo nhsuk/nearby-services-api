@@ -1,8 +1,8 @@
 {
-  "name": "service-data-api",
+  "name": "nearby-services-api",
   "version": "0.0.1",
   "private": true,
-  "description": "api providing pharmacy searches",
+  "description": "nearby services api",
   "main": "app.js",
   "scripts": {
     "start": "node server.js",
@@ -21,10 +21,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nhsuk/service-search-api.git"
+    "url": "git+https://github.com/nhsuk/nearby-services-api.git"
   },
   "bugs": {
-    "url": "https://github.com/nhsuk/service-search-api/issues"
+    "url": "https://github.com/nhsuk/nearby-services-api/issues"
   },
   "dependencies": {
     "express": "^4.14.0"
