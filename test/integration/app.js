@@ -14,8 +14,8 @@ describe('app', () => {
         expect(err).to.equal(null);
         expect(res).to.have.status(200);
         // eslint-disable-next-line no-unused-expressions
-        expect(res).to.be.html;
-        expect(res.text).to.equal('Hello World!');
+        expect(res).to.be.json;
+        expect(res.body.message).to.equal('Hello World!');
         done();
       });
   });
