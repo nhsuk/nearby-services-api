@@ -11,7 +11,8 @@
     "watch-lint": "esw --watch .",
     "istanbul": "NODE_ENV=test istanbul",
     "generate-coverage": "npm run istanbul -- cover _mocha -- --recursive",
-    "check-coverage": "istanbul check-coverage --config .istanbul.yml"
+    "check-coverage": "istanbul check-coverage --config .istanbul.yml",
+    "upload-coverage-coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "config": {
     "ghooks": {
@@ -32,6 +33,7 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
+    "coveralls": "^2.11.15",
     "eslint": "^3.10.1",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-import": "^2.2.0",
