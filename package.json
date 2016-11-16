@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "description": "nearby services api",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "lint": "eslint --ext .js,.json .",
