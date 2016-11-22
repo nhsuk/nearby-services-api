@@ -8,7 +8,7 @@
     "start": "node server.js",
     "lint": "eslint --ext .js,.json .",
     "test": "NODE_ENV=test mocha --recursive test",
-    "watch-dev": "nodemon server.js",
+    "watch-dev": "nodemon server.js | ./node_modules/.bin/bunyan",
     "watch-lint": "esw --watch .",
     "watch-test": "npm run test -- --watch --reporter min",
     "istanbul": "NODE_ENV=test istanbul",
@@ -35,7 +35,14 @@
   },
   "dependencies": {
     "express": "^4.14.0",
+    "express-validator": "^2.21.0",
+    "geo-nearby": "^2.0.1",
+    "geolib": "^2.0.22",
     "helmet": "^3.1.0",
+    "memory-cache": "^0.1.6",
+    "moment": "^2.16.0",
+    "moment-opening-times": "github:nhsuk/moment-opening-times#2.0.0",
+    "ngeohash": "^0.6.0",
     "nhsuk-bunyan-logger": "github:nhsuk/bunyan-logger#1.0.3",
     "snyk": "^1.19.1"
   },

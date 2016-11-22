@@ -1,13 +1,16 @@
 const express = require('express');
 const helmet = require('helmet');
+const getPharmacies = require('./app/middleware/getPharmacies');
+const loadData = require('./config/loadData');
+const validator = require('express-validator');
+
+loadData();
 
 const app = express();
-app.use(helmet());
-
 app.port = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
-  res.json({ message: 'Hello World!' });
-});
+app.use(helmet());
+app.use(validator());
+app.use('/nearby', getPharmacies);
 
 module.exports = app;
