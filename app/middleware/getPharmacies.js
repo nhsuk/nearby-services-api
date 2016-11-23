@@ -1,4 +1,3 @@
-const router = require('express').Router();
 const pharmacies = require('../lib/getPharmacies');
 const cache = require('memory-cache');
 const log = require('../lib/logger');
@@ -35,6 +34,4 @@ function getPharmacies(req, res, next) {
   next();
 }
 
-router.use('/', getPharmacies);
-
-module.exports = router;
+module.exports = getPharmacies;
