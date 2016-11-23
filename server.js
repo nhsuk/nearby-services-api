@@ -1,5 +1,6 @@
+const log = require('./app/lib/logger');
 const app = require('./app');
 
 app.listen(app.port, () => {
-  console.log('Example app listening on port 3000!');
+  log.info(`Express Finders-API server listening on port ${app.port}`);
 });
