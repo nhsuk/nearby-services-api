@@ -7,7 +7,7 @@ const validator = require('express-validator');
 loadData();
 
 const app = express();
-app.port = process.env.PORT || 3000;
+app.port = process.env.PORT || 3001;
 
 app.use(helmet());
 app.use(validator());
