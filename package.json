@@ -43,7 +43,7 @@
     "moment": "^2.16.0",
     "moment-opening-times": "github:nhsuk/moment-opening-times#2.0.0",
     "ngeohash": "^0.6.0",
-    "nhsuk-bunyan-logger": "github:nhsuk/bunyan-logger#1.0.3",
+    "nhsuk-bunyan-logger": "github:nhsuk/bunyan-logger#1.0.4",
     "snyk": "^1.19.1"
   },
   "devDependencies": {
