@@ -3,6 +3,7 @@ const chai = require('chai');
 const pharmacies = require('../../../app/lib/getPharmacies');
 const AssertionError = require('assert').AssertionError;
 const moment = require('moment');
+const constants = require('../../../app/lib/constants');
 
 delete require.cache[require.resolve('../../../config/loadData')];
 process.env.PHARMACY_LIST_PATH = '../test/resources/org-api-responses/pharmacy-list';
@@ -48,12 +49,44 @@ describe('Nearby', () => {
       });
     });
 
+    it('should get 20 miles of results by default', () => {
+      const defaultSearchRadius = 20;
+      let geoMockDist;
+      const geoMock = {
+        nearBy: (lat, lon, dist) => {
+          geoMockDist = dist;
+          return [];
+        },
+      };
+
+      pharmacies.nearby(searchPoint, geoMock);
+
+      expect(geoMockDist).to.be.equal(defaultSearchRadius * constants.metersInAMile);
+    });
+
+    it('should get the distance of results as requested', () => {
+      const nonDefaultSearchRadius = 50;
+      let geoMockDist;
+      const geoMock = {
+        nearBy: (lat, lon, dist) => {
+          geoMockDist = dist;
+          return [];
+        },
+      };
+
+      pharmacies.nearby(searchPoint, geoMock, { searchRadius: nonDefaultSearchRadius });
+
+      expect(geoMockDist).to.be.equal(nonDefaultSearchRadius * constants.metersInAMile);
+    });
+
     it('should get the number of unique nearby open services requested, ordered by distance',
       () => {
         const requestedNumberOfOpenResults = 4;
         const results =
           pharmacies
-          .nearby(remoteSearchPoint, geo, { open: requestedNumberOfOpenResults })
+          .nearby(remoteSearchPoint, geo,
+            { open: requestedNumberOfOpenResults,
+              searchRadius: 50 })
           .openServices;
 
         expect(results.length).to.be.equal(requestedNumberOfOpenResults);
@@ -77,7 +110,9 @@ describe('Nearby', () => {
       const requestedNumberOfResults = 51;
       const results =
         pharmacies
-        .nearby(remoteSearchPoint, geo, { nearby: requestedNumberOfResults })
+        .nearby(remoteSearchPoint, geo,
+          { nearby: requestedNumberOfResults,
+            searchRadius: 50 })
         .nearbyServices;
 
       expect(results.length).to.be.equal(requestedNumberOfResults);
