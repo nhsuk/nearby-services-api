@@ -42,7 +42,7 @@ describe('app', () => {
   describe('nearby happy path', () => {
     const coords = { latitude, longitude };
 
-    it('should return an object containing 10 nearby and 3 open services', (done) => {
+    it('should return an object containing 3 nearby and 1 open services by default', (done) => {
       chai.request(app)
         .get('/nearby')
         .query({ latitude: coords.latitude, longitude: coords.longitude })
@@ -57,8 +57,8 @@ describe('app', () => {
 
           expect(nearby).to.be.instanceof(Array);
           expect(open).to.be.instanceof(Array);
-          expect(nearby.length).to.be.equal(10);
-          expect(open.length).to.be.equal(3);
+          expect(nearby.length).to.be.equal(3);
+          expect(open.length).to.be.equal(1);
           done();
         });
     });

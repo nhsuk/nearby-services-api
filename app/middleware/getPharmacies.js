@@ -24,7 +24,7 @@ function getPharmacies(req, res, next) {
   };
   const geo = cache.get('geo');
   // TODO: Take the limits from the request
-  const limits = { nearby: 10, open: 3 };
+  const limits = { nearby: 3, open: 1 };
 
   log.info('get-pharmacies-start');
   const nearby = pharmacies.nearby(searchPoint, geo, limits);
