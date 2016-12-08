@@ -28,10 +28,12 @@ function nearby(searchPoint, geo, searchLimits) {
 
   const defaultNearbyLimit = 10;
   const defaultOpenLimit = 3;
+  const defaultSearchRadius = 20;
 
   const limits = searchLimits || {};
   limits.nearby = limits.nearby || defaultNearbyLimit;
   limits.open = limits.open || defaultOpenLimit;
+  limits.searchRadius = limits.searchRadius || defaultSearchRadius;
 
   assert.equal(typeof (limits.nearby), 'number', 'nearby limit must be a number');
   assert.equal(typeof (limits.open), 'number', 'open limit must be a number');
@@ -44,7 +46,7 @@ function nearby(searchPoint, geo, searchLimits) {
 
   log.debug('get-nearby-results-start');
   const nearbyGeo =
-    geo.nearBy(searchPoint.latitude, searchPoint.longitude, 50 * metersInAMile);
+    geo.nearBy(searchPoint.latitude, searchPoint.longitude, limits.searchRadius * metersInAMile);
   log.debug('get-nearby-results-end');
 
   log.debug(`Found ${nearbyGeo.length} nearby results`);
