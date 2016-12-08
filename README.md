@@ -15,3 +15,18 @@ This app uses [nhsuk/bunyan-logger](https://github.com/nhsuk/bunyan-logger). As
 such a number of environment variables can be used, and in production, NEED to
 be set for the logging to work. Check out the README in that repo for additional
 information.
+
+## Environment variables
+
+Environment variables are expected to be managed by the environment in which
+the application is being run. This is best practice as described by
+[twelve-factor](https://12factor.net/config).
+
+| Variable                         | Description                                                                            | Default                  | Required        |
+|:---------------------------------|:---------------------------------------------------------------------------------------|:-------------------------|-----------------|
+| `NODE_ENV`                       | node environment                                                                       | development              |                 |
+| `PORT`                           | server port                                                                            | 3000                     |                 |
+| `PHARMACY_LIST_PATH`             | Path to json file containing list of pharmacies                                        | `../data/pharmacy-list`  |                 |
+| `SPLUNK_HEC_TOKEN`               | [HTTP Event Collector token](http://dev.splunk.com/view/event-collector/SP-CAAAE7C)    |                          | In `production` |
+| `SPLUNK_HEC_ENDPOINT`            | [HTTP Event Collector endpoint](http://dev.splunk.com/view/event-collector/SP-CAAAE7H) |                          | In `production` |
+| `LOG_LEVEL`                      | [bunyan log level](https://github.com/trentm/node-bunyan#levels)                       | Depends on `NODE_ENV`    |                 |
