@@ -59,8 +59,8 @@ describe('Nearby', () => {
         const results =
           pharmacies
           .nearby(remoteSearchPoint, geo,
-            { open: requestedNumberOfOpenResults,
-              searchRadius: 50 })
+                  { open: requestedNumberOfOpenResults,
+                    searchRadius: 50 })
           .openServices;
 
         expect(results.length).to.be.equal(requestedNumberOfOpenResults);
@@ -85,8 +85,8 @@ describe('Nearby', () => {
       const results =
         pharmacies
         .nearby(remoteSearchPoint, geo,
-          { nearby: requestedNumberOfResults,
-            searchRadius: 50 })
+                { nearby: requestedNumberOfResults,
+                  searchRadius: 50 })
         .nearbyServices;
 
       expect(results.length).to.be.equal(requestedNumberOfResults);
