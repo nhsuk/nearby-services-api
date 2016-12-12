@@ -93,8 +93,8 @@ describe('app', () => {
   });
 
   describe('nearby error handling', () => {
-    describe('returns 400 responses and descriptive error messages when requests are bad', () => {
-      it('when both latitude and longitude are not included', (done) => {
+    describe('when both latitude and longitude are not included', () => {
+      it('should return a 400 response and descriptive error messages', (done) => {
         chai.request(app)
           .get('/nearby')
           .end((err, res) => {
@@ -114,8 +114,10 @@ describe('app', () => {
             done();
           });
       });
+    });
 
-      it('when longitude is not included', (done) => {
+    describe('when longitude is not included', () => {
+      it('should return a 400 response and descriptive error messages', (done) => {
         chai.request(app)
           .get('/nearby')
           .query({ latitude })
@@ -132,8 +134,10 @@ describe('app', () => {
             done();
           });
       });
+    });
 
-      it('when latitude is not included', (done) => {
+    describe('when latitude is not included', () => {
+      it('should return a 400 response and descriptive error messages', (done) => {
         chai.request(app)
           .get('/nearby')
           .query({ longitude })
@@ -150,8 +154,10 @@ describe('app', () => {
             done();
           });
       });
+    });
 
-      it('when the open limit is supplied and is not a number', (done) => {
+    describe('when the open limit is supplied and is not a number', () => {
+      it('should return a 400 response and descriptive error messages', (done) => {
         chai.request(app)
           .get('/nearby')
           .query({
@@ -169,8 +175,10 @@ describe('app', () => {
             done();
           });
       });
+    });
 
-      it('when the nearby limit is supplied and is not a number', (done) => {
+    describe('when the nearby limit is supplied and is not a number', () => {
+      it('should return a 400 response and descriptive error messages', (done) => {
         chai.request(app)
           .get('/nearby')
           .query({
@@ -189,31 +197,32 @@ describe('app', () => {
             done();
           });
       });
+    });
 
-      it('when nearby and open limits are supplied as empty values',
-        (done) => {
-          chai.request(app)
-            .get('/nearby')
-            .query({
-              latitude: coords.latitude,
-              longitude: coords.longitude,
-              'limits:results:open': '',
-              'limits:results:nearby': '' })
-            .end((err, res) => {
-              expect(res).to.have.status(400);
-              // eslint-disable-next-line no-unused-expressions
-              expect(res).to.be.json;
-              expect(res.body).to.be.instanceof(Array);
-              expect(res.body.length).to.equal(2);
-              expect(res.body[0].param).to.equal('limits:results:open');
-              expect(res.body[0].msg).to.equal('limits:results:open must be a number between 1 and 3');
-              expect(res.body[0].value).to.equal('');
-              expect(res.body[1].param).to.equal('limits:results:nearby');
-              expect(res.body[1].msg).to.equal('limits:results:nearby must be a number between 1 and 10');
-              expect(res.body[1].value).to.equal('');
-              done();
-            });
-        });
+    describe('when nearby and open limits are supplied as empty values', () => {
+      it('should return a 400 response and descriptive error messages', (done) => {
+        chai.request(app)
+          .get('/nearby')
+          .query({
+            latitude: coords.latitude,
+            longitude: coords.longitude,
+            'limits:results:open': '',
+            'limits:results:nearby': '' })
+          .end((err, res) => {
+            expect(res).to.have.status(400);
+            // eslint-disable-next-line no-unused-expressions
+            expect(res).to.be.json;
+            expect(res.body).to.be.instanceof(Array);
+            expect(res.body.length).to.equal(2);
+            expect(res.body[0].param).to.equal('limits:results:open');
+            expect(res.body[0].msg).to.equal('limits:results:open must be a number between 1 and 3');
+            expect(res.body[0].value).to.equal('');
+            expect(res.body[1].param).to.equal('limits:results:nearby');
+            expect(res.body[1].msg).to.equal('limits:results:nearby must be a number between 1 and 10');
+            expect(res.body[1].value).to.equal('');
+            done();
+          });
+      });
     });
   });
 });
