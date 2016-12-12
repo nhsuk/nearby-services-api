@@ -24,7 +24,7 @@ the application is being run. This is best practice as described by
 | Variable                         | Description                                                                            | Default                  | Required        |
 |:---------------------------------|:---------------------------------------------------------------------------------------|:-------------------------|-----------------|
 | `NODE_ENV`                       | node environment                                                                       | development              |                 |
-| `PORT`                           | server port                                                                            | 3000                     |                 |
+| `PORT`                           | server port                                                                            | 3001                     |                 |
 | `PHARMACY_LIST_PATH`             | Path to json file containing list of pharmacies                                        | `../data/pharmacy-list`  |                 |
 | `SPLUNK_HEC_TOKEN`               | [HTTP Event Collector token](http://dev.splunk.com/view/event-collector/SP-CAAAE7C)    |                          | In `production` |
 | `SPLUNK_HEC_ENDPOINT`            | [HTTP Event Collector endpoint](http://dev.splunk.com/view/event-collector/SP-CAAAE7H) |                          | In `production` |
