@@ -9,6 +9,7 @@ chai.use(chaiHttp);
 describe('app', () => {
   const longitude = -1.55275457242333;
   const latitude = 53.797431921096;
+  const coords = { latitude, longitude };
 
   describe('security headers', () => {
     it('should be returned for a valid request', (done) => {
@@ -40,8 +41,6 @@ describe('app', () => {
   });
 
   describe('nearby happy path', () => {
-    const coords = { latitude, longitude };
-
     it('should return an object containing 3 nearby and 1 open services by default', (done) => {
       chai.request(app)
         .get('/nearby')
@@ -62,11 +61,40 @@ describe('app', () => {
           done();
         });
     });
+
+    it('should return an object containing the number of nearby and open services that were requested', (done) => {
+      const openResults = 2;
+      const nearbyResults = 5;
+
+      chai.request(app)
+        .get('/nearby')
+        .query({
+          latitude: coords.latitude,
+          longitude: coords.longitude,
+          'limits:results:open': openResults,
+          'limits:results:nearby': nearbyResults,
+        })
+        .end((err, res) => {
+          expect(err).to.equal(null);
+          expect(res).to.have.status(200);
+          // eslint-disable-next-line no-unused-expressions
+          expect(res).to.be.json;
+
+          const nearby = res.body.nearby;
+          const open = res.body.open;
+
+          expect(nearby).to.be.instanceof(Array);
+          expect(open).to.be.instanceof(Array);
+          expect(nearby.length).to.be.equal(nearbyResults);
+          expect(open.length).to.be.equal(openResults);
+          done();
+        });
+    });
   });
 
   describe('nearby error handling', () => {
-    describe('returns 400 responses and descriptive error messages when requests are bad', () => {
-      it('when both latitude and longitude are not included', (done) => {
+    describe('when both latitude and longitude are not included', () => {
+      it('should return a 400 response and descriptive error messages', (done) => {
         chai.request(app)
           .get('/nearby')
           .end((err, res) => {
@@ -86,8 +114,10 @@ describe('app', () => {
             done();
           });
       });
+    });
 
-      it('when longitude is not included', (done) => {
+    describe('when longitude is not included', () => {
+      it('should return a 400 response and descriptive error messages', (done) => {
         chai.request(app)
           .get('/nearby')
           .query({ latitude })
@@ -104,8 +134,10 @@ describe('app', () => {
             done();
           });
       });
+    });
 
-      it('when latitude is not included', (done) => {
+    describe('when latitude is not included', () => {
+      it('should return a 400 response and descriptive error messages', (done) => {
         chai.request(app)
           .get('/nearby')
           .query({ longitude })
@@ -119,6 +151,75 @@ describe('app', () => {
             expect(res.body[0].msg).to.equal('latitude is required');
             expect(res.body[1].param).to.equal('latitude');
             expect(res.body[1].msg).to.equal('latitude must be between -90 and 90');
+            done();
+          });
+      });
+    });
+
+    describe('when the open limit is supplied and is not a number', () => {
+      it('should return a 400 response and descriptive error messages', (done) => {
+        chai.request(app)
+          .get('/nearby')
+          .query({
+            latitude: coords.latitude,
+            longitude: coords.longitude,
+            'limits:results:open': 'invalid' })
+          .end((err, res) => {
+            expect(res).to.have.status(400);
+            // eslint-disable-next-line no-unused-expressions
+            expect(res).to.be.json;
+            expect(res.body).to.be.instanceof(Array);
+            expect(res.body.length).to.equal(1);
+            expect(res.body[0].param).to.equal('limits:results:open');
+            expect(res.body[0].msg).to.equal('limits:results:open must be a number between 1 and 3');
+            done();
+          });
+      });
+    });
+
+    describe('when the nearby limit is supplied and is not a number', () => {
+      it('should return a 400 response and descriptive error messages', (done) => {
+        chai.request(app)
+          .get('/nearby')
+          .query({
+            latitude: coords.latitude,
+            longitude: coords.longitude,
+            'limits:results:nearby': 'invalid',
+          })
+          .end((err, res) => {
+            expect(res).to.have.status(400);
+            // eslint-disable-next-line no-unused-expressions
+            expect(res).to.be.json;
+            expect(res.body).to.be.instanceof(Array);
+            expect(res.body.length).to.equal(1);
+            expect(res.body[0].param).to.equal('limits:results:nearby');
+            expect(res.body[0].msg).to.equal('limits:results:nearby must be a number between 1 and 10');
+            done();
+          });
+      });
+    });
+
+    describe('when nearby and open limits are supplied as empty values', () => {
+      it('should return a 400 response and descriptive error messages', (done) => {
+        chai.request(app)
+          .get('/nearby')
+          .query({
+            latitude: coords.latitude,
+            longitude: coords.longitude,
+            'limits:results:open': '',
+            'limits:results:nearby': '' })
+          .end((err, res) => {
+            expect(res).to.have.status(400);
+            // eslint-disable-next-line no-unused-expressions
+            expect(res).to.be.json;
+            expect(res.body).to.be.instanceof(Array);
+            expect(res.body.length).to.equal(2);
+            expect(res.body[0].param).to.equal('limits:results:open');
+            expect(res.body[0].msg).to.equal('limits:results:open must be a number between 1 and 3');
+            expect(res.body[0].value).to.equal('');
+            expect(res.body[1].param).to.equal('limits:results:nearby');
+            expect(res.body[1].msg).to.equal('limits:results:nearby must be a number between 1 and 10');
+            expect(res.body[1].value).to.equal('');
             done();
           });
       });

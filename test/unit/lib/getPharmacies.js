@@ -30,38 +30,12 @@ describe('Nearby', () => {
     });
 
     it('should return an object with nearby and open services', () => {
-      const results = pharmacies.nearby(searchPoint, geo);
+      const limits = { searchRadius: 20, open: 1, nearby: 3 };
+      const results = pharmacies.nearby(searchPoint, geo, limits);
 
       expect(results).is.not.equal(undefined);
       expect(results.nearbyServices).is.not.equal(undefined);
       expect(results.openServices).is.not.equal(undefined);
-    });
-
-    it('should get 10 nearby pharmacies by default, ordered by distance', () => {
-      const results = pharmacies.nearby(searchPoint, geo).nearbyServices;
-
-      expect(results.length).to.be.equal(10);
-
-      let previousDistance = 0;
-      results.forEach((result) => {
-        expect(result.distanceInMiles).to.be.at.least(previousDistance);
-        previousDistance = result.distanceInMiles;
-      });
-    });
-
-    it('should get 20 miles of results by default', () => {
-      const defaultSearchRadius = 20;
-      let geoMockDist;
-      const geoMock = {
-        nearBy: (lat, lon, dist) => {
-          geoMockDist = dist;
-          return [];
-        },
-      };
-
-      pharmacies.nearby(searchPoint, geoMock);
-
-      expect(geoMockDist).to.be.equal(defaultSearchRadius * constants.metersInAMile);
     });
 
     it('should get the distance of results as requested', () => {
@@ -85,8 +59,8 @@ describe('Nearby', () => {
         const results =
           pharmacies
           .nearby(remoteSearchPoint, geo,
-            { open: requestedNumberOfOpenResults,
-              searchRadius: 50 })
+                  { open: requestedNumberOfOpenResults,
+                    searchRadius: 50 })
           .openServices;
 
         expect(results.length).to.be.equal(requestedNumberOfOpenResults);
@@ -111,8 +85,8 @@ describe('Nearby', () => {
       const results =
         pharmacies
         .nearby(remoteSearchPoint, geo,
-          { nearby: requestedNumberOfResults,
-            searchRadius: 50 })
+                { nearby: requestedNumberOfResults,
+                  searchRadius: 50 })
         .nearbyServices;
 
       expect(results.length).to.be.equal(requestedNumberOfResults);
@@ -132,17 +106,12 @@ describe('Nearby', () => {
     });
 
     it('should return the nearest obj first', () => {
+      const limits = { searchRadius: 20, open: 1, nearby: 3 };
       const nearestIdentifier = 'FFP17';
 
-      const results = pharmacies.nearby(searchPoint, geo).nearbyServices;
+      const results = pharmacies.nearby(searchPoint, geo, limits).nearbyServices;
 
       expect(results[0].identifier).to.be.equal(nearestIdentifier);
-    });
-
-    it('should return obj with 3 open orgs', () => {
-      const results = pharmacies.nearby(searchPoint, geo).openServices;
-
-      expect(results.length).is.equal(3);
     });
 
     it('should return the opening times message and open state', () => {
@@ -164,7 +133,8 @@ describe('Nearby', () => {
       function nearbyStub() { return [alwaysOpenOrg]; }
       const oneOpenOrgGeo = { nearBy: nearbyStub };
 
-      const results = pharmacies.nearby(searchPoint, oneOpenOrgGeo).openServices;
+      const results =
+        pharmacies.nearby(searchPoint, oneOpenOrgGeo, { open: 1, nearby: 3 }).openServices;
 
       expect(results[0].isOpen).to.be.equal(true);
       expect(results[0].openingTimesMessage).to.not.be.equal('Call for opening times');
@@ -196,7 +166,8 @@ describe('Nearby', () => {
       function nearbyStub() { return [orgWithAlterations]; }
       const oneOrgGeo = { nearBy: nearbyStub };
 
-      const results = pharmacies.nearby(searchPoint, oneOrgGeo).openServices;
+      const results =
+        pharmacies.nearby(searchPoint, oneOrgGeo, { open: 1, nearby: 3 }).openServices;
 
       expect(results[0].isOpen).to.be.equal(true);
       expect(results[0].openingTimesMessage).to.not.be.equal('Call for opening times');
@@ -211,7 +182,8 @@ describe('Nearby', () => {
       function nearbyStub() { return [orgWithNoOpeningTimes]; }
       const oneOrgGeo = { nearBy: nearbyStub };
 
-      const results = pharmacies.nearby(searchPoint, oneOrgGeo).nearbyServices;
+      const results =
+        pharmacies.nearby(searchPoint, oneOrgGeo, { searchRadius: 20 }).nearbyServices;
 
       expect(results.length).to.be.equal(1);
       expect(results[0].isOpen).to.be.equal(false);
@@ -220,73 +192,14 @@ describe('Nearby', () => {
   });
 
   describe('error handling', () => {
-    it('should throw an exception when searchPoint is null', () => {
-      expect(() => { pharmacies.nearby(); })
-        .to.throw(
-            AssertionError,
-            'searchPoint can not be null');
-    });
-
-    it('should throw exception when searchPoint does not contain longitude', () => {
-      expect(() => { pharmacies.nearby({ latitude: 50.123456789 }); })
-        .to.throw(AssertionError,
-            'searchPoint must contain a property named longitude');
-    });
-    it('should throw exception when searchPoint does not contain latitude', () => {
-      expect(() => { pharmacies.nearby({ longitude: -1.123456789 }); })
-        .to.throw(
-            AssertionError,
-            'searchPoint must contain a property named latitude');
-    });
-
     it('should throw an exception when geo is null', () => {
       expect(() => { pharmacies.nearby({ latitude: 50.01, longitude: -1.23 }); })
-        .to.throw(
-            AssertionError,
-            'geo can not be null');
+        .to.throw(AssertionError, 'geo can not be null');
     });
 
     it('should throw an exception when geo does not contain a nearby function', () => {
       expect(() => { pharmacies.nearby({ latitude: 50.01, longitude: -1.23 }, {}); })
-        .to.throw(
-            AssertionError,
-            'geo must contain a nearBy function');
-    });
-
-    it('should throw an exception when nearby limit is not a number', () => {
-      expect(() => {
-        pharmacies.nearby(
-          { latitude: 50.01, longitude: -1.23 },
-          { nearBy: () => {} },
-          { nearby: 'a' });
-      }).to.throw(AssertionError, 'nearby limit must be a number');
-    });
-
-    it('should throw an exception when nearby limit is less than 0', () => {
-      expect(() => {
-        pharmacies.nearby(
-          { latitude: 50.01, longitude: -1.23 },
-          { nearBy: () => {} },
-          { nearby: -1 });
-      }).to.throw(AssertionError, 'nearby limit must be at least 1');
-    });
-
-    it('should throw an exception when open limit is not a number', () => {
-      expect(() => {
-        pharmacies.nearby(
-          { latitude: 50.01, longitude: -1.23 },
-          { nearBy: () => {} },
-          { open: 'open' });
-      }).to.throw(AssertionError, 'open limit must be a number');
-    });
-
-    it('should throw an exception when open limit is less than 0', () => {
-      expect(() => {
-        pharmacies.nearby(
-          { latitude: 50.01, longitude: -1.23 },
-          { nearBy: () => {} },
-          { open: -1 });
-      }).to.throw(AssertionError, 'open limit must be at least 1');
+        .to.throw(AssertionError, 'geo must contain a nearBy function');
     });
   });
 });

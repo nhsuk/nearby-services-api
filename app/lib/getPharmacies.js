@@ -17,28 +17,10 @@ function getDistanceInMiles(start, end) {
   return distanceInMeters / metersInAMile;
 }
 
-function nearby(searchPoint, geo, searchLimits) {
-  assert(searchPoint, 'searchPoint can not be null');
-  assert(searchPoint.latitude, 'searchPoint must contain a property named latitude');
-  assert(searchPoint.longitude, 'searchPoint must contain a property named longitude');
-
+function nearby(searchPoint, geo, limits) {
+  // TODO: Move geo into this module rather than passing it in
   assert(geo, 'geo can not be null');
-  assert.equal(typeof (geo.nearBy), 'function',
-    'geo must contain a nearBy function');
-
-  const defaultNearbyLimit = 10;
-  const defaultOpenLimit = 3;
-  const defaultSearchRadius = 20;
-
-  const limits = searchLimits || {};
-  limits.nearby = limits.nearby || defaultNearbyLimit;
-  limits.open = limits.open || defaultOpenLimit;
-  limits.searchRadius = limits.searchRadius || defaultSearchRadius;
-
-  assert.equal(typeof (limits.nearby), 'number', 'nearby limit must be a number');
-  assert.equal(typeof (limits.open), 'number', 'open limit must be a number');
-  assert(limits.nearby >= 1, 'nearby limit must be at least 1');
-  assert(limits.open >= 1, 'open limit must be at least 1');
+  assert.equal(typeof (geo.nearBy), 'function', 'geo must contain a nearBy function');
 
   const openServices = [];
   let serviceCount = 0;
