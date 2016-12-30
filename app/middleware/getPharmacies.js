@@ -1,5 +1,4 @@
 const pharmacies = require('../lib/getPharmacies');
-const cache = require('memory-cache');
 const log = require('../lib/logger');
 
 function getPharmacies(req, res, next) {
@@ -16,24 +15,28 @@ function getPharmacies(req, res, next) {
     log.warn(errors, 'getPharmacies errors');
     res.status(400).json(errors);
   } else {
-    const latitude = req.query.latitude;
-    const longitude = req.query.longitude;
+    const latitude = parseFloat(req.query.latitude);
+    const longitude = parseFloat(req.query.longitude);
     const nearby = req.query['limits:results:nearby'] || 3;
     const open = req.query['limits:results:open'] || 1;
     // Given how search performance is impacted by the radius of the search
     // it has intentionaly not been allowed to be specificed by the client
     const searchRadius = 20;
 
-    const searchPoint = { latitude, longitude };
-    const geo = cache.get('geo');
+    const searchPoint = { type: 'Point', coordinates: [longitude, latitude] };
     const limits = { nearby, open, searchRadius };
 
     log.info('get-pharmacies-start');
-    const services = pharmacies.nearby(searchPoint, geo, limits);
+    pharmacies.nearby(searchPoint, limits, (err, services) => {
+      if (err) {
+        res.status(500).send({ err });
+        next(err);
+      } else {
+        res.json({ nearby: services.nearbyServices, open: services.openServices });
+        next();
+      }
+    });
     log.info('get-pharmacies-end');
-
-    res.json({ nearby: services.nearbyServices, open: services.openServices });
-    next();
   }
 }
 

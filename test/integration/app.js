@@ -6,7 +6,9 @@ const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-describe('app', () => {
+describe('app', function () {
+  // Setting this timeout as it is calling the real DB...
+  this.timeout(5000);
   const longitude = -1.55275457242333;
   const latitude = 53.797431921096;
   const coords = { latitude, longitude };
