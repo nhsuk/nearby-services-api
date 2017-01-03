@@ -1,12 +1,13 @@
 {
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
+  "extends": ["airbnb-base"],
   "env": {
     "node": true,
     "mocha": true
   },
-    "extends": "airbnb",
     "plugins": [
-      "react",
-      "jsx-a11y",
       "import",
       "mocha",
       "json"
@@ -17,7 +18,6 @@
       ],
       "no-plusplus": [
         "error", { "allowForLoopAfterthoughts" : true }
-      ],
-      "react/require-extension": "off"
+      ]
     }
 }
