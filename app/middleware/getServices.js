@@ -1,7 +1,7 @@
-const pharmacies = require('../lib/getPharmacies');
+const pharmacies = require('../lib/getServices');
 const log = require('../lib/logger');
 
-function getPharmacies(req, res, next) {
+function getServices(req, res, next) {
   req.checkQuery('latitude', 'latitude is required').notEmpty();
   req.checkQuery('longitude', 'longitude is required').notEmpty();
   req.checkQuery('latitude', 'latitude must be between -90 and 90').isFloat({ min: -90, max: 90 });
@@ -12,7 +12,7 @@ function getPharmacies(req, res, next) {
   const errors = req.validationErrors();
 
   if (errors) {
-    log.warn(errors, 'getPharmacies errors');
+    log.warn(errors, 'getServices errors');
     res.status(400).json(errors);
   } else {
     const latitude = parseFloat(req.query.latitude);
@@ -40,4 +40,4 @@ function getPharmacies(req, res, next) {
   }
 }
 
-module.exports = getPharmacies;
+module.exports = getServices;
