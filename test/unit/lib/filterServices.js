@@ -1,6 +1,5 @@
 const chai = require('chai');
 const filterServices = require('../../../app/lib/filterServices');
-// const AssertionError = require('assert').AssertionError;
 const moment = require('moment');
 
 const expect = chai.expect;
@@ -30,10 +29,6 @@ describe('filterServices', () => {
       expect(results).to.have.property('openServices').that.is.an('array').to.be.empty;
       /* eslint-enable no-unused-expressions */
     });
-
-    // TODO: Tests for:
-    // - isOpen property
-    // - openingTimesMessage property
 
     it('should return the number of nearby results requested when there are more than requested, ordered by distance',
       () => {

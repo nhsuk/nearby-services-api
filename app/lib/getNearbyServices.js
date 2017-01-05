@@ -4,7 +4,7 @@ const docDB = require('../../config/config').docDB;
 const queries = require('../lib/queries');
 const filterServices = require('../lib/filterServices');
 
-function nearby(searchPoint, limits, next) {
+function getNearbyServices(searchPoint, limits, next) {
   const geoSpatialQuery = queries.geoSpatialQuery(searchPoint, limits.searchRadius);
 
   docDBClient
@@ -25,6 +25,4 @@ function nearby(searchPoint, limits, next) {
     });
 }
 
-module.exports = {
-  nearby,
-};
+module.exports = getNearbyServices;

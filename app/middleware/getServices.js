@@ -1,4 +1,4 @@
-const pharmacies = require('../lib/getServices');
+const getNearbyServices = require('../lib/getNearbyServices');
 const log = require('../lib/logger');
 
 function getServices(req, res, next) {
@@ -26,8 +26,8 @@ function getServices(req, res, next) {
     const searchPoint = { type: 'Point', coordinates: [longitude, latitude] };
     const limits = { nearby, open, searchRadius };
 
-    log.info('get-pharmacies-start');
-    pharmacies.nearby(searchPoint, limits, (err, services) => {
+    log.info('get-services-start');
+    getNearbyServices(searchPoint, limits, (err, services) => {
       if (err) {
         res.status(500).send({ err });
         next(err);
@@ -36,7 +36,7 @@ function getServices(req, res, next) {
         next();
       }
     });
-    log.info('get-pharmacies-end');
+    log.info('get-services-end');
   }
 }
 
