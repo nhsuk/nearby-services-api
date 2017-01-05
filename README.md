@@ -30,6 +30,12 @@ Environment variables are expected to be managed by the environment in which
 the application is being run. This is best practice as described by
 [twelve-factor](https://12factor.net/config).
 
+For any env var that is required by the application to run and doesn't have a
+default [require-environment-variables](https://www.npmjs.com/package/require-environment-variables)
+is used to throw an error and prevent the application from starting up. Rather
+than it getting to point somewhere later in the lifecycle where it can't do
+something because there is no value for an env var it was relying on.
+
 | Variable              | Description                                                                            | Default                  | Required        |
 |:----------------------|:---------------------------------------------------------------------------------------|:-------------------------|:----------------|
 | `NODE_ENV`            | node environment                                                                       | development              |                 |

@@ -1,6 +1,10 @@
+const requireEnv = require('require-environment-variables');
+
 const dbId = process.env.DB_ID || 'services';
 const collectionId = process.env.DB_COLLECTION_ID || 'services';
 const dbUrl = `dbs/${dbId}`;
+
+requireEnv(['DB_PRIMARY_KEY']);
 
 module.exports = {
   docDB: {
