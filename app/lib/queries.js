@@ -6,6 +6,7 @@ function geoSpatialQuery(searchPoint, searchRadius) {
   const query =
     `SELECT
       services.id,
+      services.identifier,
       services.name,
       services.address,
       services.contacts,
