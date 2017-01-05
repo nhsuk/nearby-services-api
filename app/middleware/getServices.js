@@ -27,7 +27,7 @@ function getServices(req, res, next) {
     const limits = { nearby, open, searchRadius };
 
     log.info('get-services-start');
-    getNearbyServices(searchPoint, limits, (err, services) => {
+    getNearbyServices(req, searchPoint, limits, (err, services) => {
       if (err) {
         res.status(500).send({ err });
         next(err);

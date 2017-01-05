@@ -1,13 +1,12 @@
 const log = require('../../app/lib/logger');
-const docDBClient = require('../lib/docDBClient');
 const docDB = require('../../config/config').docDB;
 const queries = require('../lib/queries');
 const filterServices = require('../lib/filterServices');
 
-function getNearbyServices(searchPoint, limits, next) {
+function getNearbyServices(req, searchPoint, limits, next) {
   const geoSpatialQuery = queries.geoSpatialQuery(searchPoint, limits.searchRadius);
 
-  docDBClient
+  req.app.locals.docDBClient
     .queryDocuments(docDB.collectionUrl, geoSpatialQuery)
     .toArray((err, results) => {
       if (err) {
