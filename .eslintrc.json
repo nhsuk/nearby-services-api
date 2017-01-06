@@ -7,10 +7,10 @@
     "node": true,
     "mocha": true
   },
-    "plugins": [
-      "import",
-      "mocha",
-      "json"
+  "plugins": [
+    "import",
+    "mocha",
+    "json"
     ],
     "rules": {
       "import/no-extraneous-dependencies": [
