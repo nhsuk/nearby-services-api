@@ -63,5 +63,11 @@ something because there is no value for an env var it was relying on.
 
 Go [here](http://localhost:3001/nearby?longitude=-1.0751380920410156&latitude=50.82191467285156) for sample use.
 
+## Contributing to the application
+
+Make your changes but before you commit them you need to have couple of things set up.
+You need to authorize/have an account with [snyk](https://snyk.io/). We use [husky](https://github.com/typicode/husky)
+to run tests in git hooks so we are sure that we maintain a high standard.
+ 
 
 
