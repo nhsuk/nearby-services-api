@@ -1,0 +1,29 @@
+version: '2'
+
+services:
+
+  nearby-services-api:
+    build:
+      context: .
+    ports:
+      - "3002:3001"
+    environment:
+      SPLUNK_HEC_TOKEN: "24186324-B76A-4604-9640-C8D118BA399D"
+      SPLUNK_HEC_ENDPOINT: "https://splunk-collector.cloudapp.net:8088"
+    depends_on:
+      - mongo
+    links:
+      - mongo:mongo
+
+  mongo:
+    image: mongo:3.2
+    ports:
+     - "27018:27017"
+    volumes_from:
+      - pharmacy-data
+    depends_on:
+      - pharmacy-data
+    command: sh -c "mongod --fork --logpath /temp.log && sleep 2 && mongoimport --jsonArray -d services -c services --file /pharmacy-data/pharmacy-list.json ; pkill mongod && sleep 1 && mongod"
+
+  pharmacy-data:
+    image: nhsuk/c2s-pharmacy-data:1
