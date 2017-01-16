@@ -1,6 +1,6 @@
 const db = process.env.MONGODB_DB || 'services';
 const collection = process.env.MONGODB_COLLECTION || 'services';
-const host = process.env.MONGODB_HOST || 'localhost';
+const host = process.env.MONGODB_HOST || 'mongo';
 const port = process.env.MONGODB_PORT || 27017;
 const connectionString = `mongodb://${host}:${port}/${db}`;
 
