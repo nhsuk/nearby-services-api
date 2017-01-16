@@ -24,6 +24,14 @@ However, this does mean that all environments where this app runs will need
 to provide the primary key as an environment variable. Details of the name
 and where to source the key from are detailed below.
 
+## Populating the database with a sample db
+
+Once you have mongodb32 installed (via homebrew), create an empty database called services on 
+localhost port 27017 (this should be the default) and then import the json
+file using the command:
+
+<pre><code> mongoimport --jsonArray -d services -c services --file ./app/data/pharmacy-list.json </code></pre>
+
 ## Environment variables
 
 Environment variables are expected to be managed by the environment in which
@@ -47,3 +55,13 @@ something because there is no value for an env var it was relying on.
 | `MONGODB_COLLECTION`    | Name of collection in Mongo                                                          | services                 |                 |
 | `MONGODB_HOST`          | Name of MongoDB host                                                                 | localhost                |                 |
 | `MONGODB_PORT`          | The port used by MongoDB                                                             | 27017                    |                 |
+
+## Running the application
+
+<pre><code> npm install </code></pre>
+<pre><code> npm start </code></pre>
+
+Go [here](http://localhost:3001/nearby?longitude=-1.0751380920410156&latitude=50.82191467285156) for sample use.
+
+
+
