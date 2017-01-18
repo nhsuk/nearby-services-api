@@ -1,4 +1,10 @@
+sudo: required
+
+services:
+  - docker
+
 language: node_js
+
 node_js:
 - node
 script:
@@ -7,3 +13,6 @@ script:
 - npm run generate-coverage
 - npm run check-coverage
 - npm run upload-coverage-coveralls
+- docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+- chmod +x scripts/*
+- ./scripts/docker_ci.sh
