@@ -13,7 +13,6 @@ script:
 
 after_script:
 - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-- chmod +x scripts/*
 - "./scripts/docker_ci.sh"
 env:
   matrix:
