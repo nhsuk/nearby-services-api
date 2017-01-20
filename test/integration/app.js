@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 
 describe('app', function test() {
   // Setting this timeout as it is calling the real DB...
-  this.timeout(5000);
+  this.timeout(10000);
   const longitude = -1.55275457242333;
   const latitude = 53.797431921096;
   const coords = { latitude, longitude };
