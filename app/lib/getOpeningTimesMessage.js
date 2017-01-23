@@ -1,7 +1,4 @@
-function closesAtMidnight(moment) {
-  const time = moment.format('HH:mm');
-  return (time === '00:00' || time === '23:59');
-}
+const utils = require('../lib/utils');
 
 function getDayDescriptor(moment, referenceMoment) {
   const dayDescriptors = {
@@ -23,7 +20,7 @@ function getOpeningHoursMessage(status) {
   }
 
   if (status.isOpen === true) {
-    if (closesAtMidnight(status.nextClosed)) {
+    if (utils.closesAtMidnight(status.nextClosed)) {
       return 'Open until midnight';
     }
     return `Open until ${status.nextClosed.format('h:mm a')} ` +

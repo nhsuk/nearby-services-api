@@ -1,25 +1,26 @@
 const utils = require('../lib/utils');
 
-function closesAtMidnight(moment) {
-  const time = moment.format('HH:mm');
-  return (time === '00:00' || time === '23:59');
-}
+const minimunCloseTimeMins = 1;
 
 function immediatelyReopens(openingTimes, closingTime) {
   const nextStatus = openingTimes.getStatus(closingTime, { next: true });
-  return nextStatus.nextOpen && nextStatus.nextOpen.diff(closingTime, 'minutes') <= 1;
+  return nextStatus.nextOpen && nextStatus.nextOpen.diff(closingTime, 'minutes') <= minimunCloseTimeMins;
 }
 
 function setNextCloseToTomorrow(openingTimes, status) {
   const midnightCloseStatus = openingTimes.getStatus(status.nextClosed, { next: true });
-  const nextDayClosed = openingTimes.getStatus(midnightCloseStatus.nextOpen, { next: true });
+  const tomorrowOpenStatus = openingTimes.getStatus(midnightCloseStatus.nextOpen, { next: true });
   const newStatus = utils.deepClone(status);
-  newStatus.nextClosed = nextDayClosed.nextClosed;
+  newStatus.nextClosed = tomorrowOpenStatus.nextClosed;
   return newStatus;
 }
 
+function openingSpansMidnight(openingTimes, nextClosed) {
+  return utils.closesAtMidnight(nextClosed) && immediatelyReopens(openingTimes, nextClosed);
+}
+
 function midnightSpanCorrector(openingTimes, status) {
-  if (closesAtMidnight(status.nextClosed) && immediatelyReopens(openingTimes, status.nextClosed)) {
+  if (openingSpansMidnight(openingTimes, status.nextClosed)) {
     return setNextCloseToTomorrow(openingTimes, status);
   }
   return status;
