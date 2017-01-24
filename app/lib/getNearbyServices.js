@@ -13,7 +13,6 @@ function getNearbyServices(searchPoint, limits, next) {
     log.debug(`Connected to ${mongodbConfig.connectionString}`);
 
     const col = db.collection(mongodbConfig.db);
-    col.createIndex({ location: '2dsphere' }); // Ensure there is the index required by geoNear
 
     col.aggregate([{
       $geoNear: {
