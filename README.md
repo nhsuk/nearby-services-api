@@ -26,11 +26,8 @@ and where to source the key from are detailed below.
 
 ## Populating the database with a sample db
 
-Once you have mongodb32 installed (via homebrew), create an empty database called services on 
-localhost port 27017 (this should be the default) and then import the json
-file using the command:
-
-<pre><code> mongoimport --jsonArray -d services -c services --file ./app/data/pharmacy-list.json </code></pre>
+This application uses a mongodb docker image with sample data. The docker compose file
+is at [https://github.com/nhsuk/nhsuk-rancher-templates](https://github.com/nhsuk/nhsuk-rancher-templates)
 
 ## Environment variables
 
@@ -53,7 +50,7 @@ something because there is no value for an env var it was relying on.
 | `LOG_LEVEL`           | [bunyan log level](https://github.com/trentm/node-bunyan#levels)                       | Depends on `NODE_ENV`    |                 |
 | `MONGO_DB`              | Name of the database in Mongo                                                        | services                 |                 |
 | `MONGODB_COLLECTION`    | Name of collection in Mongo                                                          | services                 |                 |
-| `MONGODB_HOST`          | Name of MongoDB host                                                                 | localhost                |                 |
+| `MONGODB_HOST`          | Name of MongoDB host                                                                 | mongo                    |                 |
 | `MONGODB_PORT`          | The port used by MongoDB                                                             | 27017                    |                 |
 
 ## Running the application
@@ -69,5 +66,3 @@ Make your changes but before you commit them you need to have couple of things s
 You need to authorize/have an account with [snyk](https://snyk.io/). We use [husky](https://github.com/typicode/husky)
 to run tests in git hooks so we are sure that we maintain a high standard.
  
-
-

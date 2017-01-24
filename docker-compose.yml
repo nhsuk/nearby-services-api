@@ -8,7 +8,7 @@ services:
     ports:
       - "3002:3001"
     environment:
-      SPLUNK_HEC_TOKEN: "24186324-B76A-4604-9640-C8D118BA399D"
+      SPLUNK_HEC_TOKEN: "changeme"
       SPLUNK_HEC_ENDPOINT: "https://splunk-collector.cloudapp.net:8088"
     depends_on:
       - mongo
