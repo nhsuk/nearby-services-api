@@ -86,7 +86,7 @@ describe('filterServices', () => {
 
       expect(openServices.length).to.be.equal(1);
       expect(openServices[0].isOpen).to.be.equal(true);
-      expect(openServices[0].openingTimesMessage).to.be.equal('Open until midnight');
+      expect(openServices[0].openingTimesMessage).to.be.equal('Open 24 hours');
     });
 
     it('should use alterations opening times', () => {

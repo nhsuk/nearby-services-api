@@ -99,6 +99,15 @@ describe('getOpeningTimesMessage()', () => {
       };
       expect(getOpeningTimesMessage(status)).to.equal('Open until midnight');
     });
+
+    it('closing at 23:59 tomorrow should return \'Open until midnight Tuesday\' message', () => {
+      const status = {
+        moment: getMoment('monday', 9, 30, 'Europe/London'),
+        isOpen: true,
+        nextClosed: getMoment('tuesday', 23, 59, 'Europe/London'),
+      };
+      expect(getOpeningTimesMessage(status)).to.equal('Open until midnight tomorrow');
+    });
   });
 
   describe('status undefined', () => {

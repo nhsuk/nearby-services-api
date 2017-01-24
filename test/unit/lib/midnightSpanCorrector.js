@@ -24,6 +24,12 @@ function getAbuttingMidnightDay0000() {
   ];
 }
 
+function get24HourDay() {
+  return [
+    { opens: '00:00', closes: '23:59' },
+  ];
+}
+
 function getClosedDay() {
   return [];
 }
@@ -51,17 +57,32 @@ function getRegularWorkingWeekAbuttingMidnightAt0000() {
   return week;
 }
 
+function get24HourWorkingWeekClosedSunday() {
+  const week = setUpAllWeek(get24HourDay);
+  week.sunday = getClosedDay();
+  return week;
+}
+
+function get24HourWorkingWeek() {
+  const week = setUpAllWeek(get24HourDay);
+  return week;
+}
+
+
 function getNewOpeningTimes(openingTimes, timeZone, alterations) {
   return new OpeningTimes(openingTimes, timeZone, alterations);
 }
 
-function getMoment(day, hours, minutes, timeZone) {
+function getMoment(day, hours, minutes, timeZone, week) {
   const dayNumber = Moment
     .weekdays()
     .map(d => d.toLowerCase())
     .indexOf(day);
   const moment = new Moment(aSunday).tz(timeZone);
   moment.add(dayNumber, 'days').hours(hours).minutes(minutes);
+  if (week) {
+    moment.add(week, 'week');
+  }
   return moment;
 }
 
@@ -114,6 +135,25 @@ describe('Midnight Span Corrector', () => {
       const status = openingTimes.getStatus(moment, { next: true });
       const newStatus = midnightSpanCorrector(openingTimes, status);
       momentsShouldBeSame(newStatus.nextClosed, getMoment('tuesday', 20, 0, 'Europe/London'));
+    });
+
+    it('should use Saturday\'s closing time for a close at 23:59 and open at 00:00 Monday to Saturday', () => {
+      const openingTimesJson = get24HourWorkingWeekClosedSunday();
+      const openingTimes = getNewOpeningTimes(openingTimesJson, 'Europe/London');
+      const moment = getMoment('monday', 16, 30, 'Europe/London');
+      const status = openingTimes.getStatus(moment, { next: true });
+      const newStatus = midnightSpanCorrector(openingTimes, status);
+      momentsShouldBeSame(newStatus.nextClosed, getMoment('Saturday', 23, 59, 'Europe/London', 1));
+    });
+
+    it('open24Hours should be true if open all week 00:00 to 23:59', () => {
+      const openingTimesJson = get24HourWorkingWeek();
+      const openingTimes = getNewOpeningTimes(openingTimesJson, 'Europe/London');
+      const moment = getMoment('monday', 16, 30, 'Europe/London');
+      const status = openingTimes.getStatus(moment, { next: true });
+      const newStatus = midnightSpanCorrector(openingTimes, status);
+      expect(newStatus.open24Hours).to.be.equal(true);
+      momentsShouldBeSame(newStatus.nextClosed, getMoment('tuesday', 23, 59, 'Europe/London', 1));
     });
   });
 });
