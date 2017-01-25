@@ -25,7 +25,7 @@ function getOpenUntilMidnightMessage(status) {
   return `${message} ${dayDesc}`;
 }
 
-function getClosingMessage(status) {
+function getClosedMessage(status) {
   const timeUntilOpen = status.nextOpen.diff(status.moment, 'minutes');
   if (timeUntilOpen <= 60) {
     return `Opening in ${timeUntilOpen} minutes`;
@@ -34,25 +34,31 @@ function getClosingMessage(status) {
     `${getDayDescriptor(status.nextOpen, status.moment)}`;
 }
 
+function nextTimeMissing(status) {
+  return (status.isOpen && !status.nextClosed) || (!status.isOpen && !status.nextOpen);
+}
+
+function getOpenUntilMessage(status) {
+  return `Open until ${status.nextClosed.format('h:mm a')} ` +
+      `${getDayDescriptor(status.nextClosed, status.moment)}`;
+}
+
 function getOpeningHoursMessage(status) {
   const callForTimesMessage = 'Call for opening times';
-
-  if ((status.isOpen && !status.nextClosed) || (!status.isOpen && !status.nextOpen)) {
+  if (nextTimeMissing(status)) {
     return callForTimesMessage;
   }
-
   if (status.open24Hours === true) {
     return 'Open 24 hours';
   }
-
   if (status.isOpen === true) {
     if (utils.closesAtMidnight(status.nextClosed)) {
       return getOpenUntilMidnightMessage(status);
     }
-    return `Open until ${status.nextClosed.format('h:mm a')} ` +
-      `${getDayDescriptor(status.nextClosed, status.moment)}`;
-  } else if (status.isOpen === false) {
-    return getClosingMessage(status);
+    return getOpenUntilMessage(status);
+  }
+  if (status.isOpen === false) {
+    return getClosedMessage(status);
   }
   return callForTimesMessage;
 }
