@@ -55,8 +55,8 @@ something because there is no value for an env var it was relying on.
 
 ## Running the application
 
-<pre><code> npm install </code></pre>
-<pre><code> npm start </code></pre>
+From the docker compose file directory do
+<pre><code> docker-compose up --build --force-recreate </code></pre>
 
 Go [here](http://localhost:3001/nearby?longitude=-1.0751380920410156&latitude=50.82191467285156) for sample use.
 
