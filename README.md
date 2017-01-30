@@ -43,7 +43,7 @@ something because there is no value for an env var it was relying on.
 | `SPLUNK_HEC_TOKEN`    | [HTTP Event Collector token](http://dev.splunk.com/view/event-collector/SP-CAAAE7C)    |                          | In `production` |
 | `SPLUNK_HEC_ENDPOINT` | [HTTP Event Collector endpoint](http://dev.splunk.com/view/event-collector/SP-CAAAE7H) |                          | In `production` |
 | `LOG_LEVEL`           | [bunyan log level](https://github.com/trentm/node-bunyan#levels)                       | Depends on `NODE_ENV`    |                 |
-| `DB_ID`               | Name of documentDB                                                                     | services                 |                 |
-| `DB_COLLECTION_ID`    | Name of documentDB collection                                                          | services                 |                 |
-| `DB_ENDPOINT`         | Endpoint for documentDB. Available in the [Azure Portal](https://portal.azure.com), more help [here](https://docs.microsoft.com/en-us/azure/documentdb/documentdb-nodejs-get-started#a-idconfigastep-3-set-your-apps-configurations) | https://connecting-to-services.documents.azure.com:443/ |                 |
-| `DB_PRIMARY_KEY`      | Primary Read-Only Key to access documentDB. Available in the [Azure Portal](https://portal.azure.com), more info [here](https://docs.microsoft.com/en-us/azure/documentdb/documentdb-nodejs-get-started#a-idconfigastep-3-set-your-apps-configurations) | confidential  | Yes             |
+| `MONGO_DB`              | Name of the database in Mongo                                                        | services                 |                 |
+| `MONGODB_COLLECTION`    | Name of collection in Mongo                                                          | services                 |                 |
+| `MONGODB_HOST`          | Name of MongoDB host                                                                 | localhost                |                 |
+| `MONGODB_PORT`          | The port used by MongoDB                                                             | 27017                    |                 |
