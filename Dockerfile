@@ -1,17 +1,17 @@
 FROM node:7.4-alpine
+
 RUN apk add --no-cache git
+
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /code
 
-ARG NODE_ENV=production
-
-ENV NODE_ENV $NODE_ENV
-
-COPY package.json /code
+COPY npm-shrinkwrap.json /code
 
 RUN npm install --quiet
 
-EXPOSE 3000
+EXPOSE 3001
 
 COPY . /code
 
