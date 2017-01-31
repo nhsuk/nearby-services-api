@@ -4,7 +4,7 @@ const getOpeningHoursMessage = require('../lib/getOpeningTimesMessage');
 const utils = require('../lib/utils');
 
 function sortByDistance(a, b) {
-  return a.distanceInMiles - b.distanceInMiles;
+  return a.dist - b.dist;
 }
 
 function filterServices(results, limits) {
@@ -38,6 +38,7 @@ function filterServices(results, limits) {
 
     item.openingTimesMessage = openingTimesMessage;
     item.isOpen = isOpen;
+    item.distanceInMiles = item.dist;
 
     if (isOpen && openServiceCount < limits.open) {
       openServiceCount += 1;

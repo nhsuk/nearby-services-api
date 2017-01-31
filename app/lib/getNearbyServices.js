@@ -12,6 +12,7 @@ function getNearbyServices(searchPoint, limits, next) {
     const db = yield MongoClient.connect(connectionString);
     log.debug(`Connected to ${mongodbConfig.connectionString}`);
 
+
     const col = db.collection(mongodbConfig.db);
 
     col.aggregate([{
@@ -19,7 +20,7 @@ function getNearbyServices(searchPoint, limits, next) {
         near: { type: 'Point', coordinates: searchPoint.coordinates },
         distanceField: 'dist',
         maxDistance: 32180,
-        distanceMultiplier: 0.001, // transform radians to miles
+        distanceMultiplier: 0.001,
         num: 2500, // Arbitary number of results to make sure we get everything within 20 miles
         spherical: true,
       },
