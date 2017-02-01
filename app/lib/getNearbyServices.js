@@ -20,7 +20,7 @@ function getNearbyServices(searchPoint, limits, next) {
         near: { type: 'Point', coordinates: searchPoint.coordinates },
         distanceField: 'dist',
         maxDistance: 32180,
-        distanceMultiplier: 0.001,
+        distanceMultiplier: 0.001, // this is in miles
         num: 2500, // Arbitary number of results to make sure we get everything within 20 miles
         spherical: true,
       },
