@@ -12,28 +12,34 @@ function getNearbyServices(searchPoint, limits, next) {
     const db = yield MongoClient.connect(connectionString);
     log.debug(`Connected to ${mongodbConfig.connectionString}`);
 
-
     const col = db.collection(mongodbConfig.db);
 
-    col.aggregate([{
-      $geoNear: {
+    log.debug('coordinates lat ' + searchPoint.coordinates + ' long ' + searchPoint.coordinates)
+    db.command({
+        geoNear: 'location',
         near: { type: 'Point', coordinates: searchPoint.coordinates },
         distanceField: 'dist',
         maxDistance: 32180,
         distanceMultiplier: 0.001, // this is in miles
         num: 2500, // Arbitary number of results to make sure we get everything within 20 miles
         spherical: true,
-      },
-    }]).toArray((errGeo, docs) => {
+        query: { category: "public" }
+    }, function(errGeo, cb){
       if (errGeo) {
         const errMsg = 'MongoDB error while making near query';
         log.error({ err: new VError(errGeo, errMsg) }, errMsg);
         next(errGeo);
       }
 
-      log.debug(`Found ${docs.length} results for near search around [${searchPoint.coordinates}] (lon,lat)`);
+      if (geoNear.ok == 0) {
+        const errMsg = 'MongoDB error on retrieving geoNear';
+        log.error({ err: new VError('geoNear has not succeeded', errMsg) }, errMsg);
+        next(errGeo);
+      }
 
-      const filteredServices = filterServices(docs, limits);
+      log.debug(`Found ${geoNear.results.length} results for near search around [${searchPoint.coordinates}] (lon,lat)`);
+
+      const filteredServices = filterServices(geoNear.results, limits);
 
       db.close((errClose, result) => {
         if (errClose) {
