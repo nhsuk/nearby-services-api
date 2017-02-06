@@ -12,8 +12,8 @@ describe('config', () => {
     expect(config.mongodb.collection).to.be.equal('services');
   });
 
-  it('should return localhost as the default host', () => {
-    expect(config.mongodb.host).to.be.equal('localhost');
+  it('should return mongo as the default host', () => {
+    expect(config.mongodb.host).to.be.equal('mongo');
   });
 
   it('should return 27017 as the default port', () => {
