@@ -26,8 +26,10 @@ and where to source the key from are detailed below.
 
 ## Populating the database with a sample db
 
+<<<<<<< HEAD
 This application uses a mongodb docker image with sample data. The docker compose file
 is at [https://github.com/nhsuk/nhsuk-rancher-templates](https://github.com/nhsuk/nhsuk-rancher-templates)
+
 
 ## Environment variables
 

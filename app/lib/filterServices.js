@@ -1,10 +1,11 @@
 const moment = require('moment');
 const OpeningTimes = require('moment-opening-times');
 const getOpeningHoursMessage = require('../lib/getOpeningTimesMessage');
+const log = require('../../app/lib/logger');
 const utils = require('../lib/utils');
 
 function sortByDistance(a, b) {
-  return a.dist - b.dist;
+  return a['dis'] - b['dis'];
 }
 
 function filterServices(results, limits) {
@@ -15,8 +16,10 @@ function filterServices(results, limits) {
   const sortedServices = results.sort(sortByDistance);
 
   for (let i = 0; i < sortedServices.length; i++) {
-    const item = sortedServices[i];
-    const openingTimes = item.openingTimes;
+    // const item = sortedServices[i];
+    log.debug('sortedServices' + JSON.stringify(sortedServices[i]['obj']));
+    const item = sortedServices[i]['obj'];
+    const openingTimes = item['openingTimes'];
     const now = moment();
     let isOpen;
     let openingTimesMessage;
@@ -24,9 +27,9 @@ function filterServices(results, limits) {
     if (openingTimes) {
       const openingTimesMoment =
         new OpeningTimes(
-          item.openingTimes.general,
+          item['openingTimes']['general'],
           'Europe/London',
-          item.openingTimes.alterations);
+          item['openingTimes']['alterations']);
 
       const status = openingTimesMoment.getStatus(now, { next: true });
       openingTimesMessage = getOpeningHoursMessage(status);
@@ -36,9 +39,9 @@ function filterServices(results, limits) {
       isOpen = false;
     }
 
-    item.openingTimesMessage = openingTimesMessage;
-    item.isOpen = isOpen;
-    item.distanceInMiles = item.dist;
+    item['openingTimesMessage'] = openingTimesMessage;
+    item['isOpen'] = isOpen;
+    item['distanceInMiles'] = sortedServices[i]['dis'];
 
     if (isOpen && openServiceCount < limits.open) {
       openServiceCount += 1;
