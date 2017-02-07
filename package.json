@@ -17,7 +17,8 @@
     "upload-coverage-coveralls": "cat ./coverage/lcov.info | coveralls",
     "snyk": "snyk",
     "snyk-test": "snyk test",
-    "prepublish": "npm run snyk -- protect",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect",
     "precommit": "npm run git-hook",
     "prepush": "npm run git-hook && npm run snyk-test",
     "postrewrite": "npm run git-hook",
@@ -31,15 +32,16 @@
     "url": "https://github.com/nhsuk/nearby-services-api/issues"
   },
   "dependencies": {
-    "documentdb": "^1.10.1",
+    "co": "^4.6.0",
     "express": "^4.14.0",
     "express-validator": "^3.0.0",
     "helmet": "^3.1.0",
     "moment": "^2.16.0",
     "moment-opening-times": "github:nhsuk/moment-opening-times#2.0.0",
+    "mongodb": "^2.2.20",
     "nhsuk-bunyan-logger": "github:nhsuk/bunyan-logger#1.0.4",
-    "require-environment-variables": "^1.1.2",
-    "snyk": "^1.19.1"
+    "snyk": "^1.19.1",
+    "verror": "^1.9.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",

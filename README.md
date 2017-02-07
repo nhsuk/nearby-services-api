@@ -24,6 +24,9 @@ However, this does mean that all environments where this app runs will need
 to provide the primary key as an environment variable. Details of the name
 and where to source the key from are detailed below.
 
+## Populating the database with a sample db
+
+This application uses a mongodb docker image with sample data.
 ## Environment variables
 
 Environment variables are expected to be managed by the environment in which
@@ -43,7 +46,32 @@ something because there is no value for an env var it was relying on.
 | `SPLUNK_HEC_TOKEN`    | [HTTP Event Collector token](http://dev.splunk.com/view/event-collector/SP-CAAAE7C)    |                          | In `production` |
 | `SPLUNK_HEC_ENDPOINT` | [HTTP Event Collector endpoint](http://dev.splunk.com/view/event-collector/SP-CAAAE7H) |                          | In `production` |
 | `LOG_LEVEL`           | [bunyan log level](https://github.com/trentm/node-bunyan#levels)                       | Depends on `NODE_ENV`    |                 |
-| `DB_ID`               | Name of documentDB                                                                     | services                 |                 |
-| `DB_COLLECTION_ID`    | Name of documentDB collection                                                          | services                 |                 |
-| `DB_ENDPOINT`         | Endpoint for documentDB. Available in the [Azure Portal](https://portal.azure.com), more help [here](https://docs.microsoft.com/en-us/azure/documentdb/documentdb-nodejs-get-started#a-idconfigastep-3-set-your-apps-configurations) | https://connecting-to-services.documents.azure.com:443/ |                 |
-| `DB_PRIMARY_KEY`      | Primary Read-Only Key to access documentDB. Available in the [Azure Portal](https://portal.azure.com), more info [here](https://docs.microsoft.com/en-us/azure/documentdb/documentdb-nodejs-get-started#a-idconfigastep-3-set-your-apps-configurations) | confidential  | Yes             |
+| `MONGO_DB`              | Name of the database in Mongo                                                        | services                 |                 |
+| `MONGODB_COLLECTION`    | Name of collection in Mongo                                                          | services                 |                 |
+| `MONGODB_HOST`          | Name of MongoDB host                                                                 | mongo                    |                 |
+| `MONGODB_PORT`          | The port used by MongoDB                                                             | 27017                    |                 |
+
+## Running the application
+
+From the root of the app
+<pre><code> docker-compose up --build --force-recreate </code></pre>
+
+Go [here](http://localhost:3001/nearby?longitude=-1.0751380920410156&latitude=50.82191467285156) for sample use.
+
+## Running the tests
+
+From the root of the app
+<pre><code> docker-compose -f docker-compose-tests.yml up --build --force-recreate </code></pre>
+
+## FAQ
+
+1. When I run `docker-compose` I get errors about packages missing. Often it seems to be Nodemon.
+  * This could well be because the volume used by the service has previously been mounted when `NODE_ENV` was set to `production`. Try running `docker-compose down -v` which removes all the things created by the `docker-compose up` command, including volumes (with the `-v` flag). For test, run `docker-compose -f docker-compose-tests.yml down -v`
+
+
+## Contributing to the application
+
+Make your changes but before you commit them you need to have couple of things set up.
+You need to authorize/have an account with [snyk](https://snyk.io/). We use [husky](https://github.com/typicode/husky)
+to run tests in git hooks so we are sure that we maintain a high standard.
+ 
