@@ -6,7 +6,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "lint": "eslint --ext .js,.json",
+    "lint": "eslint --ext .js,.json .",
     "test": "NODE_ENV=test mocha --recursive test",
     "watch-dev": "nodemon server.js | ./node_modules/.bin/bunyan",
     "watch-lint": "esw --watch .",
@@ -17,12 +17,12 @@
     "upload-coverage-coveralls": "cat ./coverage/lcov.info | coveralls",
     "snyk": "snyk",
     "snyk-test": "snyk test",
+    "snyk-protect": "snyk protect",
     "prepublish": "npm run snyk-protect",
     "precommit": "npm run git-hook",
     "prepush": "npm run git-hook && npm run snyk-test",
     "postrewrite": "npm run git-hook",
-    "git-hook": "npm run lint && npm run generate-coverage && npm run check-coverage",
-    "snyk-protect": "snyk protect"
+    "git-hook": "npm run lint && npm run generate-coverage && npm run check-coverage"
   },
   "repository": {
     "type": "git",
