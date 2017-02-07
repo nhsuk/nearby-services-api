@@ -1,9 +1,15 @@
 version: v1.5.2
-ignore: {}
+ignore: {
+  'npm:request:20160119': [
+    {
+      'nhsuk-bunyan-logger > splunk-bunyan-logger > splunk-logging > request': {
+         'reason': 'No available upgrades',
+         'expires': '2017-03-07T14:30:04.136Z'
+       }
+    }
+  ]
+}
 patch:
-  'npm:request:20160119':
-    - nhsuk-bunyan-logger > splunk-bunyan-logger > splunk-logging > request:
-        patched: '2016-11-17T08:21:45.683Z'
   'npm:tough-cookie:20160722':
     - nodemon > chokidar > fsevents > node-pre-gyp > request > tough-cookie:
         patched: '2016-11-17T08:21:45.683Z'
