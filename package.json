@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node server.js",
     "lint": "eslint --ext .js,.json",
-    "test": "snyk test && NODE_ENV=test mocha --recursive test",
+    "test": "NODE_ENV=test mocha --recursive test",
     "watch-dev": "nodemon server.js | ./node_modules/.bin/bunyan",
     "watch-lint": "esw --watch .",
     "watch-test": "npm run test -- --watch --reporter min",
