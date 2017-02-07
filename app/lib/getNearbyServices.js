@@ -12,7 +12,6 @@ function getNearbyServices(searchPoint, limits, next) {
     const db = yield MongoClient.connect(connectionString);
     log.debug(`Connected to ${mongodbConfig.connectionString}`);
 
-
     const col = db.collection(mongodbConfig.db);
 
     col.aggregate([{
