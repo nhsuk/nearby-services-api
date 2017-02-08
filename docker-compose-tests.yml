@@ -18,7 +18,7 @@ services:
       - mongodb-pharmacy-test:mongo
 
   mongodb-pharmacy-test:
-    image: "nhsuk/mongodb-pharmacy:1486403487504"
+    image: "nhsuk/mongodb-pharmacy:${MONGO_IMAGE_TAG}"
 
 volumes:
   api-test-deps:

@@ -27,6 +27,7 @@ and where to source the key from are detailed below.
 ## Populating the database with a sample db
 
 This application uses a mongodb docker image with sample data.
+
 ## Environment variables
 
 Environment variables are expected to be managed by the environment in which
@@ -37,7 +38,8 @@ For any env var that is required by the application to run and doesn't have a
 default [require-environment-variables](https://www.npmjs.com/package/require-environment-variables)
 is used to throw an error and prevent the application from starting up. Rather
 than it getting to point somewhere later in the lifecycle where it can't do
-something because there is no value for an env var it was relying on.
+something because there is no value for an env var it was relying on. 
+These env variabled are left here for reference, however the application is using `docker` to run
 
 | Variable              | Description                                                                            | Default                  | Required        |
 |:----------------------|:---------------------------------------------------------------------------------------|:-------------------------|:----------------|
@@ -46,22 +48,25 @@ something because there is no value for an env var it was relying on.
 | `SPLUNK_HEC_TOKEN`    | [HTTP Event Collector token](http://dev.splunk.com/view/event-collector/SP-CAAAE7C)    |                          | In `production` |
 | `SPLUNK_HEC_ENDPOINT` | [HTTP Event Collector endpoint](http://dev.splunk.com/view/event-collector/SP-CAAAE7H) |                          | In `production` |
 | `LOG_LEVEL`           | [bunyan log level](https://github.com/trentm/node-bunyan#levels)                       | Depends on `NODE_ENV`    |                 |
-| `MONGO_DB`              | Name of the database in Mongo                                                        | services                 |                 |
-| `MONGODB_COLLECTION`    | Name of collection in Mongo                                                          | services                 |                 |
+| `MONGO_DB`              | Name of the database in the Mongo image                                              | services                 |                 |
+| `MONGODB_COLLECTION`    | Name of collection in the Mongo image                                                | pharmacies               |                 |
 | `MONGODB_HOST`          | Name of MongoDB host                                                                 | mongo                    |                 |
 | `MONGODB_PORT`          | The port used by MongoDB                                                             | 27017                    |                 |
 
 ## Running the application
 
+Before running the application for the first time, copy the `.env-sample` into `.env` and replace the values in `.env`
+Your secrets will not be checked into the repo.
+
 From the root of the app
-<pre><code> docker-compose up --build --force-recreate </code></pre>
+`docker-compose up --build --force-recreate`
 
 Go [here](http://localhost:3001/nearby?longitude=-1.0751380920410156&latitude=50.82191467285156) for sample use.
 
 ## Running the tests
 
 From the root of the app
-<pre><code> docker-compose -f docker-compose-tests.yml up --build --force-recreate </code></pre>
+`docker-compose -f docker-compose-tests.yml up --build --force-recreate`
 
 ## FAQ
 
@@ -73,5 +78,5 @@ From the root of the app
 
 Make your changes but before you commit them you need to have couple of things set up.
 You need to authorize/have an account with [snyk](https://snyk.io/). We use [husky](https://github.com/typicode/husky)
-to run tests in git hooks so we are sure that we maintain a high standard.
+to run tests in git hooks so we are sure that we maintain a high standard, so please run the tests alongside your application
  

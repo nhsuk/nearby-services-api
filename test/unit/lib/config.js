@@ -8,8 +8,8 @@ describe('config', () => {
     expect(config.mongodb.db).to.be.equal('services');
   });
 
-  it('should return services as the default collection', () => {
-    expect(config.mongodb.collection).to.be.equal('services');
+  it('should return pharmacies as the default collection', () => {
+    expect(config.mongodb.collection).to.be.equal('pharmacies');
   });
 
   it('should return mongo as the default host', () => {

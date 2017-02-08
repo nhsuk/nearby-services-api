@@ -19,7 +19,7 @@ services:
       - mongodb-pharmacy:mongo
 
   mongodb-pharmacy:
-    image: "nhsuk/mongodb-pharmacy:1486403487504"
+    image: "nhsuk/mongodb-pharmacy:${MONGO_IMAGE_TAG}"
 
 volumes:
   api-deps:
