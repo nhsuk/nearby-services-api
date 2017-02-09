@@ -32,7 +32,6 @@
     "url": "https://github.com/nhsuk/nearby-services-api/issues"
   },
   "dependencies": {
-    "co": "^4.6.0",
     "express": "^4.14.0",
     "express-validator": "^3.0.0",
     "helmet": "^3.1.0",
