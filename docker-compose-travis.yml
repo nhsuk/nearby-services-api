@@ -11,6 +11,7 @@ services:
       sh -c "npm run git-hook && npm run snyk-test && npm run upload-coverage-coveralls"
     volumes:
       - ./:/code
+      - api-travis-test-deps:/code/node_modules
     environment:
       NODE_ENV: development
       TRAVIS: 'true'
@@ -24,3 +25,6 @@ services:
 
   mongodb-pharmacy:
     image: "nhsuk/mongodb-pharmacy:${MONGO_IMAGE_TAG-latest}"
+
+volumes:
+  api-travis-test-deps:

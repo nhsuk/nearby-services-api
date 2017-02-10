@@ -10,10 +10,10 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 
 script:
-  - docker-compose -f docker-compose-travis.yml up --build -d
+  - docker-compose -f docker-compose-travis.yml up --build
 
 after_script:
-  - docker-compose -f docker-compose-travis.yml down
+  - docker-compose -f docker-compose-travis.yml down -v
 
 after_success:
 - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
