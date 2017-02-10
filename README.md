@@ -24,10 +24,6 @@ However, this does mean that all environments where this app runs will need
 to provide the primary key as an environment variable. Details of the name
 and where to source the key from are detailed below.
 
-## Populating the database with a sample db
-
-This application uses a mongodb docker image with sample data.
-
 ## Environment variables
 
 Environment variables are expected to be managed by the environment in which
@@ -39,7 +35,6 @@ default [require-environment-variables](https://www.npmjs.com/package/require-en
 is used to throw an error and prevent the application from starting up. Rather
 than it getting to point somewhere later in the lifecycle where it can't do
 something because there is no value for an env var it was relying on. 
-These env variabled are left here for reference, however the application is using `docker` to run
 
 | Variable              | Description                                                                            | Default                  | Required        |
 |:----------------------|:---------------------------------------------------------------------------------------|:-------------------------|:----------------|
@@ -55,15 +50,15 @@ These env variabled are left here for reference, however the application is usin
 
 ## Running the application
 
-Before running the application for the first time, copy the `.env-sample` into `.env` and replace the values in `.env`
-Your secrets will not be checked into the repo.
-
 From the root of the app
 `docker-compose up --build --force-recreate`
 
 Go [here](http://localhost:3001/nearby?longitude=-1.0751380920410156&latitude=50.82191467285156) for sample use.
 
 ## Running the tests
+Before running the tests for the first time you need to have a Snyk auth token as `SNYK_TOKEN=`, either created
+in an `.env` file or added to the `docker-compose-test.yml`
+*NB* Your secrets should not be checked into the repo.
 
 From the root of the app
 `docker-compose -f docker-compose-tests.yml up --build --force-recreate`

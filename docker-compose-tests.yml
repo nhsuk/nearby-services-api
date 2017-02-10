@@ -1,4 +1,4 @@
-version: '2'
+version: '2.1'
 
 services:
 
@@ -9,8 +9,7 @@ services:
         NODE_ENV: test
     command: sh -c 'npm run git-hook && npm run snyk-test && npm run watch-test'
     environment:
-      SNYK_TOKEN: ${SNYK_TOKEN}
-      COVERALLS_REPO_TOKEN: ${COVERALLS_REPO_TOKEN}
+      SNYK_TOKEN: ${SNYK_TOKEN-REPLACEME}
     volumes:
       - ./:/code
       - api-test-deps:/code/node_modules
@@ -18,7 +17,7 @@ services:
       - mongodb-pharmacy-test:mongo
 
   mongodb-pharmacy-test:
-    image: "nhsuk/mongodb-pharmacy:${MONGO_IMAGE_TAG}"
+    image: "nhsuk/mongodb-pharmacy:${MONGO_IMAGE_TAG-latest}"
 
 volumes:
   api-test-deps:

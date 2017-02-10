@@ -1,4 +1,4 @@
-version: '2'
+version: '2.1'
 
 services:
 
@@ -19,7 +19,7 @@ services:
       - mongodb-pharmacy:mongo
 
   mongodb-pharmacy:
-    image: "nhsuk/mongodb-pharmacy:${MONGO_IMAGE_TAG}"
+    image: "nhsuk/mongodb-pharmacy:${MONGO_IMAGE_TAG-latest}"
 
 volumes:
   api-deps:

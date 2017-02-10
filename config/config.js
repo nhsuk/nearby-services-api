@@ -6,9 +6,6 @@ const connectionString = `mongodb://${host}:${port}/${db}`;
 
 module.exports = {
   mongodb: {
-    host,
-    port,
-    db,
     collection,
     connectionString,
   },

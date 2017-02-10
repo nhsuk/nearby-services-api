@@ -1,6 +1,5 @@
 const log = require('../../app/lib/logger');
 const MongoClient = require('mongodb').MongoClient;
-const co = require('co');
 const mongodbConfig = require('../../config/config').mongodb;
 const filterServices = require('./filterServices');
 const VError = require('verror').VError;
@@ -8,7 +7,6 @@ const VError = require('verror').VError;
 const connectionString = mongodbConfig.connectionString;
 
 function getNearbyServices(searchPoint, limits, next) {
-
   MongoClient.connect(connectionString).then((db) => {
     const col = db.collection(mongodbConfig.collection);
 
@@ -42,10 +40,10 @@ function getNearbyServices(searchPoint, limits, next) {
         next(null, filteredServices);
       });
     });
-    }).catch((err) => {
-      const errMsg = 'MongoDB error while making connection';
-      log.error({ err: new VError(err, errMsg) }, errMsg);
-    });
+  }).catch((err) => {
+    const errMsg = 'MongoDB error while making connection';
+    log.error({ err: new VError(err, errMsg) }, errMsg);
+  });
 }
 
 module.exports = getNearbyServices;
