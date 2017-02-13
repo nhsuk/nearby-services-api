@@ -11,7 +11,7 @@ services:
     ports:
       - 3001:3001
     volumes:
-      - ./:/code
+      - .:/code
       - api-deps:/code/node_modules
     environment:
       NODE_ENV: development

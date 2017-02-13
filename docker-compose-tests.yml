@@ -1,4 +1,4 @@
-version: '2'
+version: '2.1'
 
 services:
 
@@ -11,7 +11,7 @@ services:
     environment:
       SNYK_TOKEN: ${SNYK_TOKEN-REPLACEME}
     volumes:
-      - ./:/code
+      - .:/code
       - api-test-deps:/code/node_modules
     links:
       - mongodb-pharmacy-test:mongo
