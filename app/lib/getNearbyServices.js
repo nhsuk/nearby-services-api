@@ -14,8 +14,8 @@ function getNearbyServices(searchPoint, limits, next) {
       $geoNear: {
         near: { type: 'Point', coordinates: searchPoint.coordinates },
         distanceField: 'dist',
-        maxDistance: 32180,
-        distanceMultiplier: 0.001, // this is in miles
+        maxDistance: 500 * 1609, // search across 500 miles
+        distanceMultiplier: 0.000621371, // this is in miles
         num: 2500, // Arbitary number of results to make sure we get everything within 20 miles
         spherical: true,
       },
