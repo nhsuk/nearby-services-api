@@ -34,7 +34,7 @@ For any env var that is required by the application to run and doesn't have a
 default [require-environment-variables](https://www.npmjs.com/package/require-environment-variables)
 is used to throw an error and prevent the application from starting up. Rather
 than it getting to point somewhere later in the lifecycle where it can't do
-something because there is no value for an env var it was relying on.
+something because there is no value for an env var it was relying on. 
 
 | Variable              | Description                                                                            | Default                  | Required        |
 |:----------------------|:---------------------------------------------------------------------------------------|:-------------------------|:----------------|
@@ -43,7 +43,35 @@ something because there is no value for an env var it was relying on.
 | `SPLUNK_HEC_TOKEN`    | [HTTP Event Collector token](http://dev.splunk.com/view/event-collector/SP-CAAAE7C)    |                          | In `production` |
 | `SPLUNK_HEC_ENDPOINT` | [HTTP Event Collector endpoint](http://dev.splunk.com/view/event-collector/SP-CAAAE7H) |                          | In `production` |
 | `LOG_LEVEL`           | [bunyan log level](https://github.com/trentm/node-bunyan#levels)                       | Depends on `NODE_ENV`    |                 |
-| `DB_ID`               | Name of documentDB                                                                     | services                 |                 |
-| `DB_COLLECTION_ID`    | Name of documentDB collection                                                          | services                 |                 |
-| `DB_ENDPOINT`         | Endpoint for documentDB. Available in the [Azure Portal](https://portal.azure.com), more help [here](https://docs.microsoft.com/en-us/azure/documentdb/documentdb-nodejs-get-started#a-idconfigastep-3-set-your-apps-configurations) | https://connecting-to-services.documents.azure.com:443/ |                 |
-| `DB_PRIMARY_KEY`      | Primary Read-Only Key to access documentDB. Available in the [Azure Portal](https://portal.azure.com), more info [here](https://docs.microsoft.com/en-us/azure/documentdb/documentdb-nodejs-get-started#a-idconfigastep-3-set-your-apps-configurations) | confidential  | Yes             |
+| `MONGO_DB`              | Name of the database in the Mongo image                                              | services                 |                 |
+| `MONGODB_COLLECTION`    | Name of collection in the Mongo image                                                | pharmacies               |                 |
+| `MONGODB_HOST`          | Name of MongoDB host                                                                 | mongo                    |                 |
+| `MONGODB_PORT`          | The port used by MongoDB                                                             | 27017                    |                 |
+
+## Running the application
+
+From the root of the app
+`docker-compose up --build --force-recreate`
+
+Go [here](http://localhost:3001/nearby?longitude=-1.0751380920410156&latitude=50.82191467285156) for sample use.
+
+## Running the tests
+Before running the tests for the first time you need to have a Snyk auth token as `SNYK_TOKEN=`, either created
+in an `.env` file or added to the `docker-compose-test.yml`
+*NB* Your secrets should not be checked into the repo.
+
+From the root of the app
+`docker-compose -f docker-compose-tests.yml up --build --force-recreate`
+
+## FAQ
+
+1. When I run `docker-compose` I get errors about packages missing. Often it seems to be Nodemon.
+  * This could well be because the volume used by the service has previously been mounted when `NODE_ENV` was set to `production`. Try running `docker-compose down -v` which removes all the things created by the `docker-compose up` command, including volumes (with the `-v` flag). For test, run `docker-compose -f docker-compose-tests.yml down -v`
+
+
+## Contributing to the application
+
+Make your changes but before you commit them you need to have couple of things set up.
+You need to authorize/have an account with [snyk](https://snyk.io/). We use [husky](https://github.com/typicode/husky)
+to run tests in git hooks so we are sure that we maintain a high standard, so please run the tests alongside your application
+ 

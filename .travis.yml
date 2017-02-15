@@ -1,19 +1,26 @@
 sudo: required
+
 services:
 - docker
-language: node_js
-node_js:
-- node
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
 script:
-- npm run lint
-- npm run snyk-test
-- npm run generate-coverage
-- npm run check-coverage
-- npm run upload-coverage-coveralls
+  - docker-compose -f docker-compose-travis.yml build nearby-services-api-tests
+  - docker-compose -f docker-compose-travis.yml run nearby-services-api-tests
 
 after_script:
+  - docker-compose -f docker-compose-travis.yml down -v
+
+after_success:
 - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-- "./scripts/docker_ci.sh"
+- ./scripts/docker_ci.sh
+
 env:
   matrix:
     secure: XoedU3vnz5Er1mmqOkZ4VID6xLig7meHCYMzP4MUIdxPJetZ2jRjFWm4rj+yMoREZBpXD46scFFPQ+BFEftmP0TU4/Gos49qlwxjGrDsEVVNw7XS70nyibBspvlurrMNuKogvRl+iNk/WP0a9t6uYFDdHQJ8AKlEZfKilkycI6tO4DaYXddRTfdwcPDQ4EjVjSJJp4ivhaPwqDVsNSg8rTzhyRMcCRg8UZ6IAdUOK5K6mGf5cBloRgjztoHP2hMaHS44C8cRcY9VEETfpxNYlc/XRAVBLHCN7JNQE/QN4GOVxtbXuZKKSCFJX0fs8NZAWKOiKA/4iOeSkQBljrRXFjZvpHcsciVxkjNvr3csaV6mH/LsOHl8ZyKvoEOXx5/NlbasLyiElnskMXQMhvXIJruSR/18uk3+LFrSBbczbw0+Lenu5zpsEjZShe9ijBgCAdr68iJwIxM1AicoNDbByGvzSaTQ8ISuO+TLiu3PupgTN6oE8z65GlWOA5abzqrroXprcMCGnMD9QVbhaz2ZxX9SuPNC40DEUnoisMuea6MIOF7PfHsEzrWoCdepaYC5JXZV6i1E4bS4zI4DsOa9Hu/Odi66nREn0qPht3BWs3p4iFrxLnlpMbNf0cSPvC1GUsDcplwDEuNxSac7tYpZA4xpx8HxjHns/8Jd0FXlKcE=
+

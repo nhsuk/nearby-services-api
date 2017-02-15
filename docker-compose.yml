@@ -1,0 +1,25 @@
+version: '2.1'
+
+services:
+
+  nearby-services-api:
+    build:
+      context: .
+      args:
+        NODE_ENV: development
+    command: npm run watch-dev
+    ports:
+      - 3001:3001
+    volumes:
+      - .:/code
+      - api-deps:/code/node_modules
+    environment:
+      NODE_ENV: development
+    links:
+      - mongodb-pharmacy:mongo
+
+  mongodb-pharmacy:
+    image: "nhsuk/mongodb-pharmacy:${MONGO_IMAGE_TAG-latest}"
+
+volumes:
+  api-deps:

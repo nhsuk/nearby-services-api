@@ -65,8 +65,8 @@ describe('filterServices', () => {
     it('should return the nearest obj first', () => {
       const limits = { nearby: 3, open: 1 };
       const toFilter = [
-        { distanceInMiles: 2, identifier: 'A' },
-        { distanceInMiles: 1, identifier: 'B' },
+        { dist: 2, identifier: 'A' },
+        { dist: 1, identifier: 'B' },
       ];
 
       const results = filterServices(toFilter, limits);

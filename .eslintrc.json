@@ -13,6 +13,9 @@
     "json"
     ],
     "rules": {
+      "eol-last": [
+        "error", "always"
+      ],
       "import/no-extraneous-dependencies": [
         "error", { "devDependencies": true }
       ],

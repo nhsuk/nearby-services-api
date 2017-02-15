@@ -1,27 +1,49 @@
 const log = require('../../app/lib/logger');
-const docDB = require('../../config/config').docDB;
-const queries = require('../lib/queries');
-const filterServices = require('../lib/filterServices');
+const MongoClient = require('mongodb').MongoClient;
+const mongodbConfig = require('../../config/config').mongodb;
+const filterServices = require('./filterServices');
+const VError = require('verror').VError;
 
-function getNearbyServices(req, searchPoint, limits, next) {
-  const geoSpatialQuery = queries.geoSpatialQuery(searchPoint, limits.searchRadius);
+const connectionString = mongodbConfig.connectionString;
 
-  req.app.locals.docDBClient
-    .queryDocuments(docDB.collectionUrl, geoSpatialQuery)
-    .toArray((err, results) => {
-      if (err) {
-        log.error({ err }, 'DocumentDB query failed');
-        next(err);
-      } else {
-        log.debug(`${results.length} RESULTS returned...`);
+function getNearbyServices(searchPoint, limits, next) {
+  MongoClient.connect(connectionString).then((db) => {
+    const col = db.collection(mongodbConfig.collection);
 
-        log.debug('filter-and-sort-services-start');
-        const filteredServices = filterServices(results, limits);
-        log.debug('filter-and-sort-services-end');
-
-        next(null, filteredServices);
+    col.aggregate([{
+      $geoNear: {
+        near: { type: 'Point', coordinates: searchPoint.coordinates },
+        distanceField: 'dist',
+        maxDistance: 500 * 1609, // search across 500 miles
+        distanceMultiplier: 0.000621371, // this is in miles
+        num: 2500, // Arbitary number of results to make sure we get everything within 20 miles
+        spherical: true,
+      },
+    }]).toArray((errGeo, docs) => {
+      if (errGeo) {
+        const errMsg = 'MongoDB error while making near query';
+        log.error({ err: new VError(errGeo, errMsg) }, errMsg);
+        next(errGeo);
       }
+
+      log.debug(`Found ${docs.length} results for near search around [${searchPoint.coordinates}] (lon,lat)`);
+
+      const filteredServices = filterServices(docs, limits);
+
+      db.close((errClose, result) => {
+        if (errClose) {
+          const errMsg = 'MongoDB error while closing connection';
+          log.error({ err: new VError(errClose, errMsg) }, errMsg);
+          next(errClose);
+        }
+        log.debug({ result }, 'Closed MongoDB connection');
+        next(null, filteredServices);
+      });
     });
+  }).catch((err) => {
+    const errMsg = 'MongoDB error while making connection';
+    log.error({ err: new VError(err, errMsg) }, errMsg);
+  });
 }
 
 module.exports = getNearbyServices;
