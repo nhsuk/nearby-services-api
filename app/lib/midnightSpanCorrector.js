@@ -1,11 +1,11 @@
 const utils = require('../lib/utils');
 
-const minimunCloseTimeMins = 1;
+const minimumCloseTimeMins = 1;
 const maxDays = 7;
 
 function immediatelyReopens(openingTimes, closingTime) {
   const nextStatus = openingTimes.getStatus(closingTime, { next: true });
-  return nextStatus.nextOpen && nextStatus.nextOpen.diff(closingTime, 'minutes') <= minimunCloseTimeMins;
+  return nextStatus.nextOpen && nextStatus.nextOpen.diff(closingTime, 'minutes') <= minimumCloseTimeMins;
 }
 
 function openingSpansMidnight(openingTimes, nextClosed) {
