@@ -29,7 +29,6 @@ services:
       - api-deps:/code/node_modules
     environment:
       NODE_ENV: development
-      # DATETIME: '2017-02-15T03:30:00'
       DATETIME: '${DATETIME}'      
     links:
       - mongodb-pharmacy:mongo
