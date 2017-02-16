@@ -18,7 +18,7 @@ function filterServices(results, limits) {
   for (let i = 0; i < sortedServices.length; i++) {
     const item = sortedServices[i];
     const openingTimes = item.openingTimes;
-    const now = moment();
+    const now = moment(process.env.DATETIME || Date.now());
     let isOpen;
     let openingTimesMessage;
 
