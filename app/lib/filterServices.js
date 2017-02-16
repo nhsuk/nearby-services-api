@@ -1,6 +1,7 @@
-const moment = require('moment');
+const getDateTime = require('../lib/getDateTime');
 const OpeningTimes = require('moment-opening-times');
 const getOpeningHoursMessage = require('../lib/getOpeningTimesMessage');
+const midnightSpanCorrector = require('../lib/midnightSpanCorrector');
 const utils = require('../lib/utils');
 
 function sortByDistance(a, b) {
@@ -17,7 +18,7 @@ function filterServices(results, limits) {
   for (let i = 0; i < sortedServices.length; i++) {
     const item = sortedServices[i];
     const openingTimes = item.openingTimes;
-    const now = moment();
+    const now = getDateTime();
     let isOpen;
     let openingTimesMessage;
 
@@ -28,7 +29,8 @@ function filterServices(results, limits) {
           'Europe/London',
           item.openingTimes.alterations);
 
-      const status = openingTimesMoment.getStatus(now, { next: true });
+      let status = openingTimesMoment.getStatus(now, { next: true });
+      status = midnightSpanCorrector(openingTimesMoment, status);
       openingTimesMessage = getOpeningHoursMessage(status);
       isOpen = status.isOpen;
     } else {

@@ -55,6 +55,16 @@ From the root of the app
 
 Go [here](http://localhost:3001/nearby?longitude=-1.0751380920410156&latitude=50.82191467285156) for sample use.
 
+To run the full stack application including the front end use the docker-compose-full-stack.yml, i.e.
+`docker-compose -f docker-compose-full-stack.yml down -v`
+`docker-compose -f docker-compose-full-stack.yml up --build --force-recreate`
+
+This stack supports an environment variable to change the current time in the API.
+Sample format to set:
+`export DATETIME=2017-02-15T03:30:00`
+And to remove:
+`unset DATETIME`
+
 ## Running the tests
 Before running the tests for the first time you need to have a Snyk auth token as `SNYK_TOKEN=`, either created
 in an `.env` file or added to the `docker-compose-test.yml`
