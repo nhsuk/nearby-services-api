@@ -1,0 +1,41 @@
+version: '2.1'
+
+services:
+  c2s-frontend:
+    image: "nhsuk/connecting-to-services"
+    environment:
+      NODE_ENV: development
+      SPLUNK_HEC_ENDPOINT: https://splunk-collector.cloudapp.net:8088
+      SPLUNK_HEC_TOKEN: blah 
+      HOTJAR_ANALYTICS_TRACKING_ID: blah
+      GOOGLE_ANALYTICS_TRACKING_ID: blah 
+      WEBTRENDS_ANALYTICS_TRACKING_ID: blah
+      API_BASE_URL: 'http://nearby-services-api:3001'
+    ports:
+      - 3000:3000
+    links:
+    - nearby-services-api:nearby-services-api
+
+  nearby-services-api:
+    build:
+      context: .
+      args:
+        NODE_ENV: development
+    command: npm run watch-dev
+    ports:
+      - 3001:3001
+    volumes:
+      - .:/code
+      - api-deps:/code/node_modules
+    environment:
+      NODE_ENV: development
+      # DATETIME: '2017-02-15T03:30:00'
+      DATETIME: '${DATETIME}'      
+    links:
+      - mongodb-pharmacy:mongo
+
+  mongodb-pharmacy:
+    image: "nhsuk/mongodb-pharmacy:${MONGO_IMAGE_TAG-latest}"
+
+volumes:
+  api-deps:

@@ -1,4 +1,4 @@
-const moment = require('moment');
+const getDateTime = require('../lib/getDateTime');
 const OpeningTimes = require('moment-opening-times');
 const getOpeningHoursMessage = require('../lib/getOpeningTimesMessage');
 const midnightSpanCorrector = require('../lib/midnightSpanCorrector');
@@ -18,7 +18,7 @@ function filterServices(results, limits) {
   for (let i = 0; i < sortedServices.length; i++) {
     const item = sortedServices[i];
     const openingTimes = item.openingTimes;
-    const now = moment();
+    const now = getDateTime();
     let isOpen;
     let openingTimesMessage;
 
