@@ -550,9 +550,9 @@
       "resolved": "https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.2.tgz"
     },
     "coveralls": {
-      "version": "2.11.16",
-      "from": "coveralls@>=2.11.15 <3.0.0",
-      "resolved": "https://registry.npmjs.org/coveralls/-/coveralls-2.11.16.tgz",
+      "version": "2.12.0",
+      "from": "coveralls@2.12.0",
+      "resolved": "https://registry.npmjs.org/coveralls/-/coveralls-2.12.0.tgz",
       "dev": true,
       "dependencies": {
         "esprima": {
