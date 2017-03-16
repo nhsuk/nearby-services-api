@@ -40,9 +40,6 @@ something because there is no value for an env var it was relying on.
 |:----------------------|:---------------------------------------------------------------------------------------|:-------------------------|:----------------|
 | `NODE_ENV`            | node environment                                                                       | development              |                 |
 | `PORT`                | server port                                                                            | 3001                     |                 |
-| `SPLUNK_HEC_TOKEN`    | [HTTP Event Collector token](http://dev.splunk.com/view/event-collector/SP-CAAAE7C)    |                          | In `production` |
-| `SPLUNK_HEC_ENDPOINT` | [HTTP Event Collector endpoint](http://dev.splunk.com/view/event-collector/SP-CAAAE7H) |                          | In `production` |
-| `LOG_LEVEL`           | [bunyan log level](https://github.com/trentm/node-bunyan#levels)                       | Depends on `NODE_ENV`    |                 |
 | `MONGO_DB`              | Name of the database in the Mongo image                                              | services                 |                 |
 | `MONGODB_COLLECTION`    | Name of collection in the Mongo image                                                | pharmacies               |                 |
 | `MONGODB_HOST`          | Name of MongoDB host                                                                 | mongo                    |                 |
