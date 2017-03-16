@@ -1,14 +1,12 @@
-version: v1.5.2
-ignore: {
-  'npm:request:20160119': [
-    {
-      'nhsuk-bunyan-logger > splunk-bunyan-logger > splunk-logging > request': {
-         'reason': 'No available upgrades',
-         'expires': '2017-03-07T14:30:04.136Z'
-       }
-    }
-  ]
-}
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.7.0
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  'npm:qs:20170213':
+    - snyk > request > qs:
+        reason: None given
+        expires: '2017-04-15T00:24:58.110Z'
+# patches apply the minimum changes required to fix a vulnerability
 patch:
   'npm:tough-cookie:20160722':
     - nodemon > chokidar > fsevents > node-pre-gyp > request > tough-cookie:
