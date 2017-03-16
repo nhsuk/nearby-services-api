@@ -7,7 +7,7 @@ services:
       context: .
       args:
         NODE_ENV: test
-    command: sh -c 'npm run git-hook && npm run snyk-test && npm run watch-test'
+    command:  sh -c "npm run lint && npm run generate-coverage && npm run check-coverage && npm run snyk-test && npm run watch-test"
     environment:
       SNYK_TOKEN: ${SNYK_TOKEN-REPLACEME}
     volumes:

@@ -2253,9 +2253,9 @@
       "resolved": "https://registry.npmjs.org/http-signature/-/http-signature-1.1.1.tgz"
     },
     "husky": {
-      "version": "0.12.0",
-      "from": "husky@>=0.12.0 <0.13.0",
-      "resolved": "https://registry.npmjs.org/husky/-/husky-0.12.0.tgz",
+      "version": "0.13.2",
+      "from": "husky@latest",
+      "resolved": "https://registry.npmjs.org/husky/-/husky-0.13.2.tgz",
       "dev": true,
       "dependencies": {
         "normalize-path": {

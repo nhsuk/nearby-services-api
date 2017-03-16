@@ -7,12 +7,13 @@
   "scripts": {
     "start": "node server.js",
     "lint": "eslint --ext .js,.json .",
-    "test": "NODE_ENV=test mocha --recursive test",
+    "test": "NODE_ENV=test mocha --recursive test/unit",
     "watch-dev": "nodemon server.js | ./node_modules/.bin/bunyan",
     "watch-lint": "esw --watch .",
     "watch-test": "npm run test -- --watch --reporter min",
     "istanbul": "NODE_ENV=test istanbul",
     "generate-coverage": "npm run istanbul -- cover _mocha -- --recursive",
+    "generate-unit-coverage": "npm run istanbul -- cover _mocha -- --recursive test/unit",
     "check-coverage": "istanbul check-coverage --config .istanbul.yml",
     "upload-coverage-coveralls": "cat ./coverage/lcov.info | coveralls",
     "snyk": "snyk",
@@ -22,7 +23,7 @@
     "precommit": "npm run git-hook",
     "prepush": "npm run git-hook && npm run snyk-test",
     "postrewrite": "npm run git-hook",
-    "git-hook": "npm run lint && npm run generate-coverage && npm run check-coverage"
+    "git-hook": "npm run lint && npm run generate-unit-coverage && npm run check-coverage"
   },
   "repository": {
     "type": "git",
@@ -55,7 +56,7 @@
     "eslint-plugin-mocha": "^4.7.0",
     "eslint-plugin-react": "^6.7.1",
     "eslint-watch": "^2.1.14",
-    "husky": "^0.12.0",
+    "husky": "^0.13.2",
     "istanbul": "^0.4.5",
     "mocha": "^3.1.2",
     "nodemon": "^1.11.0"
