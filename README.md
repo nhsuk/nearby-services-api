@@ -15,15 +15,6 @@ such, a number of environment variables can be used, and in production, NEED to
 be set for the logging to work. Check out the README in that repo for additional
 information.
 
-## Database
-
-This app sources its' data from a documentDB instance. Although there are
-defaults for the database, collection and endpoint there is no default for the
-primary key this is in order to protect its' integrity and prevent any abuse.
-However, this does mean that all environments where this app runs will need
-to provide the primary key as an environment variable. Details of the name
-and where to source the key from are detailed below.
-
 ## Environment variables
 
 Environment variables are expected to be managed by the environment in which
@@ -34,7 +25,7 @@ For any env var that is required by the application to run and doesn't have a
 default [require-environment-variables](https://www.npmjs.com/package/require-environment-variables)
 is used to throw an error and prevent the application from starting up. Rather
 than it getting to point somewhere later in the lifecycle where it can't do
-something because there is no value for an env var it was relying on. 
+something because there is no value for an env var it was relying on.
 
 | Variable              | Description                                                                            | Default                  | Required        |
 |:----------------------|:---------------------------------------------------------------------------------------|:-------------------------|:----------------|
@@ -80,5 +71,4 @@ From the root of the app
 
 Make your changes but before you commit them you need to have couple of things set up.
 You need to authorize/have an account with [snyk](https://snyk.io/). We use [husky](https://github.com/typicode/husky)
-to run tests in git hooks so we are sure that we maintain a high standard, so please run the tests alongside your application
- 
+to run tests in git hooks so we are sure that we maintain a high standard, so please run the tests alongside your application.
