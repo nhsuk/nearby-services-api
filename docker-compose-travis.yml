@@ -8,7 +8,8 @@ services:
       args:
         NODE_ENV: development
     command:
-      sh -c "npm run lint && npm run generate-coverage && npm run check-coverage && npm run snyk-test && npm run upload-coverage-coveralls"
+      sh -c "npm run git-hook && npm run snyk-test && npm run upload-coverage-coveralls"
+    user: root
     volumes:
       - .:/code
       - test-deps:/code/node_modules
