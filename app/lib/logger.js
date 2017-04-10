@@ -1,1 +1,1 @@
-module.exports = require('bunyan').createLogger({ name: 'nearby-services-api' });
+module.exports = require('nhsuk-bunyan-logger')('nearby-services-api');
