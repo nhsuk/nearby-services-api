@@ -32,7 +32,7 @@ services:
       - mongodb-pharmacy:mongo
 
   mongodb-pharmacy:
-    image: "nhsuk/mongodb-pharmacy:${MONGO_IMAGE_TAG-latest}"
+    image: "nhsuk/pharmacy-db:${MONGO_IMAGE_TAG-latest}"
 
 volumes:
   api-deps:
