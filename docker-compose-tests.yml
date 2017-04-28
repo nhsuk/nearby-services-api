@@ -7,9 +7,10 @@ services:
       context: .
       args:
         NODE_ENV: test
-    command: sh -c 'npm run git-hook && npm run watch-test'
+    command: yarn run watch-test
     environment:
       SNYK_TOKEN: ${SNYK_TOKEN-REPLACEME}
+    user: root
     volumes:
       - .:/code
       - api-test-deps:/code/node_modules

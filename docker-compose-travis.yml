@@ -7,8 +7,7 @@ services:
       context: .
       args:
         NODE_ENV: development
-    command:
-      sh -c "npm run git-hook && npm run snyk-test && npm run upload-coverage-coveralls"
+    command: yarn run git-hook && yarn run snyk-test && yarn run upload-coverage-coveralls
     user: root
     volumes:
       - .:/code
