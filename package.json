@@ -39,7 +39,6 @@
     "moment-opening-times": "github:nhsuk/moment-opening-times#2.0.0",
     "mongodb": "^2.2.24",
     "nhsuk-bunyan-logger": "github:nhsuk/bunyan-logger#1.1.1",
-    "snyk": "^1.25.2",
     "verror": "^1.9.0"
   },
   "devDependencies": {
@@ -58,7 +57,8 @@
     "husky": "^0.13.2",
     "istanbul": "^0.4.5",
     "mocha": "^3.1.2",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "snyk": "^1.29.0"
   },
   "author": "",
   "license": "MIT",
