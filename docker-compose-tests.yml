@@ -2,7 +2,7 @@ version: '2.1'
 
 services:
 
-  api-test:
+  tests:
     build:
       context: .
       args:
