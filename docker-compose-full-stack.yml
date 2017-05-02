@@ -5,9 +5,9 @@ services:
     image: "nhsuk/connecting-to-services"
     environment:
       NODE_ENV: development
-      HOTJAR_ANALYTICS_TRACKING_ID: blah
-      GOOGLE_ANALYTICS_TRACKING_ID: blah
-      WEBTRENDS_ANALYTICS_TRACKING_ID: blah
+      HOTJAR_ANALYTICS_TRACKING_ID: ${HOTJAR_ANALYTICS_TRACKING_ID-0}
+      GOOGLE_ANALYTICS_TRACKING_ID: ${GOOGLE_ANALYTICS_TRACKING_ID}
+      WEBTRENDS_ANALYTICS_TRACKING_ID: ${WEBTRENDS_ANALYTICS_TRACKING_ID-WT1}
       API_BASE_URL: 'http://nearby-services-api:3001'
     ports:
       - 3000:3000
@@ -29,10 +29,10 @@ services:
       NODE_ENV: development
       DATETIME: '${DATETIME}'
     links:
-      - mongodb-pharmacy:mongo
+      - pharmacy-db:mongo
 
-  mongodb-pharmacy:
-    image: "nhsuk/pharmacy-db:${MONGO_IMAGE_TAG-latest}"
+  pharmacy-db:
+    image: "nhsuk/pharmacy-db:${MONGO_IMAGE_TAG-0.1.0}"
 
 volumes:
   api-deps:

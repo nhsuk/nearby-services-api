@@ -15,10 +15,10 @@ services:
       - .:/code
       - api-test-deps:/code/node_modules
     links:
-      - mongodb-pharmacy-test:mongo
+      - pharmacy-db-test:mongo
 
-  mongodb-pharmacy-test:
-    image: "nhsuk/pharmacy-db:${MONGO_IMAGE_TAG-latest}"
+  pharmacy-db-test:
+    image: "nhsuk/pharmacy-db:${MONGO_IMAGE_TAG-0.1.0}"
 
 volumes:
   api-test-deps:

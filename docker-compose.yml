@@ -16,10 +16,10 @@ services:
     environment:
       NODE_ENV: development
     links:
-      - mongodb-pharmacy:mongo
+      - pharmacy-db:mongo
 
-  mongodb-pharmacy:
-    image: "nhsuk/mongodb-pharmacy:${MONGO_IMAGE_TAG-latest}"
+  pharmacy-db:
+    image: "nhsuk/pharmacy-db:${MONGO_IMAGE_TAG-0.1.0}"
 
 volumes:
   api-deps:

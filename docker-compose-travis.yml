@@ -21,10 +21,10 @@ services:
       TRAVIS_COMMIT: ${TRAVIS_COMMIT}
       TRAVIS_JOB_ID: ${TRAVIS_JOB_ID}
     links:
-      - mongodb-pharmacy:mongo
+      - pharmacy-db:mongo
 
-  mongodb-pharmacy:
-    image: "nhsuk/pharmacy-db:${MONGO_IMAGE_TAG-latest}"
+  pharmacy-db:
+    image: "nhsuk/pharmacy-db:${MONGO_IMAGE_TAG-0.1.0}"
 
 volumes:
   test-deps:
