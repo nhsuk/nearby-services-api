@@ -2,22 +2,23 @@ version: '2.1'
 
 services:
 
-  api-test:
+  tests:
     build:
       context: .
       args:
         NODE_ENV: test
-    command: sh -c 'npm run git-hook && npm run watch-test'
+    command: yarn run watch-test
     environment:
-      SNYK_TOKEN: ${SNYK_TOKEN-REPLACEME}
+      NODE_ENV: test
+    user: root
     volumes:
       - .:/code
       - api-test-deps:/code/node_modules
     links:
-      - mongodb-pharmacy-test:mongo
+      - pharmacy-db-test:mongo
 
-  mongodb-pharmacy-test:
-    image: "nhsuk/pharmacy-db:${MONGO_IMAGE_TAG-latest}"
+  pharmacy-db-test:
+    image: "nhsuk/pharmacy-db:${MONGO_IMAGE_TAG-0.1.0}"
 
 volumes:
   api-test-deps:
