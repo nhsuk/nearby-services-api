@@ -34,7 +34,7 @@
     "express-validator": "^3.0.0",
     "helmet": "^3.5.0",
     "moment": "^2.16.0",
-    "moment-opening-times": "github:nhsuk/moment-opening-times#2.0.0",
+    "moment-opening-times": "^2.0.1",
     "mongodb": "^2.2.24",
     "nhsuk-bunyan-logger": "^1.2.3",
     "verror": "^1.9.0"
