@@ -2,12 +2,12 @@ version: '2.1'
 
 services:
 
-  nearby-services-api-tests:
+  travis-tests:
     build:
       context: .
       args:
         NODE_ENV: development
-    command: yarn run git-hook && yarn run snyk-test && yarn run upload-coverage-coveralls
+    command: yarn run travis
     user: root
     volumes:
       - .:/code

@@ -15,14 +15,12 @@
     "generate-coverage": "yarn run istanbul -- cover _mocha -- --recursive",
     "generate-unit-coverage": "yarn run istanbul -- cover _mocha -- --recursive test/unit",
     "check-coverage": "istanbul check-coverage --config .istanbul.yml",
-    "upload-coverage-coveralls": "cat ./coverage/lcov.info | coveralls",
-    "snyk": "snyk",
-    "snyk-test": "snyk test",
-    "snyk-protect": "snyk protect",
+    "upload-coverage": "cat ./coverage/lcov.info | coveralls",
     "precommit": "yarn run git-hook",
-    "prepush": "yarn run git-hook && yarn run snyk-test",
+    "prepush": "yarn run git-hook && yarn run snyk -- test",
     "postrewrite": "yarn run git-hook",
-    "git-hook": "yarn run lint && yarn run generate-unit-coverage && yarn run check-coverage"
+    "git-hook": "yarn run lint && yarn run generate-unit-coverage && yarn run check-coverage",
+    "travis": "yarn run git-hook && yarn run upload-coverage && yarn run snyk -- test --org=nhsuk && yarn run snyk -- monitor --org=nhsuk"
   },
   "repository": {
     "type": "git",
