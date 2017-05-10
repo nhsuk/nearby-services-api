@@ -6,6 +6,7 @@ services:
     image: "nhsuk/nearby-services-api:${DOCKER_IMAGE_TAG}"
     environment:
       NODE_ENV: production
+      MONGODB_HOST: mongo
     labels:
       traefik.enable: true
       traefik.domain: ${TRAEFIK_DOMAIN}
