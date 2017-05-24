@@ -1,13 +1,8 @@
-sudo: required
-
 services:
 - docker
 
 before_install:
-  - sudo rm /usr/local/bin/docker-compose
-  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
+  - pip install docker-compose
 
 script:
   - docker-compose -f docker-compose-travis.yml build travis-tests
@@ -17,6 +12,4 @@ after_script:
   - docker-compose -f docker-compose-travis.yml down -v
 
 after_success:
-- docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-- ./scripts/ci-deployment/docker_ci.sh
-- ./scripts/ci-deployment/rancher_pr_deploy.sh
+  - bash ./scripts/ci-deployment/deploy.sh

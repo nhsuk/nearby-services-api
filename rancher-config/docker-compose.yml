@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+
+  nearby-services-api:
+    image: "nhsuk/nearby-services-api:${DOCKER_IMAGE_TAG}"
+    environment:
+      NODE_ENV: production
+      MONGODB_HOST: pharmacy-db.pharmacy-db
+    labels:
+      traefik.enable: true
+      traefik.domain: ${TRAEFIK_DOMAIN}
+      traefik.port: 3001
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:host_label_soft: c2s=true

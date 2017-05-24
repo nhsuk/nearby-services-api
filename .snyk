@@ -1,11 +1,39 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.7.0
+version: v1.7.1
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   'npm:qs:20170213':
     - snyk > request > qs:
         reason: None given
         expires: '2017-04-15T00:24:58.110Z'
+  'npm:ms:20170412':
+    - express > debug > ms:
+        reason: None given
+        expires: '2017-06-15T12:40:49.719Z'
+    - express > send > debug > ms:
+        reason: None given
+        expires: '2017-06-15T12:40:49.719Z'
+    - express > serve-static > send > debug > ms:
+        reason: None given
+        expires: '2017-06-15T12:40:49.720Z'
+    - helmet > connect > debug > ms:
+        reason: None given
+        expires: '2017-06-15T12:40:49.720Z'
+    - helmet > connect > finalhandler > debug > ms:
+        reason: None given
+        expires: '2017-06-15T12:40:49.720Z'
+    - node-pre-gyp > tar-pack > debug > ms:
+        reason: None given
+        expires: '2017-06-15T12:40:49.720Z'
+    - express > send > ms:
+        reason: None given
+        expires: '2017-06-15T12:40:49.720Z'
+    - express > serve-static > send > ms:
+        reason: None given
+        expires: '2017-06-15T12:40:49.720Z'
+    - express > finalhandler > debug > ms:
+        reason: None given
+        expires: '2017-06-15T12:40:49.720Z'
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   'npm:tough-cookie:20160722':
