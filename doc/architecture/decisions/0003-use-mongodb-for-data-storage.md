@@ -8,11 +8,13 @@ Accepted
 
 ## Context
 
-Information about GP surgeries is required by the application in order to display to users.
-A Docker image of GP data
-([profiles-db](https://hub.docker.com/r/nhsuk/profiles-db/)) running a MongoDB
+Information about pharmacies is required by the application in order to display
+to users. A Docker image of pharmacies
+([pharmacy-db](https://hub.docker.com/r/nhsuk/pharmacy-db/)) running a MongoDB
 instance has been created for use by other applications.
-NodeJS uses a single threaded event loop architecture and as such works best when the work it is doing is non-CPU intensive. Searching through datasets is potentially CPU intensive.
+NodeJS uses a single threaded event loop architecture and as such works best
+when the work it is doing is non-CPU intensive. Searching through datasets is
+potentially CPU intensive.
 
 ## Decision
 
