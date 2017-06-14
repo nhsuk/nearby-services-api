@@ -82,3 +82,10 @@ set up.  You need to authorize/have an account with [snyk](https://snyk.io/).
 We use [husky](https://github.com/typicode/husky) to run tests in git hooks so
 we are sure that we maintain a high standard, so please run the tests alongside
 your application.
+
+## Architecture Decision Records
+
+This repo uses
+[Architecture Decision Records](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions)
+to record architectural decisions for this project.
+They are stored in [doc/architecture/decisions](doc/architecture/decisions).
