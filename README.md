@@ -23,17 +23,18 @@ the application is being run. This is best practice as described by
 For any env var that is required by the application to run and doesn't have a
 default [require-environment-variables](https://www.npmjs.com/package/require-environment-variables)
 is used to throw an error and prevent the application from starting up. Rather
-than it getting to point somewhere later in the lifecycle where it can't do
+than it getting to point somewhere later in the life cycle where it can't do
 something because there is no value for an env var it was relying on.
 
-| Variable              | Description                             | Default      |
-|:----------------------|:----------------------------------------|:-------------|
-| `NODE_ENV`            | node environment                        | development  |
-| `PORT`                | server port                             | 3001         |
-| `MONGO_DB`            | Name of the database in the Mongo image | services     |
-| `MONGODB_COLLECTION`  | Name of collection in the Mongo image   | pharmacies   |
-| `MONGODB_HOST`        | Name of MongoDB host                    | mongo        |
-| `MONGODB_PORT`        | The port used by MongoDB                | 27017        |
+| Variable              | Description                                                        | Default               |
+|:----------------------|:-------------------------------------------------------------------|:----------------------|
+| `NODE_ENV`            | Node environment                                                   | development           |
+| `LOG_LEVEL`           | Numeric [log level](https://github.com/trentm/node-bunyan#levels)  | Depends on `NODE_ENV` |
+| `PORT`                | Server port                                                        | 3001                  |
+| `MONGO_DB`            | Name of the database in the MongoDB image                          | services              |
+| `MONGODB_COLLECTION`  | Name of collection in the MongoDB image                            | pharmacies            |
+| `MONGODB_HOST`        | Name of MongoDB host                                               | mongo                 |
+| `MONGODB_PORT`        | The port used by MongoDB                                           | 27017                 |
 
 ## Running the application
 
