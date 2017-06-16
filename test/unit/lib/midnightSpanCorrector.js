@@ -68,7 +68,6 @@ function get24HourWorkingWeek() {
   return week;
 }
 
-
 function getNewOpeningTimes(openingTimes, timeZone, alterations) {
   return new OpeningTimes(openingTimes, timeZone, alterations);
 }
