@@ -22,5 +22,5 @@ services:
         splunk-sourcetype: docker
         splunk-source: nearby-services-api
         splunk-verify-connection: "false"
-        tag: '{{.ImageName}} {{.Name}} {{.FullID}}'
+        tag: "{{`{{.ImageName}} {{.Name}} {{.FullID}}`}}"
         splunk-format: json
