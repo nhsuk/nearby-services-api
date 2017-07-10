@@ -9,7 +9,7 @@ services:
       MONGODB_HOST: pharmacy-db.pharmacy-db
     labels:
       traefik.enable: true
-      traefik.domain: ${TRAEFIK_DOMAIN}
+      traefik.frontend.rule: $TRAEFIK_RULE
       traefik.port: 3001
       io.rancher.container.pull_image: always
       io.rancher.scheduler.affinity:host_label_soft: c2s=true
