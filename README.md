@@ -1,12 +1,11 @@
 # Nearby services API
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/nhsuk/nearby-services-api.svg)](https://greenkeeper.io/)
-
 [![Build Status](https://travis-ci.org/nhsuk/nearby-services-api.svg?branch=master)](https://travis-ci.org/nhsuk/nearby-services-api)
 [![Coverage Status](https://coveralls.io/repos/github/nhsuk/nearby-services-api/badge.svg)](https://coveralls.io/github/nhsuk/nearby-services-api)
 [![Known Vulnerabilities](https://snyk.io/test/github/nhsuk/nearby-services-api/badge.svg)](https://snyk.io/test/github/nhsuk/nearby-services-api)
 
-An api focusing on services near to a specific search point.
+An API focusing on services near to a specific search point.
 
 Currently, it is used by [connecting-to-services](https://github.com/nhsuk/connecting-to-services)
 to provide services near to a lat/lon.
