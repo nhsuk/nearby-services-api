@@ -1,6 +1,5 @@
 const getNearbyServices = require('../lib/getNearbyServices');
 const log = require('../lib/logger');
-const VError = require('verror').VError;
 
 function getServices(req, res, next) {
   req.checkQuery('latitude', 'latitude is required').notEmpty();
@@ -13,7 +12,7 @@ function getServices(req, res, next) {
   const errors = req.validationErrors();
 
   if (errors) {
-    log.warn(errors, 'getServices errors');
+    log.warn(errors, 'Errors found on request.');
     res.status(400).json(errors);
   } else {
     const latitude = parseFloat(req.query.latitude);
@@ -27,11 +26,8 @@ function getServices(req, res, next) {
     const searchPoint = { type: 'Point', coordinates: [longitude, latitude] };
     const limits = { nearby, open, searchRadius };
 
-    log.info('get-services-start');
     getNearbyServices(searchPoint, limits, (err, services) => {
       if (err) {
-        const errMsg = 'Error during attempt to get nearby services';
-        log.error({ err: new VError(err, errMsg) }, errMsg);
         res.status(500).send({ err });
         next(err);
       } else {
@@ -39,7 +35,6 @@ function getServices(req, res, next) {
         next();
       }
     });
-    log.info('get-services-end');
   }
 }
 

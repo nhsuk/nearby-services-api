@@ -21,27 +21,27 @@ function getNearbyServices(searchPoint, limits, next) {
       },
     }]).toArray((errGeo, docs) => {
       if (errGeo) {
-        const errMsg = 'MongoDB error while making near query';
+        const errMsg = 'MongoDB error while making near query.';
         log.error({ err: new VError(errGeo, errMsg) }, errMsg);
         next(errGeo);
       }
 
-      log.debug(`Found ${docs.length} results for near search around [${searchPoint.coordinates}] (lon,lat)`);
+      log.info({ mongoDBResponse: { numberOfResults: docs.length, searchPoint: { type: 'Point', coordinates: searchPoint.coordinates } } }, 'MongoDB results returned.');
 
       const filteredServices = filterServices(docs, limits);
 
       db.close((errClose, result) => {
         if (errClose) {
-          const errMsg = 'MongoDB error while closing connection';
+          const errMsg = 'MongoDB error while closing connection.';
           log.error({ err: new VError(errClose, errMsg) }, errMsg);
           next(errClose);
         }
-        log.debug({ result }, 'Closed MongoDB connection');
+        log.debug({ result }, 'Closed MongoDB connection.');
         next(null, filteredServices);
       });
     });
   }).catch((err) => {
-    const errMsg = 'MongoDB error while making connection';
+    const errMsg = 'MongoDB error while making connection.';
     log.error({ err: new VError(err, errMsg) }, errMsg);
   });
 }
