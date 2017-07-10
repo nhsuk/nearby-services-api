@@ -2,12 +2,12 @@ version: '2.1'
 
 services:
 
-  tests:
+  test:
     build:
       context: .
       args:
         NODE_ENV: test
-    command: yarn run watch-test
+    command: yarn run test-watch
     environment:
       NODE_ENV: test
     user: root

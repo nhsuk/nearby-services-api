@@ -2,16 +2,16 @@ version: '2.1'
 
 services:
 
-  travis-tests:
+  test-ci:
     build:
       context: .
       args:
         NODE_ENV: development
-    command: yarn run travis
+    command: yarn run test-ci
     user: root
     volumes:
       - .:/code
-      - test-deps:/code/node_modules
+      - test-ci-deps:/code/node_modules
     environment:
       COVERALLS_REPO_TOKEN: ${COVERALLS_REPO_TOKEN}
       NODE_ENV: development
@@ -26,4 +26,4 @@ services:
     image: "nhsuk/pharmacy-db:${MONGO_IMAGE_TAG-0.1.0}"
 
 volumes:
-  test-deps:
+  test-ci-deps:
