@@ -13,10 +13,10 @@
     "lint": "eslint --ext .js,.json .",
     "postrewrite": "yarn git-hook",
     "precommit": "yarn git-hook",
-    "prepush": "yarn git-hook && yarn snyk -- test",
+    "prepush": "yarn git-hook && yarn snyk test",
     "start": "node server.js",
     "test": "NODE_ENV=test mocha --recursive test/unit",
-    "travis": "yarn git-hook && yarn upload-coverage && yarn snyk -- test --org=nhsuk && yarn snyk -- monitor --org=nhsuk",
+    "travis": "yarn git-hook && yarn upload-coverage",
     "upload-coverage": "cat ./coverage/lcov.info | coveralls",
     "watch-dev": "nodemon server.js | ./node_modules/bunyan/bin/bunyan",
     "watch-lint": "esw --watch .",
@@ -58,6 +58,5 @@
     "snyk": "^1.36.2"
   },
   "author": "",
-  "license": "MIT",
-  "snyk": true
+  "license": "MIT"
 }
