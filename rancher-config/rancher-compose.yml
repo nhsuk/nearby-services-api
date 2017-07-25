@@ -3,7 +3,7 @@ version: '2'
 services:
 
   nearby-services-api:
-    scale: 1
+    scale: $INITIAL_CONTAINER_SCALE
     health_check:
       response_timeout: 60000
       healthy_threshold: 2
