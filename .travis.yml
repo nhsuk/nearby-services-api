@@ -13,4 +13,4 @@ after_script:
   - docker-compose -f docker-compose-travis.yml down -v
   - greenkeeper-lockfile-upload
 
-after_success: bash ./scripts/ci-deployment/deploy.sh
+after_success: bash ./scripts/deploy.sh
