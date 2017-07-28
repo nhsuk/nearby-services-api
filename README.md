@@ -1,5 +1,6 @@
 # Nearby services API
 
+[![GitHub Release](https://img.shields.io/github/release/nhsuk/nearby-services-api.svg)](https://github.com/nhsuk/nearby-services-api/releases/latest/)
 [![Greenkeeper badge](https://badges.greenkeeper.io/nhsuk/nearby-services-api.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/nhsuk/nearby-services-api.svg?branch=master)](https://travis-ci.org/nhsuk/nearby-services-api)
 [![Coverage Status](https://coveralls.io/repos/github/nhsuk/nearby-services-api/badge.svg)](https://coveralls.io/github/nhsuk/nearby-services-api)
