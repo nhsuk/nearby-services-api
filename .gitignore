@@ -3,8 +3,8 @@ public/components
 coverage/
 
 .sass-cache
-npm-debug.log
-npm-debug.log.*
+*.log
+*.log.*
 .env
 .DS_Store
 .coveralls.yml
@@ -12,4 +12,3 @@ npm-debug.log.*
 *.swp
 .idea/*
 .env
-
