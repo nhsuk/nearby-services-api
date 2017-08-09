@@ -19,7 +19,7 @@ services:
       - pharmacy-db:mongo
 
   pharmacy-db:
-    image: "nhsuk/pharmacy-db:${MONGO_IMAGE_TAG-0.1.0}"
+    image: "nhsuk/pharmacy-db:${MONGO_IMAGE_TAG-0.3.0}"
 
 volumes:
   api-deps:
