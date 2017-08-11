@@ -146,15 +146,23 @@ describe('Midnight Span Corrector', () => {
     });
 
     it('should use alterations\'s closing time for a close at 23:59 and open at 00:00 Monday to Saturday', () => {
+      const tz = 'Europe/London';
       const openingTimesJson = get24HourWorkingWeek();
-      const alterations = {
-        '2016-07-28': [],
-      };
-      const openingTimes = getNewOpeningTimes(openingTimesJson, 'Europe/London', alterations);
-      const moment = getMoment('monday', 16, 30, 'Europe/London');
-      const status = openingTimes.getStatus(moment, { next: true });
+      const nextWeek = Moment().tz(tz).add(1, 'week');
+      const nextMonday = nextWeek.clone().day(1);
+      const nextWednesday2359 = nextWeek.clone().day(3).hours(23).minutes(59)
+        .startOf('minute');
+      const nextThursday = nextWeek.clone().day(4);
+      const alterations = {};
+      alterations[nextThursday.format('YYYY-MM-DD')] = [];
+
+      const openingTimes = getNewOpeningTimes(openingTimesJson, tz, alterations);
+      const status = openingTimes.getStatus(nextMonday, { next: true });
+
       const newStatus = midnightSpanCorrector(openingTimes, status);
-      momentsShouldBeSame(newStatus.nextClosed, getMoment('wednesday', 23, 59, 'Europe/London'));
+
+      // eslint-disable-next-line no-unused-expressions
+      expect(newStatus.nextClosed.isSame(nextWednesday2359)).to.be.true;
     });
 
     it('open24Hours should be true if open all week 00:00 to 23:59', () => {
@@ -164,7 +172,7 @@ describe('Midnight Span Corrector', () => {
       const status = openingTimes.getStatus(moment, { next: true });
       const newStatus = midnightSpanCorrector(openingTimes, status);
       expect(newStatus.open24Hours).to.be.equal(true);
-      momentsShouldBeSame(newStatus.nextClosed, getMoment('tuesday', 23, 59, 'Europe/London', 1));
+      momentsShouldBeSame(newStatus.nextClosed.local(), getMoment('tuesday', 23, 59, 'Europe/London', 1));
     });
   });
 });
