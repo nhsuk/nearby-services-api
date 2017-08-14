@@ -2298,9 +2298,9 @@ mocha@^3.4.2:
     mkdirp "0.5.1"
     supports-color "3.1.2"
 
-moment-opening-times@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/moment-opening-times/-/moment-opening-times-2.0.1.tgz#8e6b2ad1cfd893a6ec2546fe29266816bcf96661"
+moment-opening-times@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/moment-opening-times/-/moment-opening-times-2.2.0.tgz#976fdad11036ec936a4354051963a32249330145"
   dependencies:
     moment "^2.14.1"
     moment-timezone "^0.5.4"

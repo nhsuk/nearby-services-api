@@ -14,11 +14,11 @@ function filterServices(results, limits) {
   let openServiceCount = 0;
 
   const sortedServices = results.sort(sortByDistance);
+  const now = getDateTime();
 
   for (let i = 0; i < sortedServices.length; i++) {
     const item = sortedServices[i];
     const openingTimes = item.openingTimes;
-    const now = getDateTime();
     let isOpen;
     let openingTimesMessage;
 
