@@ -12,6 +12,5 @@ services:
       initializing_timeout: 60000
       interval: 20000
       strategy: recreate
-      request_line: GET "/nearby?latitude=53.800755&longitude=-1.549077" "HTTP/1.0"
       reinitializing_timeout: 60000
     start_on_create: true
