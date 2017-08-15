@@ -62,21 +62,6 @@ describe('filterServices', () => {
       expect(results.nearbyServices.length).to.be.equal(1);
     });
 
-    it('should return the nearest obj first', () => {
-      const limits = { nearby: 3, open: 1 };
-      const toFilter = [
-        { dist: 2, identifier: 'A' },
-        { dist: 1, identifier: 'B' },
-      ];
-
-      const results = filterServices(toFilter, limits);
-      const nearbyServices = results.nearbyServices;
-
-      expect(nearbyServices.length).to.be.equal(toFilter.length);
-      expect(nearbyServices[0].identifier).to.be.equal('B');
-      expect(nearbyServices[1].identifier).to.be.equal('A');
-    });
-
     it('should return the opening times message and open state', () => {
       const limits = { nearby: 1, open: 1 };
       const toFilter = [alwaysOpenOrg];
