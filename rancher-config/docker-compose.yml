@@ -12,7 +12,7 @@ services:
       traefik.frontend.rule: $TRAEFIK_RULE
       traefik.port: 3001
       io.rancher.container.pull_image: always
-      io.rancher.scheduler.affinity: "container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}"
+      io.rancher.scheduler.affinity:container_label_soft_ne: "io.rancher.stack_service.name=$${stack_name}/$${service_name}"
     logging:
       driver: splunk
       options:
