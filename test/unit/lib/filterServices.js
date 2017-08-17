@@ -33,8 +33,8 @@ describe('filterServices', () => {
     it('should return the number of nearby results requested when there are more than requested, ordered by distance',
       () => {
         const toFilter = [
-          {},
-          {},
+          { obj: {} },
+          { obj: {} },
         ];
         const requestedNumberOfOpenResults = 1;
         const results =
@@ -45,7 +45,7 @@ describe('filterServices', () => {
 
     it('should return an open service, when there is one', () => {
       const limits = { nearby: 1, open: 1 };
-      const toFilter = [alwaysOpenOrg];
+      const toFilter = [{ obj: alwaysOpenOrg }];
 
       const results = filterServices(toFilter, limits);
 
@@ -54,7 +54,7 @@ describe('filterServices', () => {
 
     it('should return an open service as both open and nearby', () => {
       const limits = { nearby: 1, open: 1 };
-      const toFilter = [alwaysOpenOrg];
+      const toFilter = [{ obj: alwaysOpenOrg }];
 
       const results = filterServices(toFilter, limits);
 
@@ -64,7 +64,7 @@ describe('filterServices', () => {
 
     it('should return the opening times message and open state', () => {
       const limits = { nearby: 1, open: 1 };
-      const toFilter = [alwaysOpenOrg];
+      const toFilter = [{ obj: alwaysOpenOrg }];
 
       const results = filterServices(toFilter, limits);
       const openServices = results.openServices;
@@ -94,7 +94,7 @@ describe('filterServices', () => {
         },
       };
 
-      const toFilter = [orgWithAlterations];
+      const toFilter = [{ obj: orgWithAlterations }];
 
       const results = filterServices(toFilter, { open: 1, nearby: 1 });
       const openServices = results.openServices;
@@ -105,7 +105,7 @@ describe('filterServices', () => {
 
     it('should say call for opening times when the org does not have any opening times', () => {
       const limits = { nearby: 1, open: 1 };
-      const toFilter = [{}];
+      const toFilter = [{ obj: {} }];
 
       const results = filterServices(toFilter, limits);
       const nearbyServices = results.nearbyServices;

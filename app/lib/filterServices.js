@@ -4,14 +4,14 @@ const getOpeningHoursMessage = require('../lib/getOpeningTimesMessage');
 const midnightSpanCorrector = require('../lib/midnightSpanCorrector');
 const utils = require('../lib/utils');
 
-function filterServices(results, limits) {
+function filterServices(sortedServices, limits) {
   const openServices = [];
-  const now = getDateTime();
-  const servicesCount = results.length;
-  let openServiceCount = 0;
+  const nearbyServices = [];
 
-  for (let serviceCount = 0; serviceCount < servicesCount; serviceCount++) {
-    const item = results[serviceCount];
+  const now = getDateTime();
+
+  for (let i = 0; i < sortedServices.length; i++) {
+    const item = sortedServices[i].obj;
     const openingTimes = item.openingTimes;
     let openingTimesMessage = 'Call for opening times';
     let isOpen = false;
@@ -31,20 +31,23 @@ function filterServices(results, limits) {
 
     item.openingTimesMessage = openingTimesMessage;
     item.isOpen = isOpen;
-    item.distanceInMiles = item.dist;
+    item.distanceInMiles = sortedServices[i].dis;
 
-    if (isOpen && openServiceCount < limits.open) {
-      openServiceCount += 1;
+    if (nearbyServices.length < limits.nearby) {
+      nearbyServices.push(utils.deepClone(item));
+    }
+
+    if (isOpen && openServices.length < limits.open) {
       openServices.push(utils.deepClone(item));
     }
 
-    if (openServiceCount >= limits.open && serviceCount >= limits.nearby) {
+    if (openServices.length >= limits.open && nearbyServices.length >= limits.nearby) {
       break;
     }
   }
 
   return {
-    nearbyServices: results.slice(0, limits.nearby),
+    nearbyServices,
     openServices,
   };
 }

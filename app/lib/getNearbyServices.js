@@ -8,38 +8,31 @@ const connectionString = mongodbConfig.connectionString;
 
 function getNearbyServices(searchPoint, limits, next) {
   MongoClient.connect(connectionString).then((db) => {
-    const col = db.collection(mongodbConfig.collection);
+    const collection = db.collection(mongodbConfig.collection);
 
-    col.aggregate([{
-      $geoNear: {
-        near: { type: 'Point', coordinates: searchPoint.coordinates },
-        distanceField: 'dist',
-        maxDistance: 20 * 1609, // search across 20 miles
-        distanceMultiplier: 0.000621371, // this is in miles
-        num: 2500, // Arbitary number of results to make sure we get everything within 20 miles
-        spherical: true,
-      },
-    }]).toArray((errGeo, docs) => {
-      if (errGeo) {
-        const errMsg = 'MongoDB error while making near query.';
-        log.error({ err: new VError(errGeo, errMsg) }, errMsg);
-        next(errGeo);
-      }
+    const loc = searchPoint.coordinates;
+    const milesInARadian = 3959;
+    const distanceToSearchInMiles = 20;
+    const maxDistance = distanceToSearchInMiles / milesInARadian;
+    const distanceMultiplier = milesInARadian;
 
-      log.info({ mongoDBResponse: { numberOfResults: docs.length, searchPoint: { type: 'Point', coordinates: searchPoint.coordinates } } }, 'MongoDB results returned.');
+    collection
+      .geoNear(loc[0], loc[1], { num: 2500, maxDistance, distanceMultiplier, spherical: true })
+      .then((docs) => {
+        log.info({ mongoDBResponse: { numberOfResults: docs.results.length, searchPoint: { type: 'Point', coordinates: searchPoint.coordinates } } }, 'MongoDB results returned.');
 
-      const filteredServices = filterServices(docs, limits);
+        const filteredServices = filterServices(docs.results, limits);
 
-      db.close((errClose, result) => {
-        if (errClose) {
-          const errMsg = 'MongoDB error while closing connection.';
-          log.error({ err: new VError(errClose, errMsg) }, errMsg);
-          next(errClose);
-        }
-        log.debug({ result }, 'Closed MongoDB connection.');
-        next(null, filteredServices);
+        db.close((errClose, result) => {
+          if (errClose) {
+            const errMsg = 'MongoDB error while closing connection.';
+            log.error({ err: new VError(errClose, errMsg) }, errMsg);
+            next(errClose);
+          }
+          log.debug({ result }, 'Closed MongoDB connection.');
+          next(null, filteredServices);
+        });
       });
-    });
   }).catch((err) => {
     const errMsg = 'MongoDB error while making connection.';
     log.error({ err: new VError(err, errMsg) }, errMsg);
