@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "express": "^4.15.4",
-    "express-validator": "^3.2.1",
+    "express-validator": "^4.0.0",
     "helmet": "^3.8.1",
     "moment": "^2.16.0",
     "moment-opening-times": "^2.3.0",
