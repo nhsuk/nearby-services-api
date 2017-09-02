@@ -857,7 +857,13 @@ escodegen@1.8.x:
   optionalDependencies:
     source-map "~0.2.0"
 
-eslint-config-airbnb-base@^11.2.0, eslint-config-airbnb-base@^11.3.1:
+eslint-config-airbnb-base@12.0.0:
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-airbnb-base/-/eslint-config-airbnb-base-12.0.0.tgz#99063aaef4b8698083481a00e165cbe15e82d615"
+  dependencies:
+    eslint-restricted-globals "^0.1.1"
+
+eslint-config-airbnb-base@^11.2.0:
   version "11.3.1"
   resolved "https://registry.yarnpkg.com/eslint-config-airbnb-base/-/eslint-config-airbnb-base-11.3.1.tgz#c0ab108c9beed503cb999e4c60f4ef98eda0ed30"
   dependencies:
@@ -1066,9 +1072,9 @@ expect-ct@0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/expect-ct/-/expect-ct-0.1.0.tgz#52735678de18530890d8d7b95f0ac63640958094"
 
-express-validator@4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/express-validator/-/express-validator-4.0.0.tgz#7740b0b1f090222c4e3d25f69c42f4258226096e"
+express-validator@^4.0.0:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/express-validator/-/express-validator-4.1.1.tgz#539d49262778eaac170fcd55ef6a3245196cb9d9"
   dependencies:
     "@types/express" "~4.0.34"
     lodash "^4.16.0"
