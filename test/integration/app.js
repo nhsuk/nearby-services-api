@@ -165,7 +165,8 @@ describe('app', function test() {
           .query({
             latitude: coords.latitude,
             longitude: coords.longitude,
-            'limits:results:open': 'invalid' })
+            'limits:results:open': 'invalid'
+          })
           .end((err, res) => {
             expect(res).to.have.status(400);
             // eslint-disable-next-line no-unused-expressions
@@ -209,7 +210,8 @@ describe('app', function test() {
             latitude: coords.latitude,
             longitude: coords.longitude,
             'limits:results:open': '',
-            'limits:results:nearby': '' })
+            'limits:results:nearby': ''
+          })
           .end((err, res) => {
             expect(res).to.have.status(400);
             // eslint-disable-next-line no-unused-expressions

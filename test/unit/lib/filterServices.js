@@ -30,7 +30,8 @@ describe('filterServices', () => {
       /* eslint-enable no-unused-expressions */
     });
 
-    it('should return the number of nearby results requested when there are more than requested, ordered by distance',
+    it(
+      'should return the number of nearby results requested when there are more than requested, ordered by distance',
       () => {
         const toFilter = [
           { obj: {} },
@@ -41,7 +42,8 @@ describe('filterServices', () => {
           filterServices(toFilter, { nearby: requestedNumberOfOpenResults });
 
         expect(results.nearbyServices.length).to.be.equal(requestedNumberOfOpenResults);
-      });
+      }
+    );
 
     it('should return an open service, when there is one', () => {
       const limits = { nearby: 1, open: 1 };

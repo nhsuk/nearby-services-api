@@ -21,7 +21,8 @@ function filterServices(sortedServices, limits) {
         new OpeningTimes(
           item.openingTimes.general,
           'Europe/London',
-          item.openingTimes.alterations);
+          item.openingTimes.alterations
+        );
 
       let status = openingTimesMoment.getStatus(now, { next: true });
       status = midnightSpanCorrector(openingTimesMoment, status);
