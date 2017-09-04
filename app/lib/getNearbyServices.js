@@ -17,7 +17,9 @@ function getNearbyServices(searchPoint, limits, next) {
     const distanceMultiplier = milesInARadian;
 
     collection
-      .geoNear(loc[0], loc[1], { num: 2500, maxDistance, distanceMultiplier, spherical: true })
+      .geoNear(loc[0], loc[1], {
+        num: 2500, maxDistance, distanceMultiplier, spherical: true
+      })
       .then((docs) => {
         log.info({ mongoDBResponse: { numberOfResults: docs.results.length, searchPoint: { type: 'Point', coordinates: searchPoint.coordinates } } }, 'MongoDB results returned.');
 
