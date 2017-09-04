@@ -11,7 +11,7 @@ function filterServices(sortedServices, limits) {
   const now = getDateTime();
 
   for (let i = 0; i < sortedServices.length; i++) {
-    const item = sortedServices[i].obj;
+    const item = sortedServices[i];
     const openingTimes = item.openingTimes;
     let openingTimesMessage = 'Call for opening times';
     let isOpen = false;

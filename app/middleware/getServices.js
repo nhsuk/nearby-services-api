@@ -1,4 +1,5 @@
-const getNearbyServices = require('../lib/getNearbyServices');
+// const getNearbyServices = require('../lib/getNearbyServices');
+const getNearbyServices = require('../lib/getNearbyServices2');
 const log = require('../lib/logger');
 
 function getServices(req, res, next) {
@@ -23,10 +24,10 @@ function getServices(req, res, next) {
     // it has intentionaly not been allowed to be specificed by the client
     const searchRadius = 20;
 
-    const searchPoint = { type: 'Point', coordinates: [longitude, latitude] };
+    const searchCoordinates = { longitude, latitude };
     const limits = { nearby, open, searchRadius };
 
-    getNearbyServices(searchPoint, limits, (err, services) => {
+    getNearbyServices(searchCoordinates, limits, (err, services) => {
       if (err) {
         res.status(500).send({ err });
         next(err);

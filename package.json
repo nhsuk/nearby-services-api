@@ -18,7 +18,7 @@
     "prepush": "yarn git-hook && yarn snyk test",
     "start": "node server.js",
     "start-watch": "nodemon server.js | ./node_modules/bunyan/bin/bunyan",
-    "test": "NODE_ENV=test mocha --recursive test/unit",
+    "test": "NODE_ENV=test mocha --recursive test",
     "test-ci": "yarn git-hook && yarn coverage-upload",
     "test-watch": "yarn test -- --watch --reporter min"
   },
@@ -30,6 +30,7 @@
     "url": "https://github.com/nhsuk/nearby-services-api/issues"
   },
   "dependencies": {
+    "elasticsearch": "^13.3.1",
     "express": "^4.15.4",
     "express-validator": "^4.0.0",
     "helmet": "^3.8.1",
