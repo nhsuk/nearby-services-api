@@ -36,7 +36,6 @@
     "helmet": "^3.8.1",
     "moment": "^2.16.0",
     "moment-opening-times": "^2.3.0",
-    "mongodb": "^2.2.31",
     "nhsuk-bunyan-logger": "^1.4.1",
     "verror": "^1.9.0"
   },

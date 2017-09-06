@@ -6,7 +6,9 @@ services:
     image: "nhsuk/nearby-services-api:${DOCKER_IMAGE_TAG}"
     environment:
       NODE_ENV: production
-      MONGODB_HOST: pharmacy-db.pharmacy-db
+      ES_HOST: ${ES_HOST}
+      ES_INDEX: ${ES_INDEX}
+      ES_PORT: ${ES_PORT}
     labels:
       traefik.enable: true
       traefik.frontend.rule: $TRAEFIK_RULE

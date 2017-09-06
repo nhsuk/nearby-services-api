@@ -1,6 +1,7 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const app = require('../../app');
+const utils = require('./testUtils');
 
 const expect = chai.expect;
 
@@ -8,7 +9,12 @@ chai.use(chaiHttp);
 
 describe('app', function test() {
   // Setting this timeout as it is calling the real DB...
-  this.timeout(10000);
+  this.timeout(utils.maxWaitTimeMs);
+
+  before((done) => {
+    utils.waitForSiteReady(done);
+  });
+
   const longitude = -1.55275457242333;
   const latitude = 53.797431921096;
   const coords = { latitude, longitude };

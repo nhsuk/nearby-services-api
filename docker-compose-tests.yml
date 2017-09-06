@@ -15,11 +15,7 @@ services:
       - .:/code
       - api-test-deps:/code/node_modules
     links:
-      - pharmacy-db-test:mongo
       - pharmacy-db-elastic-test:es
-
-  pharmacy-db-test:
-    image: "nhsuk/pharmacy-db:${MONGO_IMAGE_TAG-0.3.0}"
 
   pharmacy-db-elastic-test:
     image: "nhsuk/elasticsearch-updater-snapshot:20170905"

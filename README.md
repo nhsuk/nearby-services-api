@@ -33,10 +33,9 @@ something because there is no value for an env var it was relying on.
 | `NODE_ENV`            | Node environment                                                   | development           |
 | `LOG_LEVEL`           | Numeric [log level](https://github.com/trentm/node-bunyan#levels)  | Depends on `NODE_ENV` |
 | `PORT`                | Server port                                                        | 3001                  |
-| `MONGO_DB`            | Name of the database in the MongoDB image                          | services              |
-| `MONGODB_COLLECTION`  | Name of collection in the MongoDB image                            | pharmacies            |
-| `MONGODB_HOST`        | Name of MongoDB host                                               | mongo                 |
-| `MONGODB_PORT`        | The port used by MongoDB                                           | 27017                 |
+| `ES_INDEX`  | Name of index in the ElasticSearch image | pharmacies            |
+| `ES_HOST`        | Name of ElasticSearch host                                               | es                 |
+| `ES_PORT`        | The port used by ElasticSearch                                           | 27017                 |
 
 ## Running the application
 

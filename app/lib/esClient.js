@@ -6,7 +6,7 @@ const client = elasticsearch.Client({ host: `${esConfig.host}:${esConfig.port}` 
 
 function getBaseQuery(size) {
   return {
-    index: 'pharmacies',
+    index: esConfig.index,
     type: 'pharmacy',
     body: {
       size,
@@ -55,13 +55,15 @@ function getPharmacies(location, radius = 25, size = 10) {
         numberOfResults: results.hits.total, location, radius, size
       }, 'ES results returned.');
       return results.hits.hits.map((hit) => {
-        // eslint-disable-next-line no-underscore-dangle 
+        // eslint-disable-next-line no-underscore-dangle
         const pharmacy = hit._source;
         pharmacy.dis = hit.sort[0];
         return pharmacy;
       });
     })
-    .catch(error => log.error({ location, radius, size, errorMessage: error.message }));
+    .catch(error => log.error({
+      location, radius, size, errorMessage: error.message
+    }));
 }
 
 function getHealth() {

@@ -1,5 +1,4 @@
-// const getNearbyServices = require('../lib/getNearbyServices');
-const getNearbyServices = require('../lib/getNearbyServices2');
+const getNearbyServices = require('../lib/getNearbyServices');
 const log = require('../lib/logger');
 
 function getServices(req, res, next) {

@@ -1,9 +1,16 @@
 const chai = require('chai');
 const esClient = require('../../app/lib/esClient');
+const utils = require('./testUtils');
 
 const expect = chai.expect;
 
-describe('esClient', () => {
+describe('esClient', function test() {
+  this.timeout(utils.maxWaitTimeMs);
+
+  before((done) => {
+    utils.waitForSiteReady(done);
+  });
+
   describe('getQuery', () => {
     const location = { longitude: -1.46519099452929, latitude: 54.0095586395326 };
     it('should return pharmacies as an array', (done) => {
