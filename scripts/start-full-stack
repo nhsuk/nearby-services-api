@@ -1,0 +1,3 @@
+#!/bin/bash
+docker-compose  -f docker-compose-full-stack.yml down -v
+docker-compose -f docker-compose-full-stack.yml up --build --force-recreate

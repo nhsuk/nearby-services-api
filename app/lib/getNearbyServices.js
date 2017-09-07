@@ -3,16 +3,14 @@ const esClient = require('./esClient');
 const filterServices = require('./filterServices');
 const VError = require('verror').VError;
 
-function getNearbyServices(searchCoordinates, limits, next) {
-  esClient
-    .getPharmacies(searchCoordinates, limits.searchRadius)
-    .then((pharmacies) => {
-      const filteredServices = filterServices(pharmacies, limits);
-      next(null, filteredServices);
-    })
-    .catch((err) => {
-      log.error({ err: new VError(err) });
-    });
+async function getNearbyServices(searchCoordinates, limits) {
+  try {
+    const pharmacies = await esClient.getPharmacies(searchCoordinates, limits.searchRadius);
+    return filterServices(pharmacies, limits);
+  } catch (err) {
+    log.error({ err: new VError(err) });
+    throw err;
+  }
 }
 
 module.exports = getNearbyServices;

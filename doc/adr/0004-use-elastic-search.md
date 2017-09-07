@@ -18,4 +18,4 @@ MongoDB runs as a single instance and is not clustered.
 ## Consequences
 The number of deployed components will be reduced.
 The pharmacy-db will no longer be required.
-We will no longer need to maintain mongo and elastic search updaters
+We will no longer need to maintain MongoDB updaters, only the Elasticsearch updaters.

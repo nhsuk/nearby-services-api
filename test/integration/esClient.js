@@ -21,13 +21,16 @@ describe('esClient', function test() {
         done();
       }).catch(done);
     });
-    it('number of results should default to 10', (done) => {
+
+    it('number of results should default to 2500', (done) => {
       esClient.getPharmacies(location).then((pharmacies) => {
         expect(pharmacies).to.be.an('array');
-        expect(pharmacies.length).to.equal(10);
+        expect(pharmacies.length).to.be.lessThan(2501);
+        expect(pharmacies.length).to.equal(529);
         done();
       }).catch(done);
     });
+
     it('number of results should be parameterised', (done) => {
       esClient.getPharmacies(location, 10, 7).then((pharmacies) => {
         expect(pharmacies).to.be.an('array');
@@ -35,12 +38,14 @@ describe('esClient', function test() {
         done();
       }).catch(done);
     });
+
     it('should return pharmacies populated with distance from location', (done) => {
       esClient.getPharmacies(location).then((pharmacies) => {
         pharmacies.forEach(p => expect(p.dis).to.be.greaterThan(0, `Pharmacy ${p.identifier} does not have a distance`));
         done();
       }).catch(done);
     });
+
     it('reducing the radius should return fewer pharmacies', (done) => {
       // Note: set the number of results limit high so it is not hit and causes a false failing test
       const resultsLimit = 100;
