@@ -55,6 +55,7 @@ function mapResults(results) {
     return pharmacy;
   });
 }
+
 async function getPharmacies(location, radius = 25, size = 2500) {
   try {
     const results = await client.search(build(location, radius, size));
