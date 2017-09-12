@@ -33,11 +33,15 @@ describe('metrics end point', () => {
     expect(responseText).to.have.string('# HELP app_starts The number of times the application has been started\n# TYPE app_starts counter');
   });
 
-  it('should return a es_get_pharmacy histogram', () => {
+  it('should return an es_get_pharmacy histogram', () => {
     expect(responseText).to.have.string('# HELP es_get_pharmacy Duration histogram of Elasticsearch request to get Pharmacies\n# TYPE es_get_pharmacy histogram');
   });
 
-  it('should return an the default metrics', () => {
+  it('should return a filter_services histogram', () => {
+    expect(responseText).to.have.string('# HELP filter_services Duration histogram of filtering the returned pharmacies based on their openness\n# TYPE filter_services histogram');
+  });
+
+  it('should return the default metrics', () => {
     expect(responseText).to.have.string('# HELP process_cpu_user_seconds_total Total user CPU time spent in seconds.\n# TYPE process_cpu_user_seconds_total counter');
     expect(responseText).to.have.string('# HELP process_cpu_system_seconds_total Total system CPU time spent in seconds.\n# TYPE process_cpu_system_seconds_total counter');
     expect(responseText).to.have.string('# HELP process_cpu_seconds_total Total user and system CPU time spent in seconds.\n# TYPE process_cpu_seconds_total counter');
