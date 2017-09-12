@@ -3,8 +3,10 @@ const OpeningTimes = require('moment-opening-times');
 const getOpeningHoursMessage = require('../lib/getOpeningTimesMessage');
 const midnightSpanCorrector = require('../lib/midnightSpanCorrector');
 const utils = require('../lib/utils');
+const filterServicesHistogram = require('../lib/promHistograms').filterServices;
 
 function filterServices(sortedServices, limits) {
+  const endTimer = filterServicesHistogram.startTimer();
   const openServices = [];
   const nearbyServices = [];
 
@@ -47,6 +49,7 @@ function filterServices(sortedServices, limits) {
     }
   }
 
+  endTimer();
   return {
     nearbyServices,
     openServices,
