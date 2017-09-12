@@ -32,6 +32,7 @@
   "dependencies": {
     "elasticsearch": "^13.3.1",
     "express": "^4.15.4",
+    "express-prom-bundle": "^3.1.0",
     "express-validator": "^4.0.0",
     "helmet": "^3.8.1",
     "moment": "^2.16.0",
