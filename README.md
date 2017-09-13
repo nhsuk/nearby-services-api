@@ -28,15 +28,14 @@ is used to throw an error and prevent the application from starting up. Rather
 than it getting to point somewhere later in the life cycle where it can't do
 something because there is no value for an env var it was relying on.
 
-| Variable              | Description                                                        | Default               |
-|:----------------------|:-------------------------------------------------------------------|:----------------------|
-| `NODE_ENV`            | Node environment                                                   | development           |
-| `LOG_LEVEL`           | Numeric [log level](https://github.com/trentm/node-bunyan#levels)  | Depends on `NODE_ENV` |
-| `PORT`                | Server port                                                        | 3001                  |
-| `MONGO_DB`            | Name of the database in the MongoDB image                          | services              |
-| `MONGODB_COLLECTION`  | Name of collection in the MongoDB image                            | pharmacies            |
-| `MONGODB_HOST`        | Name of MongoDB host                                               | mongo                 |
-| `MONGODB_PORT`        | The port used by MongoDB                                           | 27017                 |
+| Variable    | Description                                                       | Default               |
+| :-----------| :-----------------------------------------------------------------| :---------------------|
+| `NODE_ENV`  | Node environment                                                  | development           |
+| `LOG_LEVEL` | Numeric [log level](https://github.com/trentm/node-bunyan#levels) | Depends on `NODE_ENV` |
+| `PORT`      | Server port                                                       | 3001                  |
+| `ES_INDEX`  | Name of index in the ElasticSearch image                          | pharmacies            |
+| `ES_HOST`   | Name of ElasticSearch host                                        | es                    |
+| `ES_PORT`   | The port used by ElasticSearch                                    | 27017                 |
 
 ## Running the application
 
@@ -49,14 +48,15 @@ Next, have a look at the scripts for getting the application running
 Then click [here](http://localhost:3001/nearby?longitude=-1.0751380920410156&latitude=50.82191467285156)
 to see results (if all went well).
 
-To run the full stack application including the front end use the docker-compose-full-stack.yml, i.e.
+To run the full stack application including the front end use the
+docker-compose-full-stack.yml, i.e.
 `docker-compose -f docker-compose-full-stack.yml down -v`
 `docker-compose -f docker-compose-full-stack.yml up --build --force-recreate`
 
 ### Changing the time
 
-This stack supports an environment variable to change the current time in the API.
-Sample format to set:
+This stack supports an environment variable to change the current time in the
+API. Sample format to set:
 `export DATETIME=2017-02-15T03:30:00`
 And to remove:
 `unset DATETIME`
@@ -70,7 +70,8 @@ added to the `docker-compose-test.yml`
 
 ## FAQ
 
-1. When I run `docker-compose` I get errors about packages missing. Often it seems to be Nodemon.
+1. When I run `docker-compose` I get errors about packages missing. Often it
+   seems to be Nodemon.
   * This could well be because the volume used by the service has previously
     been mounted when `NODE_ENV` was set to `production`. Try running
     `docker-compose down -v` which removes all the things created by the

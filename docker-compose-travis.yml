@@ -20,10 +20,10 @@ services:
       TRAVIS_COMMIT: ${TRAVIS_COMMIT}
       TRAVIS_JOB_ID: ${TRAVIS_JOB_ID}
     links:
-      - pharmacy-db:mongo
+      - pharmacy-db-elastic-test:es
 
-  pharmacy-db:
-    image: "nhsuk/pharmacy-db:${MONGO_IMAGE_TAG-0.3.0}"
+  pharmacy-db-elastic-test:
+    image: "nhsuk/elasticsearch-updater-snapshot:20170905"
 
 volumes:
   test-ci-deps:

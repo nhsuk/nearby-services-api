@@ -16,10 +16,10 @@ services:
     environment:
       NODE_ENV: development
     links:
-      - pharmacy-db:mongo
+      - pharmacy-db-elastic:es
 
-  pharmacy-db:
-    image: "nhsuk/pharmacy-db:${MONGO_IMAGE_TAG-0.3.0}"
+  pharmacy-db-elastic:
+    image: "nhsuk/elasticsearch-updater-snapshot:20170905"
 
 volumes:
   api-deps:
