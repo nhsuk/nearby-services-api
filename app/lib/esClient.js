@@ -1,51 +1,9 @@
 const log = require('./logger');
 const elasticsearch = require('elasticsearch');
 const esConfig = require('../../config/config').es;
+const queryBuilder = require('./queryBuilder');
 
 const client = elasticsearch.Client({ host: `${esConfig.host}:${esConfig.port}` });
-
-function getBaseQuery(size) {
-  return {
-    index: esConfig.index,
-    type: 'pharmacy',
-    body: {
-      size,
-      query: {
-        bool: {}
-      }
-    }
-  };
-}
-
-function build(location, radius, size) {
-  const query = getBaseQuery(size);
-
-  query.body.query.bool.filter = {
-    geo_distance: {
-      distance: `${radius}mi`,
-      'location.coordinates': {
-        lon: location.longitude,
-        lat: location.latitude
-      }
-    }
-  };
-
-  query.body.sort = [
-    {
-      _geo_distance: {
-        'location.coordinates': {
-          lon: location.longitude,
-          lat: location.latitude
-        },
-        order: 'asc',
-        unit: 'mi',
-        distance_type: 'plane'
-      }
-    }
-  ];
-
-  return query;
-}
 
 function mapResults(results) {
   return results.hits.hits.map((hit) => {
@@ -56,9 +14,9 @@ function mapResults(results) {
   });
 }
 
-async function getPharmacies(location, radius = 25, size = 2500) {
+async function getPharmacies(location, radius, size) {
   try {
-    const results = await client.search(build(location, radius, size));
+    const results = await client.search(queryBuilder(location, radius, size));
     log.info({
       numberOfResults: results.hits.total, location, radius, size
     }, 'ES results returned.');

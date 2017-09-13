@@ -18,8 +18,12 @@ execute `deploy` script.
 Directs towards base development machine setup.
 
 [`start`](start)
-Starts the application a Docker container. Available at:
+Starts the application in a Docker container. Available at:
 `http://localhost:3001`
+
+[`start-full-stack`](start)
+Starts the application in a Docker container along with the latest [connecting-to-services](https://github.com/nhsuk/connecting-to-services) front end for full stack exploratory testing. Available at:
+`http://localhost:3000`
 
 [`test`](test)
 Starts a Docker container specifically for continually running tests.

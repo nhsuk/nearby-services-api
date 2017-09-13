@@ -11,30 +11,13 @@ describe('esClient', function test() {
     utils.waitForSiteReady(done);
   });
 
-  describe('getQuery', () => {
+  describe('getPharmacies', () => {
     const location = { longitude: -1.46519099452929, latitude: 54.0095586395326 };
     it('should return pharmacies as an array', (done) => {
       esClient.getPharmacies(location).then((pharmacies) => {
         expect(pharmacies).to.be.an('array');
         expect(pharmacies.length).to.be.greaterThan(0);
         expect(pharmacies[0].name).to.exist;
-        done();
-      }).catch(done);
-    });
-
-    it('number of results should default to 2500', (done) => {
-      esClient.getPharmacies(location).then((pharmacies) => {
-        expect(pharmacies).to.be.an('array');
-        expect(pharmacies.length).to.be.lessThan(2501);
-        expect(pharmacies.length).to.equal(529);
-        done();
-      }).catch(done);
-    });
-
-    it('number of results should be parameterised', (done) => {
-      esClient.getPharmacies(location, 10, 7).then((pharmacies) => {
-        expect(pharmacies).to.be.an('array');
-        expect(pharmacies.length).to.equal(7);
         done();
       }).catch(done);
     });
