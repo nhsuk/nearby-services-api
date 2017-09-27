@@ -1,3 +1,8 @@
+0.11.0 / TBC
+==================
+- Upgrade all npm dependencies
+- Upgrade container to run node:8.6.0-alpine
+
 0.10.0 / 2017-09-08
 ==================
 - Switch to Elasticsearch back end

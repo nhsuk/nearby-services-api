@@ -49,7 +49,17 @@ ignore:
   'npm:tough-cookie:20170905':
     - node-pre-gyp > request > tough-cookie:
         reason: node-pre-gyp is not user facing.
-        expires: '2017-10-27T07:37:26.920Z'
+        expires: '2017-10-27T07:54:08.384Z'
+  'npm:debug:20170905':
+    - helmet > connect > debug:
+        reason: Debug is not user facing.
+        expires: '2017-10-27T07:54:08.384Z'
+    - helmet > connect > finalhandler > debug:
+        reason: Debug is not user facing.
+        expires: '2017-10-27T07:54:08.384Z'
+    - node-pre-gyp > tar-pack > debug:
+        reason: Debug is not user facing.
+        expires: '2017-10-27T07:54:08.384Z'
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   'npm:tough-cookie:20160722':
@@ -58,13 +68,13 @@ patch:
   'npm:debug:20170905':
     - helmet > connect > finalhandler > debug:
         patched: '2017-09-27T07:36:37.535Z'
-      helmet > connect > debug:
-        patched: '2017-09-27T07:38:56.481Z'
     - helmet > connect > debug:
         patched: '2017-09-27T07:36:37.535Z'
-      helmet > connect > finalhandler > debug:
-        patched: '2017-09-27T07:38:56.481Z'
     - node-pre-gyp > tar-pack > debug:
+        patched: '2017-09-27T07:38:56.481Z'
+    - helmet > connect > debug:
+        patched: '2017-09-27T07:38:56.481Z'
+    - helmet > connect > finalhandler > debug:
         patched: '2017-09-27T07:38:56.481Z'
   'npm:tough-cookie:20170905':
     - node-pre-gyp > request > tough-cookie:
