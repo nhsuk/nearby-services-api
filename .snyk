@@ -10,27 +10,15 @@ ignore:
     - express > debug > ms:
         reason: None given
         expires: '2017-06-15T12:40:49.719Z'
-      eslint-plugin-import > debug > ms:
-        reason: None given
-        expires: '2017-07-16T11:24:58.521Z'
     - express > send > debug > ms:
         reason: None given
         expires: '2017-06-15T12:40:49.719Z'
-      eslint-plugin-import > eslint-import-resolver-node > debug > ms:
-        reason: None given
-        expires: '2017-07-16T11:24:58.521Z'
     - express > serve-static > send > debug > ms:
         reason: None given
         expires: '2017-06-15T12:40:49.720Z'
-      node-pre-gyp > tar-pack > debug > ms:
-        reason: None given
-        expires: '2017-07-16T11:24:58.521Z'
     - helmet > connect > debug > ms:
         reason: None given
         expires: '2017-06-15T12:40:49.720Z'
-      eslint-plugin-import > eslint-module-utils > debug > ms:
-        reason: None given
-        expires: '2017-07-16T11:24:58.521Z'
     - helmet > connect > finalhandler > debug > ms:
         reason: None given
         expires: '2017-06-15T12:40:49.720Z'
@@ -46,8 +34,48 @@ ignore:
     - express > finalhandler > debug > ms:
         reason: None given
         expires: '2017-06-15T12:40:49.720Z'
+    - eslint-plugin-import > debug > ms:
+        reason: None given
+        expires: '2017-07-16T11:24:58.521Z'
+    - eslint-plugin-import > eslint-import-resolver-node > debug > ms:
+        reason: None given
+        expires: '2017-07-16T11:24:58.521Z'
+    - node-pre-gyp > tar-pack > debug > ms:
+        reason: None given
+        expires: '2017-07-16T11:24:58.521Z'
+    - eslint-plugin-import > eslint-module-utils > debug > ms:
+        reason: None given
+        expires: '2017-07-16T11:24:58.521Z'
+  'npm:tough-cookie:20170905':
+    - node-pre-gyp > request > tough-cookie:
+        reason: node-pre-gyp is not user facing.
+        expires: '2017-10-27T07:54:08.384Z'
+  'npm:debug:20170905':
+    - helmet > connect > debug:
+        reason: Debug is not user facing.
+        expires: '2017-10-27T07:54:08.384Z'
+    - helmet > connect > finalhandler > debug:
+        reason: Debug is not user facing.
+        expires: '2017-10-27T07:54:08.384Z'
+    - node-pre-gyp > tar-pack > debug:
+        reason: Debug is not user facing.
+        expires: '2017-10-27T07:54:08.384Z'
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   'npm:tough-cookie:20160722':
     - nodemon > chokidar > fsevents > node-pre-gyp > request > tough-cookie:
         patched: '2016-11-17T08:21:45.683Z'
+  'npm:debug:20170905':
+    - helmet > connect > finalhandler > debug:
+        patched: '2017-09-27T07:36:37.535Z'
+    - helmet > connect > debug:
+        patched: '2017-09-27T07:36:37.535Z'
+    - node-pre-gyp > tar-pack > debug:
+        patched: '2017-09-27T07:38:56.481Z'
+    - helmet > connect > debug:
+        patched: '2017-09-27T07:38:56.481Z'
+    - helmet > connect > finalhandler > debug:
+        patched: '2017-09-27T07:38:56.481Z'
+  'npm:tough-cookie:20170905':
+    - node-pre-gyp > request > tough-cookie:
+        patched: '2017-09-27T07:38:56.481Z'

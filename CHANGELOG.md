@@ -1,3 +1,7 @@
+0.11.0 / TBC
+==================
+- Upgrade all npm dependencies
+
 0.10.0 / 2017-09-08
 ==================
 - Switch to Elasticsearch back end

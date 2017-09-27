@@ -1,13 +1,13 @@
 {
   "name": "nearby-services-api",
-  "version": "0.0.1",
+  "version": "0.11.0",
   "private": true,
   "description": "nearby services api",
   "main": "server.js",
   "scripts": {
     "coverage-check": "istanbul check-coverage --config .istanbul.yml",
-    "coverage-generate": "yarn istanbul -- cover _mocha -- --recursive",
-    "coverage-generate-unit": "yarn istanbul -- cover _mocha -- --recursive test/unit",
+    "coverage-generate": "yarn istanbul cover -- _mocha -- --recursive",
+    "coverage-generate-unit": "yarn istanbul cover -- _mocha -- --recursive test/unit",
     "coverage-upload": "cat ./coverage/lcov.info | coveralls",
     "git-hook": "yarn lint && yarn coverage-generate-unit && yarn coverage-check",
     "istanbul": "NODE_ENV=test istanbul",
@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "elasticsearch": "^13.3.1",
-    "express": "^4.15.4",
+    "express": "^4.15.5",
     "express-prom-bundle": "^3.1.0",
     "express-validator": "^4.0.0",
     "helmet": "^3.8.1",
@@ -56,7 +56,7 @@
     "istanbul": "^1.1.0-alpha.1",
     "mocha": "^3.5.3",
     "nodemon": "^1.11.0",
-    "snyk": "^1.40.2"
+    "snyk": "^1.41.1"
   },
   "author": "",
   "license": "MIT"
