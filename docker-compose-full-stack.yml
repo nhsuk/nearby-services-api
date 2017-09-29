@@ -32,7 +32,7 @@ services:
       - pharmacy-db-elastic:es
 
   pharmacy-db-elastic:
-    image: "nhsuk/elasticsearch-updater-snapshot:20170905"
+    image: "nhsuk/elasticsearch-updater-snapshot:20170921"
 
 
 volumes:

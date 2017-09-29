@@ -1,5 +1,5 @@
 const chai = require('chai');
-const build = require('../../../app/lib/queryBuilder');
+const build = require('../../../app/lib/queryBuilder').build;
 
 const expect = chai.expect;
 const location = { longitude: -1.46519099452929, latitude: 54.0095586395326 };
