@@ -19,8 +19,8 @@ function getSearchCoordinates(req) {
 }
 
 function getLimits(req) {
-  const nearby = req.query['limits:results:nearby'] || 3;
-  const open = req.query['limits:results:open'] || 1;
+  const nearby = Number(req.query['limits:results:nearby']) || 3;
+  const open = Number(req.query['limits:results:open']) || 1;
   // Given how search performance is impacted by the radius of the search
   // it has intentionaly not been allowed to be specificed by the client
   const searchRadius = 20;

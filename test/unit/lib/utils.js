@@ -27,4 +27,18 @@ describe('utils', () => {
       expect(clone).to.not.deep.equal(objToClone);
     });
   });
+
+  describe('dedupeByKey', () => {
+    it('should remove values with duplicate keys', () => {
+      const array = [
+        { name: 'one', desc: 'first one' },
+        { name: 'two', desc: 'first two' },
+        { name: 'one', desc: 'second one' },
+        { name: 'two', desc: 'second two' },
+        { name: 'three', desc: 'three' },
+      ];
+      const depudeArray = utils.deduplicateByKey(array, 'name');
+      expect(depudeArray.length).to.equal(3);
+    });
+  });
 });
