@@ -20,6 +20,7 @@
     "start-watch": "nodemon server.js | ./node_modules/bunyan/bin/bunyan",
     "test": "NODE_ENV=test mocha --recursive test",
     "test-ci": "yarn lint && yarn coverage-generate && yarn coverage-check && yarn coverage-upload",
+    "test-unit": "NODE_ENV=test mocha --recursive test/unit",
     "test-watch": "yarn test -- --watch --reporter min"
   },
   "repository": {

@@ -5,7 +5,6 @@ const utils = require('./../testUtils');
 
 const expect = chai.expect;
 
-// todo: change 'new Date()' to create moment from string for clarity
 describe('esClient', function test() {
   this.timeout(utils.maxWaitTimeMs);
 
@@ -15,7 +14,7 @@ describe('esClient', function test() {
 
   describe('getOpenPharmacies late at night', () => {
     const location = { longitude: -1.46519099452929, latitude: 54.0095586395326 };
-    const feb14at10pm = moment(new Date(2017, 1, 14, 22, 0, 0));
+    const feb14at10pm = moment('2017-02-14 22:00:00');
     it('should return pharmacies as an array', (done) => {
       esClient.getOpenPharmacies(feb14at10pm, location).then((pharmacies) => {
         expect(pharmacies).to.be.an('array');
@@ -28,7 +27,7 @@ describe('esClient', function test() {
 
   describe('getOpenPharmacies daytime', () => {
     const location = { longitude: -0.973733449344135, latitude: 53.9657775613804 };
-    const friday2pm = moment(new Date(2017, 8, 29, 14, 0, 0));
+    const friday2pm = moment('2017-09-15 14:00:00');
     it('should return pharmacies as an array', (done) => {
       esClient.getOpenPharmacies(friday2pm, location).then((pharmacies) => {
         expect(pharmacies).to.be.an('array');
@@ -41,7 +40,7 @@ describe('esClient', function test() {
 
   describe('getOpenPharmacies daytime 2', () => {
     const location = { longitude: -0.897433791008795, latitude: 54.1592799791386 };
-    const friday2pm = moment(new Date(2017, 8, 29, 14, 0, 0));
+    const friday2pm = moment('2017-09-15 14:00:00');
     it('should return pharmacies as an array', (done) => {
       esClient.getOpenPharmacies(friday2pm, location, 25, 1).then((pharmacies) => {
         expect(pharmacies).to.be.an('array');
@@ -54,9 +53,9 @@ describe('esClient', function test() {
 
   describe('getOpenPharmacies alteration open', () => {
     const location = { longitude: -1.3601, latitude: 50.9778 };
-    const friday2pm = moment(new Date(2017, 3, 15, 11, 0, 0));
+    const alterationsOpen = moment('2017-04-15 11:00:00');
     it('should return pharmacies as an array', (done) => {
-      esClient.getOpenPharmacies(friday2pm, location, 25, 2).then((pharmacies) => {
+      esClient.getOpenPharmacies(alterationsOpen, location, 25, 2).then((pharmacies) => {
         expect(pharmacies).to.be.an('array');
         expect(pharmacies.length).to.equal(2);
         expect(pharmacies[0].name).to.equal('Boyatt Pharmacy');
@@ -68,9 +67,9 @@ describe('esClient', function test() {
 
   describe('getOpenPharmacies alteration closed', () => {
     const location = { longitude: -1.3601, latitude: 50.9778 };
-    const friday2pm = moment(new Date(2017, 3, 15, 8, 45, 0));
+    const alterationsClosed = moment('2017-04-15 08:45:00');
     it('should return pharmacies as an array', (done) => {
-      esClient.getOpenPharmacies(friday2pm, location, 25, 1).then((pharmacies) => {
+      esClient.getOpenPharmacies(alterationsClosed, location, 25, 1).then((pharmacies) => {
         expect(pharmacies).to.be.an('array');
         expect(pharmacies.length).to.equal(1);
         expect(pharmacies[0].name).to.equal('Boots');
