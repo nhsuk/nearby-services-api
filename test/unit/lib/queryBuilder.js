@@ -31,7 +31,6 @@ describe('queryBuilder', () => {
     assertGeoDistance(geoDistance, radius);
   });
 
-  // todo: interim test, needs expanding
   it('buildOpenQuery should accept moment, location, radius, and size parameters', () => {
     const radius = 10;
     const size = 7;
