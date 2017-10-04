@@ -1,8 +1,9 @@
-0.11.0 / TBC
+0.10.0 / TBC
 ==================
 - Upgrade all npm dependencies
+- Add and configure security headers
 
-0.10.0 / 2017-09-08
+0.9.1 / 2017-09-08
 ==================
 - Switch to Elasticsearch back end
 - Upgrade to node 8.4.0
