@@ -19,35 +19,6 @@ describe('app', function test() {
   const latitude = 53.797431921096;
   const coords = { latitude, longitude };
 
-  describe('security headers', () => {
-    it('should be returned for a valid request', (done) => {
-      chai.request(app)
-        .get('/nearby')
-        .query({ latitude, longitude })
-        .end((err, res) => {
-          expect(res).to.have.header('X-Xss-Protection', '1; mode=block');
-          expect(res).to.have.header('X-Frame-Options', 'SAMEORIGIN');
-          expect(res).to.have.header('X-Content-Type-Options', 'nosniff');
-          expect(res).to.have.header('X-Download-Options', 'noopen');
-          expect(res).to.not.have.header('X-Powered-By');
-          done();
-        });
-    });
-
-    it('should be returned for an invalid request', (done) => {
-      chai.request(app)
-        .get('/nearby')
-        .end((err, res) => {
-          expect(res).to.have.header('X-Xss-Protection', '1; mode=block');
-          expect(res).to.have.header('X-Frame-Options', 'SAMEORIGIN');
-          expect(res).to.have.header('X-Content-Type-Options', 'nosniff');
-          expect(res).to.have.header('X-Download-Options', 'noopen');
-          expect(res).to.not.have.header('X-Powered-By');
-          done();
-        });
-    });
-  });
-
   describe('nearby happy path', () => {
     it('should return an object containing 3 nearby and 1 open services by default', (done) => {
       chai.request(app)
