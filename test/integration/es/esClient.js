@@ -91,7 +91,7 @@ describe('esClient', function test() {
 
     it('should return pharmacies populated with distance from location', (done) => {
       esClient.getPharmacies(location).then((pharmacies) => {
-        pharmacies.forEach(p => expect(p.dis).to.be.greaterThan(0, `Pharmacy ${p.identifier} does not have a distance`));
+        pharmacies.forEach(p => expect(p.distanceInMiles).to.be.greaterThan(0, `Pharmacy ${p.identifier} does not have a distance`));
         done();
       }).catch(done);
     });

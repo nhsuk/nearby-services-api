@@ -10,7 +10,7 @@ function mapResults(results) {
   return results.hits.hits.map((hit) => {
     // eslint-disable-next-line no-underscore-dangle
     const pharmacy = hit._source;
-    pharmacy.dis = hit.sort[0];
+    pharmacy.distanceInMiles = hit.sort[0];
     return pharmacy;
   });
 }
