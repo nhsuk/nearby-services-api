@@ -12,29 +12,29 @@ function assertGeoDistance(geoDistance, radius) {
 }
 
 describe('queryBuilder', () => {
-  it('build radius should default to 25 miles', () => {
-    const query = queryBuilder.build(location);
+  it('buildNearestQuery radius should default to 25 miles', () => {
+    const query = queryBuilder.buildNearestQuery(location);
     expect(query.body.query.bool.filter.geo_distance.distance).to.equal('25mi');
   });
 
-  it('build number of results should default to 2500', () => {
-    const query = queryBuilder.build(location);
+  it('buildNearestQuery number of results should default to 2500', () => {
+    const query = queryBuilder.buildNearestQuery(location);
     expect(query.body.size).to.equal(2500);
   });
 
-  it('build should accept location, radius, and size parameters', () => {
+  it('buildNearestQuery should accept location, radius, and size parameters', () => {
     const radius = 10;
     const size = 7;
-    const query = queryBuilder.build(location, radius, size);
+    const query = queryBuilder.buildNearestQuery(location, radius, size);
     expect(query.body.size).to.equal(size);
     const geoDistance = query.body.query.bool.filter.geo_distance;
     assertGeoDistance(geoDistance, radius);
   });
 
-  it('buildOpenQuery should accept moment, location, radius, and size parameters', () => {
+  it('buildNearestOpenQuery should accept moment, location, radius, and size parameters', () => {
     const radius = 10;
     const size = 7;
-    const query = queryBuilder.buildOpenQuery(moment('2017-09-15 14:00:00'), location, radius, size);
+    const query = queryBuilder.buildNearestOpenQuery(moment('2017-09-15 14:00:00'), location, radius, size);
     expect(query.body.size).to.equal(size);
     const geoDistance = query.body.query.constant_score.filter.bool.must[1].geo_distance;
     assertGeoDistance(geoDistance, radius);

@@ -1,11 +1,8 @@
 const chai = require('chai');
 const moment = require('moment');
-// const promClient = require('../../../app/lib/promBundle').promClient;
 const addMessages = require('../../../app/lib/addMessages');
 
 const expect = chai.expect;
-// clear metrics so test watch reload runs OK
-// promClient.register.clear();
 
 describe('addMessages', () => {
   const alwaysOpenOrg = {

@@ -38,7 +38,7 @@ describe('metrics end point', () => {
   });
 
   it('should return a filter_services histogram', () => {
-    expect(responseText).to.have.string('# HELP filter_services Duration histogram of filtering the returned pharmacies based on their openness\n# TYPE filter_services histogram');
+    expect(responseText).to.have.string('# HELP add_messages Duration histogram of adding friendly messages to the returned pharmacies based on their openness and current time');
   });
 
   it('should return the default metrics', () => {

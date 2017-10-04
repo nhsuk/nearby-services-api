@@ -2,6 +2,7 @@
 ==================
 - Upgrade all npm dependencies
 - Add and configure security headers
+- Move pharmacy open logic to an Elasticsearch query
 
 0.9.1 / 2017-09-08
 ==================

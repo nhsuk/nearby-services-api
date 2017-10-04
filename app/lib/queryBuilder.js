@@ -119,7 +119,7 @@ function getSortByLocation(location) {
   ];
 }
 
-function getComplexQuery(moment, radius, location) {
+function getOpenAndNearestQuery(moment, radius, location) {
   const minutesSinceMidnightMonday = timeToMinutesSinceMidnightMonday(moment);
   const minutesSinceMidnight = timeToMinutesSinceMidnight(moment);
   const dateString = moment.format('YYYY-MM-DD');
@@ -157,14 +157,14 @@ function getComplexQuery(moment, radius, location) {
   };
 }
 
-function buildOpenQuery(moment, location, radius = 25, size = 4) {
+function buildNearestOpenQuery(moment, location, radius = 25, size = 4) {
   const openQuery = getBaseQuery(size);
-  openQuery.body.query = getComplexQuery(moment, radius, location);
+  openQuery.body.query = getOpenAndNearestQuery(moment, radius, location);
   openQuery.body.sort = getSortByLocation(location);
   return openQuery;
 }
 
-function build(location, radius = 25, size = 2500) {
+function buildNearestQuery(location, radius = 25, size = 2500) {
   const query = getBaseQuery(size);
   query.body.query.bool.filter = getGeoQuery(radius, location);
   query.body.sort = getSortByLocation(location);
@@ -172,6 +172,6 @@ function build(location, radius = 25, size = 2500) {
 }
 
 module.exports = {
-  build,
-  buildOpenQuery,
+  buildNearestQuery,
+  buildNearestOpenQuery,
 };

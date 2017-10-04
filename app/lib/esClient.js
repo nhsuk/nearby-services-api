@@ -1,8 +1,8 @@
 const log = require('./logger');
 const elasticsearch = require('elasticsearch');
 const esConfig = require('../../config/config').es;
-const build = require('./queryBuilder').build;
-const buildOpenQuery = require('./queryBuilder').buildOpenQuery;
+const buildNearestQuery = require('./queryBuilder').buildNearestQuery;
+const buildNearestOpenQuery = require('./queryBuilder').buildNearestOpenQuery;
 
 const client = elasticsearch.Client({ host: `${esConfig.host}:${esConfig.port}` });
 
@@ -17,7 +17,7 @@ function mapResults(results) {
 
 async function getPharmacies(location, radius, size) {
   try {
-    const results = await client.search(build(location, radius, size));
+    const results = await client.search(buildNearestQuery(location, radius, size));
     log.info({
       numberOfResults: results.hits.total, location, radius, size
     }, 'ES results returned.');
@@ -32,7 +32,7 @@ async function getPharmacies(location, radius, size) {
 
 async function getOpenPharmacies(time, location, radius, size) {
   try {
-    const results = await client.search(buildOpenQuery(time, location, radius, size));
+    const results = await client.search(buildNearestOpenQuery(time, location, radius, size));
     log.info({
       numberOfResults: results.hits.total, location, radius, size
     }, 'ES results returned.');

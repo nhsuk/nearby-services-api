@@ -4,7 +4,7 @@ const addMessages = require('./addMessages');
 const getDateTime = require('./getDateTime');
 const VError = require('verror').VError;
 const esGetPharmacyHistogram = require('./promHistograms').esGetPharmacy;
-const filterServicesHistogram = require('../lib/promHistograms').filterServices;
+const addMessagesHistogram = require('../lib/promHistograms').addMessages;
 
 async function getNearbyServices(searchCoordinates, limits) {
   let endTimer;
@@ -31,7 +31,7 @@ async function getNearbyServices(searchCoordinates, limits) {
     endTimer();
   }
 
-  const fiterTimer = filterServicesHistogram.startTimer();
+  const fiterTimer = addMessagesHistogram.startTimer();
   const results = {
     nearbyServices: addMessages(nearbyPharmacies),
     openServices: addMessages(openPharmacies),
