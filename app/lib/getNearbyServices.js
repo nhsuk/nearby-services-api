@@ -3,41 +3,65 @@ const esClient = require('./esClient');
 const addMessages = require('./addMessages');
 const getDateTime = require('./getDateTime');
 const VError = require('verror').VError;
-const esGetPharmacyHistogram = require('./promHistograms').esGetPharmacy;
-const addMessagesHistogram = require('../lib/promHistograms').addMessages;
+const esGetNearbyPharmacyHistogram = require('./promHistograms').esGetNearbyPharmacy;
+const esGetOpenPharmacyHistogram = require('../lib/promHistograms').esGetOpenPharmacy;
+const esGetTotalPharmacyHistogram = require('../lib/promHistograms').esGetTotalPharmacy;
 
-async function getNearbyServices(searchCoordinates, limits) {
-  let endTimer;
-  let nearbyPharmacies;
-  let openPharmacies;
-
+async function getOpenPharmacies(now, searchCoordinates, limits) {
+  let openTimer;
   try {
-    endTimer = esGetPharmacyHistogram.startTimer();
-    openPharmacies = await esClient.getOpenPharmacies(
-      getDateTime(),
+    openTimer = esGetOpenPharmacyHistogram.startTimer();
+    const openPharmacies = await esClient.getOpenPharmacies(
+      now,
       searchCoordinates,
       limits.searchRadius,
       limits.open
     );
-    nearbyPharmacies = await esClient.getPharmacies(
-      searchCoordinates,
-      limits.searchRadius,
-      limits.nearby
-    );
+    return openPharmacies;
   } catch (err) {
     log.error({ err: new VError(err) });
     throw err;
   } finally {
-    endTimer();
+    openTimer();
   }
+}
 
-  const fiterTimer = addMessagesHistogram.startTimer();
-  const results = {
-    nearbyServices: addMessages(nearbyPharmacies),
-    openServices: addMessages(openPharmacies),
-  };
-  fiterTimer();
-  return results;
+async function getNearbyPharmacies(searchCoordinates, limits) {
+  let nearbyTimer;
+  try {
+    nearbyTimer = esGetNearbyPharmacyHistogram.startTimer();
+    const nearbyPharmacies = await esClient.getPharmacies(
+      searchCoordinates,
+      limits.searchRadius,
+      limits.nearby
+    );
+    return nearbyPharmacies;
+  } catch (err) {
+    log.error({ err: new VError(err) });
+    throw err;
+  } finally {
+    nearbyTimer();
+  }
+}
+
+async function getNearbyServices(searchCoordinates, limits) {
+  let totalTimer;
+  try {
+    totalTimer = esGetTotalPharmacyHistogram.startTimer();
+
+    const now = getDateTime();
+    const openPharmacies = await getOpenPharmacies(now, searchCoordinates, limits);
+    const nearbyPharmacies = await getNearbyPharmacies(searchCoordinates, limits);
+    return {
+      nearbyServices: addMessages(nearbyPharmacies, now),
+      openServices: addMessages(openPharmacies, now),
+    };
+  } catch (err) {
+    log.error({ err: new VError(err) });
+    throw err;
+  } finally {
+    totalTimer();
+  }
 }
 
 module.exports = getNearbyServices;

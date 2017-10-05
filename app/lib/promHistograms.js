@@ -2,6 +2,7 @@ const promClient = require('./promBundle').promClient;
 const buckets = require('./constants').promHistogramBuckets;
 
 module.exports = {
-  esGetPharmacy: new promClient.Histogram({ name: 'es_get_pharmacy', help: 'Duration histogram of Elasticsearch request to get Pharmacies', buckets }),
-  addMessages: new promClient.Histogram({ name: 'add_messages', help: 'Duration histogram of adding friendly messages to the returned pharmacies based on their openness and current time', buckets }),
+  esGetNearbyPharmacy: new promClient.Histogram({ name: 'es_get_nearby_pharmacy', help: 'Duration histogram of Elasticsearch request to get nearby Pharmacies', buckets }),
+  esGetOpenPharmacy: new promClient.Histogram({ name: 'es_get_open_pharmacy', help: 'Duration histogram of Elasticsearch request to get open Pharmacies', buckets }),
+  esGetTotalPharmacy: new promClient.Histogram({ name: 'es_get_total_pharmacy', help: 'Duration histogram of sum of both Elasticsearch requests to get Pharmacies', buckets }),
 };

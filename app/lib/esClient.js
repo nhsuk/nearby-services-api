@@ -15,12 +15,19 @@ function mapResults(results) {
   });
 }
 
+function validateResults(results) {
+  if (!results || !results.hits || !results.hits.hits) {
+    throw new Error('ES results.hits.hits undefined');
+  }
+}
+
 async function getPharmacies(location, radius, size) {
   try {
     const results = await client.search(buildNearestQuery(location, radius, size));
+    validateResults(results);
     log.info({
       numberOfResults: results.hits.total, location, radius, size
-    }, 'ES results returned.');
+    }, 'ES results returned from get nearby pharmacies.');
     return mapResults(results);
   } catch (error) {
     log.error({
@@ -33,9 +40,10 @@ async function getPharmacies(location, radius, size) {
 async function getOpenPharmacies(time, location, radius, size) {
   try {
     const results = await client.search(buildNearestOpenQuery(time, location, radius, size));
+    validateResults(results);
     log.info({
       numberOfResults: results.hits.total, location, radius, size
-    }, 'ES results returned.');
+    }, 'ES results returned from get open pharmacies.');
     return mapResults(results);
   } catch (error) {
     log.error({

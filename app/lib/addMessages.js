@@ -1,4 +1,3 @@
-const getDateTime = require('../lib/getDateTime');
 const OpeningTimes = require('moment-opening-times');
 const getOpeningHoursMessage = require('../lib/getOpeningTimesMessage');
 const midnightSpanCorrector = require('../lib/midnightSpanCorrector');
@@ -29,8 +28,7 @@ function addMessage(item, now) {
   return item;
 }
 
-function addMessages(services) {
-  const now = getDateTime();
+function addMessages(services, now) {
   return services.map(service => addMessage(service, now));
 }
 

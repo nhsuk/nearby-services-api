@@ -101,8 +101,8 @@ describe('esClient', function test() {
       const resultsLimit = 100;
       Promise
         .all([
-          esClient.getPharmacies(location, resultsLimit, 5),
-          esClient.getPharmacies(location, resultsLimit, 1)
+          esClient.getPharmacies(location, 5, resultsLimit),
+          esClient.getPharmacies(location, 1, resultsLimit)
         ])
         .then((pharmacies) => {
           expect(pharmacies[0].length).to.be.greaterThan(pharmacies[1].length);
