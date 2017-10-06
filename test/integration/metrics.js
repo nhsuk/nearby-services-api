@@ -33,16 +33,16 @@ describe('metrics end point', () => {
     expect(responseText).to.have.string('# HELP app_starts The number of times the application has been started\n# TYPE app_starts counter');
   });
 
-  it('should return an es_get_nearby_pharmacy histogram', () => {
-    expect(responseText).to.have.string('# HELP es_get_nearby_pharmacy Duration histogram of Elasticsearch request to get nearby Pharmacies\n# TYPE es_get_nearby_pharmacy histogram');
+  it('should return an es_get_nearby_pharmacies histogram', () => {
+    expect(responseText).to.have.string('# HELP es_get_nearby_pharmacies Duration histogram of Elasticsearch request to get nearby Pharmacies\n# TYPE es_get_nearby_pharmacies histogram');
   });
 
-  it('should return a es_get_open_pharmacy histogram', () => {
-    expect(responseText).to.have.string('# HELP es_get_open_pharmacy Duration histogram of Elasticsearch request to get open Pharmacies\n# TYPE es_get_open_pharmacy histogram');
+  it('should return an es_get_open_pharmacies histogram', () => {
+    expect(responseText).to.have.string('# HELP es_get_open_pharmacies Duration histogram of Elasticsearch request to get open Pharmacies\n# TYPE es_get_open_pharmacies histogram');
   });
 
-  it('should return a es_get_total_pharmacy histogram', () => {
-    expect(responseText).to.have.string('# HELP es_get_total_pharmacy Duration histogram of sum of both Elasticsearch requests to get Pharmacies\n# TYPE es_get_total_pharmacy histogram');
+  it('should return an es_get_pharmacies histogram', () => {
+    expect(responseText).to.have.string('# HELP es_get_pharmacies Duration histogram of Elasticsearch request to get Pharmacies\n# TYPE es_get_pharmacies histogram');
   });
 
   it('should return the default metrics', () => {

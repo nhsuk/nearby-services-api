@@ -7,8 +7,8 @@ const addMessages = require('./addMessages');
 const getDateTime = require('./getDateTime');
 const VError = require('verror').VError;
 const esGetNearbyPharmacyHistogram = require('./promHistograms').esGetNearbyPharmacy;
-const esGetOpenPharmacyHistogram = require('../lib/promHistograms').esGetOpenPharmacy;
-const esGetTotalPharmacyHistogram = require('../lib/promHistograms').esGetTotalPharmacy;
+const esGetOpenPharmacyHistogram = require('./promHistograms').esGetOpenPharmacy;
+const esGetTotalPharmacyHistogram = require('./promHistograms').esGetTotalPharmacy;
 
 async function getOpenPharmacies(now, searchCoordinates, limits) {
   let openTimer;
