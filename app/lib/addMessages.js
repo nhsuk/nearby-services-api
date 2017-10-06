@@ -1,9 +1,15 @@
 const OpeningTimes = require('moment-opening-times');
+
+const timezone = require('../../config/config').timezone;
 const getOpeningHoursMessage = require('../lib/getOpeningTimesMessage');
 const midnightSpanCorrector = require('../lib/midnightSpanCorrector');
 
 function getOpeningInfo(openingTimes, now) {
-  const openingTimesMoment = new OpeningTimes(openingTimes.general, 'Europe/London', openingTimes.alterations);
+  const openingTimesMoment = new OpeningTimes(
+    openingTimes.general,
+    timezone,
+    openingTimes.alterations
+  );
   let status = openingTimesMoment.getStatus(now, { next: true });
   status = midnightSpanCorrector(openingTimesMoment, status);
   return {

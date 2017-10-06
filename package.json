@@ -38,6 +38,7 @@
     "helmet": "^3.8.1",
     "moment": "^2.16.0",
     "moment-opening-times": "^2.3.0",
+    "moment-timezone": "^0.5.13",
     "nhsuk-bunyan-logger": "^1.4.1",
     "verror": "^1.9.0"
   },

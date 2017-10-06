@@ -4,4 +4,5 @@ module.exports = {
     port: process.env.ES_PORT || '9200',
     index: process.env.ES_INDEX || 'pharmacies'
   },
+  timezone: 'Europe/London'
 };
