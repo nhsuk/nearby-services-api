@@ -6,8 +6,8 @@
   "main": "server.js",
   "scripts": {
     "coverage-check": "istanbul check-coverage --config .istanbul.yml",
-    "coverage-generate": "yarn istanbul cover -- _mocha -- --recursive",
-    "coverage-generate-unit": "yarn istanbul cover -- _mocha -- --recursive test/unit",
+    "coverage-generate": "yarn istanbul cover -- _mocha -- --exit --recursive",
+    "coverage-generate-unit": "yarn istanbul cover -- _mocha -- --exit --recursive test/unit",
     "coverage-upload": "cat ./coverage/lcov.info | coveralls",
     "git-hook": "yarn lint && yarn coverage-generate-unit && yarn coverage-check",
     "istanbul": "NODE_ENV=test istanbul",
@@ -18,7 +18,7 @@
     "prepush": "yarn git-hook && yarn snyk test",
     "start": "node server.js",
     "start-watch": "nodemon server.js | ./node_modules/bunyan/bin/bunyan",
-    "test": "NODE_ENV=test mocha --recursive test",
+    "test": "NODE_ENV=test mocha --exit --recursive test",
     "test-ci": "yarn lint && yarn coverage-generate && yarn coverage-check && yarn coverage-upload",
     "test-unit-watch": "NODE_ENV=test mocha --watch --recursive test/unit",
     "test-watch": "yarn test -- --watch --reporter min"
@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "elasticsearch": "^13.3.1",
-    "express": "^4.15.5",
+    "express": "4.15.5",
     "express-prom-bundle": "^3.1.0",
     "express-validator": "^4.0.0",
     "helmet": "^3.8.1",
@@ -56,7 +56,7 @@
     "eslint-watch": "^3.1.2",
     "husky": "^0.14.3",
     "istanbul": "^1.1.0-alpha.1",
-    "mocha": "^3.5.3",
+    "mocha": "^4.0.0",
     "nodemon": "^1.11.0",
     "snyk": "^1.41.1"
   },

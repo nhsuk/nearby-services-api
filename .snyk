@@ -60,6 +60,13 @@ ignore:
     - node-pre-gyp > tar-pack > debug:
         reason: Debug is not user facing.
         expires: '2017-10-27T07:54:08.384Z'
+  'npm:mime:20170907':
+    - express > send > mime:
+        reason: Issue with express 4.16.0 dependencies
+        expires: '2017-11-08T13:44:30.784Z'
+    - express > serve-static > send > mime:
+        reason: Issue with express 4.16.0 dependencies
+        expires: '2017-11-08T13:44:30.784Z'
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   'npm:tough-cookie:20160722':
