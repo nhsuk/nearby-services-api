@@ -2684,7 +2684,7 @@ moment-opening-times@^2.3.0:
     moment "^2.14.1"
     moment-timezone "^0.5.4"
 
-moment-timezone@^0.5.4:
+moment-timezone@^0.5.13, moment-timezone@^0.5.4:
   version "0.5.13"
   resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.13.tgz#99ce5c7d827262eb0f1f702044177f60745d7b90"
   dependencies:

@@ -18,7 +18,7 @@ services:
       - pharmacy-db-elastic-test:es
 
   pharmacy-db-elastic-test:
-    image: "nhsuk/elasticsearch-updater-snapshot:20170905"
+    image: "nhsuk/elasticsearch-updater-snapshot:20170921"
 
 volumes:
   api-test-deps:

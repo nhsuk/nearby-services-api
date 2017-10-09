@@ -4,7 +4,7 @@ Date: 2017-06-12
 
 ## Status
 
-Accepted
+Superseded ([0004](https://github.com/nhsuk/nearby-services-api/blob/master/doc/adr/0004-use-elastic-search.md))
 
 ## Context
 
