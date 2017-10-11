@@ -1,4 +1,9 @@
-0.10.0 / TBC
+0.10.1 / 2017-10-10
+==================
+- Upgrade npm dependencies
+- Use Mocha v3 behaviour to exit processes
+
+0.10.0 / 2017-10-09
 ==================
 - Upgrade all npm dependencies
 - Add and configure security headers
