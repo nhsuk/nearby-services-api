@@ -1,3 +1,7 @@
+0.11.0 / 2017-10-17
+==================
+- Apply timezone when getting open messages
+
 0.10.1 / 2017-10-10
 ==================
 - Upgrade npm dependencies
