@@ -52,13 +52,12 @@ async function getNearbyServices(searchCoordinates, limits) {
   try {
     totalTimer = esGetTotalPharmacyHistogram.startTimer();
 
-    const now = getDateTime();
-    const nowInTimezone = now.clone().tz(timezone);
+    const nowInTimezone = getDateTime().clone().tz(timezone);
     const openPharmacies = await getOpenPharmacies(nowInTimezone, searchCoordinates, limits);
     const nearbyPharmacies = await getNearbyPharmacies(searchCoordinates, limits);
     return {
-      nearbyServices: addMessages(nearbyPharmacies, now),
-      openServices: addMessages(openPharmacies, now),
+      nearbyServices: addMessages(nearbyPharmacies, nowInTimezone),
+      openServices: addMessages(openPharmacies, nowInTimezone),
     };
   } catch (err) {
     log.error({ err: new VError(err) });
