@@ -1,4 +1,4 @@
-0.11.0 / 2017-10-17
+0.10.2 / 2017-10-17
 ==================
 - Apply timezone when getting open messages
 

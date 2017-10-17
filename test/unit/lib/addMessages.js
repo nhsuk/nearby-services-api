@@ -35,7 +35,7 @@ describe('addMessages', () => {
     const spanningSundayMidnightOrg = {
       openingTimes: {
         general: {
-          monday: [{ opens: '0:00', closes: '20:00' }, { opens: '23:00', closes: '23:59' }],
+          monday: [{ opens: '00:00', closes: '20:00' }, { opens: '23:00', closes: '23:59' }],
           tuesday: [{ opens: '00:00', closes: '23:59' }],
           wednesday: [{ opens: '00:00', closes: '23:59' }],
           thursday: [{ opens: '00:00', closes: '23:59' }],
