@@ -1,4 +1,4 @@
-FROM node:8.4.0-alpine
+FROM node:8.8.0-alpine
 RUN apk add --no-cache git
 
 ENV USERNAME nodeuser
