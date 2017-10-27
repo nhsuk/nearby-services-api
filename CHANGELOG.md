@@ -1,6 +1,6 @@
 0.11.0 / 2017-10-31
 ==================
-- Upgrade Docker container to `node:8.8.0-alpine`
+- Upgrade Docker container to `node:8.8.1-alpine`
 - Update npm dependencies
 
 0.10.2 / 2017-10-17
