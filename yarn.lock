@@ -1045,15 +1045,15 @@ eslint-config-airbnb-base@^12.0.0:
   dependencies:
     eslint-restricted-globals "^0.1.1"
 
-eslint-config-nhsuk@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-nhsuk/-/eslint-config-nhsuk-0.5.0.tgz#114b54a6364b758f15c9fc38229e8887f61e38d8"
+eslint-config-nhsuk@0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-nhsuk/-/eslint-config-nhsuk-0.7.0.tgz#df47222526a2f8a50ee8ca72b5e1c4f792d2ae77"
   dependencies:
-    eslint "^4.6.1"
+    eslint "^4.0.0"
     eslint-config-airbnb-base "^12.0.0"
-    eslint-plugin-import "^2.6.1"
-    eslint-plugin-json "^1.2.0"
-    eslint-plugin-mocha "^4.11.0"
+    eslint-plugin-import "^2.0.0"
+    eslint-plugin-json "^1.0.0"
+    eslint-plugin-mocha "^4.0.0"
 
 eslint-import-resolver-node@^0.3.1:
   version "0.3.1"
@@ -1069,7 +1069,7 @@ eslint-module-utils@^2.1.1:
     debug "^2.6.8"
     pkg-dir "^1.0.0"
 
-eslint-plugin-import@^2.6.1, eslint-plugin-import@^2.7.0:
+eslint-plugin-import@^2.0.0, eslint-plugin-import@^2.7.0:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.8.0.tgz#fa1b6ef31fcb3c501c09859c1b86f1fc5b986894"
   dependencies:
@@ -1084,13 +1084,13 @@ eslint-plugin-import@^2.6.1, eslint-plugin-import@^2.7.0:
     minimatch "^3.0.3"
     read-pkg-up "^2.0.0"
 
-eslint-plugin-json@^1.2.0:
+eslint-plugin-json@^1.0.0, eslint-plugin-json@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-json/-/eslint-plugin-json-1.2.0.tgz#9ba73bb0be99d50093e889f5b968463d2a30efae"
   dependencies:
     jshint "^2.8.0"
 
-eslint-plugin-mocha@^4.11.0:
+eslint-plugin-mocha@^4.0.0, eslint-plugin-mocha@^4.11.0:
   version "4.11.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-mocha/-/eslint-plugin-mocha-4.11.0.tgz#91193a2f55e20a5e35974054a0089d30198ee578"
   dependencies:
@@ -1123,6 +1123,48 @@ eslint-watch@^3.1.2:
     strip-ansi "^4.0.0"
     text-table "^0.2.0"
     unicons "0.0.3"
+
+eslint@^4.0.0:
+  version "4.10.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.10.0.tgz#f25d0d7955c81968c2309aa5c9a229e045176bb7"
+  dependencies:
+    ajv "^5.2.0"
+    babel-code-frame "^6.22.0"
+    chalk "^2.1.0"
+    concat-stream "^1.6.0"
+    cross-spawn "^5.1.0"
+    debug "^3.0.1"
+    doctrine "^2.0.0"
+    eslint-scope "^3.7.1"
+    espree "^3.5.1"
+    esquery "^1.0.0"
+    estraverse "^4.2.0"
+    esutils "^2.0.2"
+    file-entry-cache "^2.0.0"
+    functional-red-black-tree "^1.0.1"
+    glob "^7.1.2"
+    globals "^9.17.0"
+    ignore "^3.3.3"
+    imurmurhash "^0.1.4"
+    inquirer "^3.0.6"
+    is-resolvable "^1.0.0"
+    js-yaml "^3.9.1"
+    json-stable-stringify "^1.0.1"
+    levn "^0.3.0"
+    lodash "^4.17.4"
+    minimatch "^3.0.2"
+    mkdirp "^0.5.1"
+    natural-compare "^1.4.0"
+    optionator "^0.8.2"
+    path-is-inside "^1.0.2"
+    pluralize "^7.0.0"
+    progress "^2.0.0"
+    require-uncached "^1.0.3"
+    semver "^5.3.0"
+    strip-ansi "^4.0.0"
+    strip-json-comments "~2.0.1"
+    table "^4.0.1"
+    text-table "~0.2.0"
 
 eslint@^4.6.1:
   version "4.9.0"
