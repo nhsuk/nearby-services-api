@@ -46,6 +46,15 @@ describe('getOpeningTimesMessage()', () => {
       expect(getOpeningTimesMessage(status)).to.equal('Opening in 30 minutes');
     });
 
+    it('opening in less than a minute should return \'opening in 1 minute\' message', () => {
+      const status = {
+        moment: getMoment('tuesday', 8, 59, 'Europe/London').add(30, 'seconds'),
+        isOpen: false,
+        nextOpen: getMoment('tuesday', 9, 0, 'Europe/London'),
+      };
+      expect(getOpeningTimesMessage(status)).to.equal('Opening in 1 minute');
+    });
+
     it('next opening time unknown should return a \'call for times\' message', () => {
       const status = {
         moment: getMoment('tuesday', 8, 30, 'Europe/London'),

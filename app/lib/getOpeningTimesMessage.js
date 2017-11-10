@@ -26,9 +26,9 @@ function getOpenUntilMidnightMessage(status) {
 }
 
 function getClosedMessage(status) {
-  const timeUntilOpen = status.nextOpen.diff(status.moment, 'minutes');
+  const timeUntilOpen = Math.ceil(status.nextOpen.diff(status.moment, 'minutes', true));
   if (timeUntilOpen <= 60) {
-    return `Opening in ${timeUntilOpen} minutes`;
+    return `Opening in ${timeUntilOpen} ${timeUntilOpen > 1 ? 'minutes' : 'minute'}`;
   }
   return `Closed until ${status.nextOpen.format('h:mm a')} ` +
     `${getDayDescriptor(status.nextOpen, status.moment)}`;
