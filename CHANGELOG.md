@@ -1,5 +1,7 @@
-0.11.1 / 2017-11-10
+0.12.0 / 2017-11-16
 ==================
+- Upgrade Docker container to `node:8.9.1-alpine`
+- Remove redundant `--` for forwarding script options
 - Round up to nearest minute in 'opening in' message
 
 0.11.0 / 2017-10-31
