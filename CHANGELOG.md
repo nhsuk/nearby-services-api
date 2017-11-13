@@ -1,3 +1,7 @@
+0.11.1 / 2017-11-10
+==================
+- Round up to nearest minute in 'opening in' message
+
 0.11.0 / 2017-10-31
 ==================
 - Upgrade Docker container to `node:8.8.1-alpine`
