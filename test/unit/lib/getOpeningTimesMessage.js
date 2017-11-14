@@ -21,20 +21,40 @@ describe('getOpeningTimesMessage()', () => {
       const status = {
         moment: getMoment('tuesday', 18, 0, 'Europe/London'),
         isOpen: false,
+        nextOpen: getMoment('wednesday', 9, 30, 'Europe/London'),
+      };
+
+      expect(getOpeningTimesMessage(status))
+        .to.equal('Closed until 9:30am tomorrow');
+    });
+
+    it('closed until should omit minutes if on the hour in \'closed until x tomorrow\' message', () => {
+      const status = {
+        moment: getMoment('tuesday', 18, 0, 'Europe/London'),
+        isOpen: false,
         nextOpen: getMoment('wednesday', 9, 0, 'Europe/London'),
       };
 
       expect(getOpeningTimesMessage(status))
-        .to.equal('Closed until 9:00 am tomorrow');
+        .to.equal('Closed until 9am tomorrow');
     });
 
     it('opening in 2 hours should return \'closed until x today\' message', () => {
       const status = {
         moment: getMoment('tuesday', 7, 0, 'Europe/London'),
         isOpen: false,
+        nextOpen: getMoment('tuesday', 9, 30, 'Europe/London'),
+      };
+      expect(getOpeningTimesMessage(status)).to.equal('Closed until 9:30am today');
+    });
+
+    it('opening in should omit minutes if on the hour in \'closed until x today\' message', () => {
+      const status = {
+        moment: getMoment('tuesday', 7, 0, 'Europe/London'),
+        isOpen: false,
         nextOpen: getMoment('tuesday', 9, 0, 'Europe/London'),
       };
-      expect(getOpeningTimesMessage(status)).to.equal('Closed until 9:00 am today');
+      expect(getOpeningTimesMessage(status)).to.equal('Closed until 9am today');
     });
 
     it('opening in less than 60 minutes should return \'opening in x minutes\' message', () => {
@@ -43,7 +63,7 @@ describe('getOpeningTimesMessage()', () => {
         isOpen: false,
         nextOpen: getMoment('tuesday', 9, 0, 'Europe/London'),
       };
-      expect(getOpeningTimesMessage(status)).to.equal('Opening in 30 minutes');
+      expect(getOpeningTimesMessage(status)).to.equal('Open in 30 minutes');
     });
 
     it('opening in less than a minute should return \'opening in 1 minute\' message', () => {
@@ -52,7 +72,7 @@ describe('getOpeningTimesMessage()', () => {
         isOpen: false,
         nextOpen: getMoment('tuesday', 9, 0, 'Europe/London'),
       };
-      expect(getOpeningTimesMessage(status)).to.equal('Opening in 1 minute');
+      expect(getOpeningTimesMessage(status)).to.equal('Open in 1 minute');
     });
 
     it('next opening time unknown should return a \'call for times\' message', () => {
@@ -79,7 +99,16 @@ describe('getOpeningTimesMessage()', () => {
         isOpen: true,
         nextClosed: getMoment('tuesday', 17, 30, 'Europe/London'),
       };
-      expect(getOpeningTimesMessage(status)).to.equal('Open until 5:30 pm today');
+      expect(getOpeningTimesMessage(status)).to.equal('Open until 5:30pm today');
+    });
+
+    it('closing in 2 hours should omit minutes if time is on the hour in \'open until x today\' message', () => {
+      const status = {
+        moment: getMoment('tuesday', 16, 0, 'Europe/London'),
+        isOpen: true,
+        nextClosed: getMoment('tuesday', 18, 0, 'Europe/London'),
+      };
+      expect(getOpeningTimesMessage(status)).to.equal('Open until 6pm today');
     });
 
     it('closing in less than 60 minutes should return \'open until x today\' message', () => {
@@ -88,7 +117,7 @@ describe('getOpeningTimesMessage()', () => {
         isOpen: true,
         nextClosed: getMoment('tuesday', 17, 30, 'Europe/London'),
       };
-      expect(getOpeningTimesMessage(status)).to.equal('Open until 5:30 pm today');
+      expect(getOpeningTimesMessage(status)).to.equal('Open until 5:30pm today');
     });
 
     it('closing at 00:00 should return \'Open until midnight\' message', () => {

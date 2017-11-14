@@ -52,7 +52,7 @@ describe('addMessages', () => {
     const momentTime = moment(justAfterMidnightSundayBST).clone().tz('Europe/London');
     const openServices = addMessages(pharmacies, momentTime);
     expect(openServices.length).to.be.equal(1);
-    expect(openServices[0].openingTimesMessage).to.be.equal('Open until 8:00 pm today');
+    expect(openServices[0].openingTimesMessage).to.be.equal('Open until 8pm today');
     expect(openServices[0].isOpen).to.be.equal(true);
   });
 
