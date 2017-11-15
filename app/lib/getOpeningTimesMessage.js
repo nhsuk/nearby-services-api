@@ -25,12 +25,18 @@ function getOpenUntilMidnightMessage(status) {
   return `${message} ${dayDesc}`;
 }
 
+function formatTime(moment) {
+  const formatString = moment.minutes() === 0 ? 'ha' : 'h:mma';
+  return moment.format(formatString);
+}
+
 function getClosedMessage(status) {
   const timeUntilOpen = Math.ceil(status.nextOpen.diff(status.moment, 'minutes', true));
   if (timeUntilOpen <= 60) {
-    return `Opening in ${timeUntilOpen} ${timeUntilOpen > 1 ? 'minutes' : 'minute'}`;
+    const unit = timeUntilOpen > 1 ? 'minutes' : 'minute';
+    return `Open in ${timeUntilOpen} ${unit}`;
   }
-  return `Closed until ${status.nextOpen.format('h:mm a')} ` +
+  return `Closed until ${formatTime(status.nextOpen)} ` +
     `${getDayDescriptor(status.nextOpen, status.moment)}`;
 }
 
@@ -39,8 +45,8 @@ function nextTimeMissing(status) {
 }
 
 function getOpenUntilMessage(status) {
-  return `Open until ${status.nextClosed.format('h:mm a')} ` +
-      `${getDayDescriptor(status.nextClosed, status.moment)}`;
+  return `Open until ${formatTime(status.nextClosed)} ` +
+    `${getDayDescriptor(status.nextClosed, status.moment)}`;
 }
 
 function getOpeningHoursMessage(status) {
