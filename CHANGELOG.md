@@ -4,6 +4,7 @@
 - Remove redundant `--` for forwarding script options
 - Round up to nearest minute in 'opening in' message
 - Update npm dependencies
+- Opening times message changes - opening to open and time formatting
 
 0.11.0 / 2017-10-31
 ==================
