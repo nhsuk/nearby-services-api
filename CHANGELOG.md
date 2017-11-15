@@ -3,6 +3,7 @@
 - Upgrade Docker container to `node:8.9.1-alpine`
 - Remove redundant `--` for forwarding script options
 - Round up to nearest minute in 'opening in' message
+- Update npm dependencies
 
 0.11.0 / 2017-10-31
 ==================
