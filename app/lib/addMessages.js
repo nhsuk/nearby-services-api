@@ -14,7 +14,8 @@ function getOpeningInfo(openingTimes, now) {
   status = midnightSpanCorrector(openingTimesMoment, status);
   return {
     openingTimesMessage: getOpeningHoursMessage(status),
-    isOpen: status.isOpen
+    isOpen: status.isOpen,
+    nextOpen: status.nextOpen,
   };
 }
 
@@ -30,6 +31,7 @@ function addMessage(item, now) {
   /* eslint-disable no-param-reassign */
   item.openingTimesMessage = openingInfo.openingTimesMessage;
   item.isOpen = openingInfo.isOpen;
+  item.nextOpen = openingInfo.nextOpen;
   /* eslint-enable */
   return item;
 }

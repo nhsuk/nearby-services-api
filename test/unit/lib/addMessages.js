@@ -7,6 +7,7 @@ const addMessages = require('../../../app/lib/addMessages');
 const expect = chai.expect;
 
 describe('addMessages', () => {
+  const nowDateString = new Date().toDateString();
   const alwaysOpenOrg = {
     openingTimes: {
       general: {
@@ -21,7 +22,7 @@ describe('addMessages', () => {
     },
   };
 
-  it('should return the opening times message and open state', () => {
+  it('should return the opening times message, open status and next open', () => {
     const pharmacies = [alwaysOpenOrg];
 
     const openServices = addMessages(pharmacies, moment());
@@ -29,9 +30,12 @@ describe('addMessages', () => {
     expect(openServices.length).to.be.equal(1);
     expect(openServices[0].isOpen).to.be.equal(true);
     expect(openServices[0].openingTimesMessage).to.be.equal('Open 24 hours');
+    expect(openServices[0].nextOpen).to.not.be.undefined;
+    expect(new Date(openServices[0].nextOpen).toDateString()).to.be.equal(nowDateString);
   });
 
-  it('should return the opening times message and open state when between 12:00am and 01:00am Bristish Summer Time', () => {
+  it('should return the opening times message, open status and next open when between 12:00am and 01:00am British Summer Time', () => {
+    const nextOpenDateString = new Date('2017-10-15').toDateString();
     const spanningSundayMidnightOrg = {
       openingTimes: {
         general: {
@@ -54,6 +58,8 @@ describe('addMessages', () => {
     expect(openServices.length).to.be.equal(1);
     expect(openServices[0].openingTimesMessage).to.be.equal('Open until 8pm today');
     expect(openServices[0].isOpen).to.be.equal(true);
+    expect(openServices[0].nextOpen).to.not.be.undefined;
+    expect(new Date(openServices[0].nextOpen).toDateString()).to.be.equal(nextOpenDateString);
   });
 
   it('should use alterations opening times', () => {
@@ -82,6 +88,8 @@ describe('addMessages', () => {
 
     expect(openServices[0].isOpen).to.be.equal(true);
     expect(openServices[0].openingTimesMessage).to.be.equal('Open until midnight');
+    expect(openServices[0].nextOpen).to.not.be.undefined;
+    expect(new Date(openServices[0].nextOpen).toDateString()).to.be.equal(nowDateString);
   });
 
   it('should say call for opening times when the org does not have any opening times', () => {
@@ -92,5 +100,6 @@ describe('addMessages', () => {
     expect(nearbyServices.length).to.be.equal(1);
     expect(nearbyServices[0].isOpen).to.be.equal(false);
     expect(nearbyServices[0].openingTimesMessage).to.be.equal('Call for opening times');
+    expect(nearbyServices[0].nextOpen).to.be.undefined;
   });
 });
