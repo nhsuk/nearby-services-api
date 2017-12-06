@@ -1,5 +1,9 @@
+0.13.0 / 2017-12-12
+===================
+- Return `nextOpen` in response
+
 0.12.0 / 2017-11-16
-==================
+===================
 - Upgrade Docker container to `node:8.9.1-alpine`
 - Remove redundant `--` for forwarding script options
 - Round up to nearest minute in 'opening in' message
@@ -7,21 +11,21 @@
 - Opening times message changes - opening to open and time formatting
 
 0.11.0 / 2017-10-31
-==================
+===================
 - Upgrade Docker container to `node:8.8.1-alpine`
 - Update npm dependencies
 
 0.10.2 / 2017-10-17
-==================
+===================
 - Apply timezone when getting open messages
 
 0.10.1 / 2017-10-10
-==================
+===================
 - Upgrade npm dependencies
 - Use Mocha v3 behaviour to exit processes
 
 0.10.0 / 2017-10-09
-==================
+===================
 - Upgrade all npm dependencies
 - Add and configure security headers
 - Move pharmacy open logic to an Elasticsearch query
