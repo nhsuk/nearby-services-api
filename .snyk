@@ -5,8 +5,24 @@ ignore:
   'npm:mime:20170907':
     - express > send > mime:
         reason: Express 4.16 has problems
-        expires: '2017-11-24T08:36:25.115Z'
+        expires: '2018-01-06T09:51:10.110Z'
     - express > serve-static > send > mime:
         reason: Express 4.16 has problems
-        expires: '2017-11-24T08:36:25.115Z'
+        expires: '2018-01-06T09:51:10.110Z'
+  'npm:moment:20170905':
+    - moment:
+        reason: Not user facing
+        expires: '2018-01-06T09:51:10.110Z'
+    - moment-opening-times > moment:
+        reason: Not user facing
+        expires: '2018-01-06T09:51:10.110Z'
+    - moment-opening-times > moment-timezone > moment:
+        reason: Not user facing
+        expires: '2018-01-06T09:51:10.110Z'
+    - moment-timezone > moment:
+        reason: Not user facing
+        expires: '2018-01-06T09:51:10.110Z'
+    - nhsuk-bunyan-logger > bunyan > moment:
+        reason: Not user facing
+        expires: '2018-01-06T09:51:10.110Z'
 patch: {}
