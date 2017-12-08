@@ -28,6 +28,17 @@ describe('getOpeningTimesMessage()', () => {
         .to.equal('Closed until 9:30am tomorrow');
     });
 
+    it('opening beyond tomorrow should return \'closed until x Friday\' message', () => {
+      const status = {
+        moment: getMoment('tuesday', 18, 0, 'Europe/London'),
+        isOpen: false,
+        nextOpen: getMoment('friday', 9, 30, 'Europe/London'),
+      };
+
+      expect(getOpeningTimesMessage(status))
+        .to.equal('Closed until 9:30am Friday');
+    });
+
     it('closed until should omit minutes if on the hour in \'closed until x tomorrow\' message', () => {
       const status = {
         moment: getMoment('tuesday', 18, 0, 'Europe/London'),
@@ -155,4 +166,3 @@ describe('getOpeningTimesMessage()', () => {
     });
   });
 });
-

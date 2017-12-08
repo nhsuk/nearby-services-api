@@ -1,6 +1,7 @@
 0.13.0 / 2017-12-12
 ===================
 - Return `nextOpen` in response
+- Add test for opening beyond tomorrow
 
 0.12.0 / 2017-11-16
 ===================
