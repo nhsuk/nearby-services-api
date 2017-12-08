@@ -3,6 +3,7 @@ const moment = require('moment');
 require('moment-timezone');
 
 const addMessages = require('../../../app/lib/addMessages');
+const utils = require('../../../app/lib/utils');
 
 const expect = chai.expect;
 
@@ -21,17 +22,24 @@ describe('addMessages', () => {
     },
   };
 
-  it('should return the opening times message and open state', () => {
+  it('should return the opening times message, open status and next open', () => {
+    const momentString = '2017-01-02 11:00';
+    const momentInstance = moment(momentString);
+    const nextOpenDateString = momentInstance.format('ddd MMM DD YYYY');
     const pharmacies = [alwaysOpenOrg];
 
-    const openServices = addMessages(pharmacies, moment());
+    const openServices = addMessages(pharmacies, momentInstance);
 
     expect(openServices.length).to.be.equal(1);
     expect(openServices[0].isOpen).to.be.equal(true);
     expect(openServices[0].openingTimesMessage).to.be.equal('Open 24 hours');
+    expect(openServices[0].nextOpen).to.not.be.undefined;
+    expect(new Date(openServices[0].nextOpen).toDateString()).to.be.equal(nextOpenDateString);
   });
 
-  it('should return the opening times message and open state when between 12:00am and 01:00am Bristish Summer Time', () => {
+  it('should return the opening times message, open status and next open when between 12:00am and 01:00am British Summer Time', () => {
+    const justAfterMidnightSundayBST = '2017-10-15T23:00:53.000Z';
+    const nextOpenDateString = new Date(justAfterMidnightSundayBST).toDateString();
     const spanningSundayMidnightOrg = {
       openingTimes: {
         general: {
@@ -47,17 +55,20 @@ describe('addMessages', () => {
     };
     const pharmacies = [spanningSundayMidnightOrg];
 
-    const justAfterMidnightSundayBST = '2017-10-15T23:00:53.000Z';
     // timezone required for correct results
     const momentTime = moment(justAfterMidnightSundayBST).clone().tz('Europe/London');
     const openServices = addMessages(pharmacies, momentTime);
     expect(openServices.length).to.be.equal(1);
     expect(openServices[0].openingTimesMessage).to.be.equal('Open until 8pm today');
     expect(openServices[0].isOpen).to.be.equal(true);
+    expect(openServices[0].nextOpen).to.not.be.undefined;
+    expect(new Date(openServices[0].nextOpen).toDateString()).to.be.equal(nextOpenDateString);
   });
 
   it('should use alterations opening times', () => {
-    const nowDate = moment().format('YYYY-MM-DD');
+    const momentDate = '2017-03-01';
+    const nextOpenDateString = new Date(momentDate).toDateString();
+    const nowDate = moment(momentDate).format('YYYY-MM-DD');
     const alterations = {};
     alterations[nowDate] = [{ opens: '00:00', closes: '23:59' }];
 
@@ -78,10 +89,33 @@ describe('addMessages', () => {
 
     const pharmacies = [orgWithAlterations];
 
-    const openServices = addMessages(pharmacies, moment());
+    const openServices = addMessages(pharmacies, moment(momentDate));
 
     expect(openServices[0].isOpen).to.be.equal(true);
     expect(openServices[0].openingTimesMessage).to.be.equal('Open until midnight');
+    expect(openServices[0].nextOpen).to.not.be.undefined;
+    expect(new Date(openServices[0].nextOpen).toDateString()).to.be.equal(nextOpenDateString);
+  });
+
+  it('should return nextOpen as the next time open when not already open', () => {
+    const momentDate = '2017-03-01';
+    const nextOpenDate = '2017-03-02';
+    const nextOpenDateString = new Date(nextOpenDate).toDateString();
+    const nowDate = moment(momentDate).format('YYYY-MM-DD');
+    const alterations = {};
+    alterations[nowDate] = [];
+
+    const orgWithAlterations = utils.deepClone(alwaysOpenOrg);
+    orgWithAlterations.openingTimes.alterations = alterations;
+
+    const orgs = [orgWithAlterations];
+
+    const openServices = addMessages(orgs, moment(momentDate));
+
+    expect(openServices[0].isOpen).to.be.equal(false);
+    expect(openServices[0].openingTimesMessage).to.be.equal('Closed until 12am tomorrow');
+    expect(openServices[0].nextOpen).to.not.be.undefined;
+    expect(new Date(openServices[0].nextOpen).toDateString()).to.be.equal(nextOpenDateString);
   });
 
   it('should say call for opening times when the org does not have any opening times', () => {
@@ -92,5 +126,6 @@ describe('addMessages', () => {
     expect(nearbyServices.length).to.be.equal(1);
     expect(nearbyServices[0].isOpen).to.be.equal(false);
     expect(nearbyServices[0].openingTimesMessage).to.be.equal('Call for opening times');
+    expect(nearbyServices[0].nextOpen).to.be.undefined;
   });
 });
