@@ -61,4 +61,5 @@ module.exports = {
   getPharmacies,
   getOpenPharmacies,
   getHealth,
+  client,
 };

@@ -1,5 +1,7 @@
 0.13.1 / TBD
 ===================
+- Extend tests to cover alterations changing standard times
+- Use latest data snapshot
 - Install `greenkeeper-lockfile` with `npm` rather than `yarn` as latest version of `yarn` isn't working see https://github.com/greenkeeperio/greenkeeper-lockfile/issues/98
 
 0.13.0 / 2017-12-12
