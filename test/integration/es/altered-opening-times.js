@@ -2,7 +2,6 @@ const chai = require('chai');
 const moment = require('moment');
 const esClient = require('../../../app/lib/esClient');
 const utils = require('../../lib/testUtils');
-const dataSetup = require('../../lib/testDataSetup');
 
 const expect = chai.expect;
 
@@ -18,36 +17,35 @@ describe('esClient', function test() {
     const FAQ27 = 'FAQ27';
     const FCJ43DateOfChange = '2017-04-16';
     const FCJ43 = 'FCJ43';
+    const FCJ43Body = {
+      doc: {
+        openingTimes: {
+          alterations: {
+            '201704-16': [{
+              opens: '10:00',
+              closes: '12:00',
+            }]
+          },
+        },
+        openingTimesAlterationsAsOffset: [{
+          date: FCJ43DateOfChange,
+          opens: 600,
+          closes: 720,
+        }],
+      },
+    };
+
+    const FAQ27Body = {
+      doc: {
+        openingTimesAlterationsAsOffset: [{
+          date: FAQ27DateOfChange,
+        }],
+      },
+    };
 
     before('set up data', async () => {
-      const FCJ43Body = {
-        doc: {
-          openingTimes: {
-            alterations: {
-              '201704-16': [{
-                opens: '10:00',
-                closes: '12:00',
-              }]
-            },
-          },
-          openingTimesAlterationsAsOffset: [{
-            date: FCJ43DateOfChange,
-            opens: 600,
-            closes: 720,
-          }],
-        },
-      };
-
-      const FAQ27Body = {
-        doc: {
-          openingTimesAlterationsAsOffset: [{
-            date: FAQ27DateOfChange,
-          }],
-        },
-      };
-
-      await dataSetup.updateAndConfirmChanges(FCJ43, FCJ43Body);
-      await dataSetup.updateAndConfirmChanges(FAQ27, FAQ27Body);
+      await utils.updateAndConfirmChanges(FCJ43, FCJ43Body);
+      await utils.updateAndConfirmChanges(FAQ27, FAQ27Body);
     });
 
     it('should not return a pharmacy that is normally open but is closed by alterations', (done) => {
