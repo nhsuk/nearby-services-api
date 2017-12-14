@@ -2,7 +2,8 @@ services:
 - docker
 
 before_install:
-  - yarn global add greenkeeper-lockfile@1
+  - npm install -g npm@5
+  - npm install -g greenkeeper-lockfile@1
 
 before_script: greenkeeper-lockfile-update
 
