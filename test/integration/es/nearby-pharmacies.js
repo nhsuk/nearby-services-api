@@ -1,10 +1,10 @@
 const chai = require('chai');
-const esClient = require('../../../app/lib/esClient');
+const esFunctions = require('../../../app/lib/esFunctions');
 const utils = require('../../lib/testUtils');
 
 const expect = chai.expect;
 
-describe('esClient', function test() {
+describe('esFunctions', function test() {
   this.timeout(utils.maxWaitTimeMs);
 
   before((done) => {
@@ -15,7 +15,7 @@ describe('esClient', function test() {
     const location = { longitude: -1.46519099452929, latitude: 54.0095586395326 };
 
     it('should return pharmacies as an array', (done) => {
-      esClient.getPharmacies(location).then((pharmacies) => {
+      esFunctions.getPharmacies(location).then((pharmacies) => {
         expect(pharmacies).to.be.an('array');
         expect(pharmacies.length).to.be.greaterThan(0);
         expect(pharmacies[0].name).to.exist;
@@ -24,7 +24,7 @@ describe('esClient', function test() {
     });
 
     it('should return pharmacies populated with distance from location', (done) => {
-      esClient.getPharmacies(location).then((pharmacies) => {
+      esFunctions.getPharmacies(location).then((pharmacies) => {
         pharmacies.forEach(p => expect(p.distanceInMiles).to.be.greaterThan(0, `Pharmacy ${p.identifier} does not have a distance`));
         done();
       }).catch(done);
@@ -35,8 +35,8 @@ describe('esClient', function test() {
       const resultsLimit = 100;
       Promise
         .all([
-          esClient.getPharmacies(location, 5, resultsLimit),
-          esClient.getPharmacies(location, 1, resultsLimit)
+          esFunctions.getPharmacies(location, 5, resultsLimit),
+          esFunctions.getPharmacies(location, 1, resultsLimit)
         ])
         .then((pharmacies) => {
           expect(pharmacies[0].length).to.be.greaterThan(pharmacies[1].length);

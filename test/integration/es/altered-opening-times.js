@@ -1,11 +1,11 @@
 const chai = require('chai');
 const moment = require('moment');
-const esClient = require('../../../app/lib/esClient');
+const esFunctions = require('../../../app/lib/esFunctions');
 const utils = require('../../lib/testUtils');
 
 const expect = chai.expect;
 
-describe('esClient', function test() {
+describe('esFunctions', function test() {
   this.timeout(utils.maxWaitTimeMs);
 
   before((done) => {
@@ -54,7 +54,7 @@ describe('esClient', function test() {
       const location = { longitude, latitude };
       const alterationsOpen = moment(`${FAQ27DateOfChange} 23:59:00`);
 
-      esClient.getOpenPharmacies(alterationsOpen, location, 25, 1).then((pharmacies) => {
+      esFunctions.getOpenPharmacies(alterationsOpen, location, 25, 1).then((pharmacies) => {
         expect(pharmacies[0].identifier).to.not.equal(FAQ27);
         done();
       }).catch(done);
@@ -66,7 +66,7 @@ describe('esClient', function test() {
       const location = { longitude, latitude };
       const alterationsOpen = moment(`${FCJ43DateOfChange} 11:00:00`);
 
-      esClient.getOpenPharmacies(alterationsOpen, location, 25, 1).then((pharmacies) => {
+      esFunctions.getOpenPharmacies(alterationsOpen, location, 25, 1).then((pharmacies) => {
         expect(pharmacies[0].identifier).to.equal(FCJ43);
         done();
       }).catch(done);
@@ -75,7 +75,7 @@ describe('esClient', function test() {
     it('should return pharmacies with an alteration that is closed', (done) => {
       const location = { longitude: -1.3601, latitude: 50.9778 };
       const alterationsClosed = moment('2017-04-15 08:45:00');
-      esClient.getOpenPharmacies(alterationsClosed, location, 25, 1).then((pharmacies) => {
+      esFunctions.getOpenPharmacies(alterationsClosed, location, 25, 1).then((pharmacies) => {
         expect(pharmacies).to.be.an('array');
         expect(pharmacies.length).to.equal(1);
         expect(pharmacies[0].name).to.equal('Boots');

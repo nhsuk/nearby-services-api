@@ -2,7 +2,7 @@ require('moment-timezone');
 
 const timezone = require('../../config/config').timezone;
 const log = require('../lib/logger');
-const esClient = require('./esClient');
+const esFunctions = require('./esFunctions');
 const addMessages = require('./addMessages');
 const getDateTime = require('./getDateTime');
 const VError = require('verror').VError;
@@ -14,7 +14,7 @@ async function getOpenPharmacies(now, searchCoordinates, limits) {
   let openTimer;
   try {
     openTimer = esGetOpenPharmacyHistogram.startTimer();
-    const openPharmacies = await esClient.getOpenPharmacies(
+    const openPharmacies = await esFunctions.getOpenPharmacies(
       now,
       searchCoordinates,
       limits.searchRadius,
@@ -33,7 +33,7 @@ async function getNearbyPharmacies(searchCoordinates, limits) {
   let nearbyTimer;
   try {
     nearbyTimer = esGetNearbyPharmacyHistogram.startTimer();
-    const nearbyPharmacies = await esClient.getPharmacies(
+    const nearbyPharmacies = await esFunctions.getPharmacies(
       searchCoordinates,
       limits.searchRadius,
       limits.nearby
