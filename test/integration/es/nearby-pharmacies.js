@@ -1,6 +1,6 @@
 const chai = require('chai');
 const esClient = require('../../../app/lib/esClient');
-const utils = require('./../testUtils');
+const utils = require('../../lib/testUtils');
 
 const expect = chai.expect;
 

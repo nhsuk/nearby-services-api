@@ -1,7 +1,8 @@
 const chai = require('chai');
 const moment = require('moment');
 const esClient = require('../../../app/lib/esClient');
-const utils = require('./../testUtils');
+const utils = require('../../lib/testUtils');
+const dataSetup = require('../../lib/testDataSetup');
 
 const expect = chai.expect;
 
@@ -19,59 +20,34 @@ describe('esClient', function test() {
     const FCJ43 = 'FCJ43';
 
     before('set up data', async () => {
-      await esClient.client.update({
-        index: 'pharmacies',
-        type: 'pharmacy',
-        id: FCJ43,
-        body: {
-          doc: {
-            openingTimes: {
-              alterations: {
-                FCJ43DateOfChange: [{
-                  opens: '10:00',
-                  closes: '12:00',
-                }]
-              },
+      const FCJ43Body = {
+        doc: {
+          openingTimes: {
+            alterations: {
+              '201704-16': [{
+                opens: '10:00',
+                closes: '12:00',
+              }]
             },
-            openingTimesAlterationsAsOffset: [{
-              date: FCJ43DateOfChange,
-              opens: 600,
-              closes: 720,
-            }],
           },
+          openingTimesAlterationsAsOffset: [{
+            date: FCJ43DateOfChange,
+            opens: 600,
+            closes: 720,
+          }],
         },
-      });
-      const FCJ43Response = await esClient.client.get({
-        index: 'pharmacies',
-        type: 'pharmacy',
-        id: FCJ43,
-      });
-      // eslint-disable-next-line no-underscore-dangle
-      const FCJ43Obj = FCJ43Response._source;
-      expect(FCJ43Obj.openingTimesAlterationsAsOffset).to.be.an('array');
-      expect(FCJ43Obj.openingTimesAlterationsAsOffset.length).to.equal(1);
+      };
 
-      await esClient.client.update({
-        index: 'pharmacies',
-        type: 'pharmacy',
-        id: FAQ27,
-        body: {
-          doc: {
-            openingTimesAlterationsAsOffset: [{
-              date: FAQ27DateOfChange,
-            }],
-          },
+      const FAQ27Body = {
+        doc: {
+          openingTimesAlterationsAsOffset: [{
+            date: FAQ27DateOfChange,
+          }],
         },
-      });
-      const FAQ27Response = await esClient.client.get({
-        index: 'pharmacies',
-        type: 'pharmacy',
-        id: FCJ43,
-      });
-      // eslint-disable-next-line no-underscore-dangle
-      const FAQ27Obj = FAQ27Response._source;
-      expect(FAQ27Obj.openingTimesAlterationsAsOffset).to.be.an('array');
-      expect(FAQ27Obj.openingTimesAlterationsAsOffset.length).to.equal(1);
+      };
+
+      await dataSetup.updateAndConfirmChanges(FCJ43, FCJ43Body);
+      await dataSetup.updateAndConfirmChanges(FAQ27, FAQ27Body);
     });
 
     it('should not return a pharmacy that is normally open but is closed by alterations', (done) => {
