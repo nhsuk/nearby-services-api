@@ -1,5 +1,4 @@
-services:
-- docker
+services: docker
 
 before_install:
   - npm install -g npm@5

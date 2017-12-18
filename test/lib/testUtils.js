@@ -1,16 +1,30 @@
 const esClient = require('../../app/lib/esClient');
+const esConfig = require('../../config/config').es;
 
 const maxWaitTimeMs = 3 * 60 * 1000;
 const gracePeriodMs = 5000;
 const pollingIntervalMs = 3000;
 
-function removeWhitespace(text) {
-  return text && text.trim().replace(/\s+/g, ' ');
-}
+const type = esConfig.type;
+const index = esConfig.index;
 
 function esServerReady() {
   // Note: yellow is the highest state for a single cluster
   return esClient.getHealth().then(health => health[0].status === 'yellow').catch(() => false);
+}
+
+function removeWhitespace(text) {
+  return text && text.trim().replace(/\s+/g, ' ');
+}
+
+async function updateAndConfirmChanges(id, body) {
+  await esClient.client.update({
+    refresh: 'true',
+    index,
+    type,
+    id,
+    body,
+  });
 }
 
 function waitForEsToStart(done, startTime) {
@@ -31,7 +45,8 @@ function waitForSiteReady(done) {
 }
 
 module.exports = {
+  maxWaitTimeMs,
   removeWhitespace,
+  updateAndConfirmChanges,
   waitForSiteReady,
-  maxWaitTimeMs
 };
