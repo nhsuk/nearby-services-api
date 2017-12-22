@@ -60,7 +60,7 @@ function mapResult(record) {
       line3: metadata.addressLine3,
       city: metadata.addressCity,
       county: metadata.addressCounty,
-      postCode: metadata.addressPostcode,
+      postcode: metadata.addressPostcode,
     },
     contacts: {
       telephoneNumber: metadata.telephoneNumber,
