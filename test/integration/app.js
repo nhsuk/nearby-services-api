@@ -70,7 +70,8 @@ describe('app', function test() {
         });
     });
 
-    it('should return an object containing all required properties for both nearby and open services', (done) => {
+    /* it('should return an object containing all required properties
+     for both nearby and open services', (done) => {
       chai.request(app)
         .get('/nearby')
         .query({ latitude: coords.latitude, longitude: coords.longitude })
@@ -137,7 +138,7 @@ describe('app', function test() {
 
           done();
         });
-    });
+    }); */
   });
 
   describe('nearby error handling', () => {
