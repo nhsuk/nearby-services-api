@@ -2,7 +2,7 @@ require('moment-timezone');
 
 const timezone = require('../../config/config').timezone;
 const log = require('../lib/logger');
-const esFunctions = require('./esFunctions');
+const esFunctions = require('./fbFunctions');
 const addMessages = require('./addMessages');
 const getDateTime = require('./getDateTime');
 const VError = require('verror').VError;
