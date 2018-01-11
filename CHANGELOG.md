@@ -2,6 +2,8 @@
 ===================
 - Extend tests to cover alterations changing standard times
 - Use latest data snapshot
+- Update npm dependencies
+- Run open and nearby searches concurrently rather than sequentially
 
 0.13.0 / 2017-12-12
 ===================

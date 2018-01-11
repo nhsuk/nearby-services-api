@@ -53,8 +53,10 @@ async function getNearbyServices(searchCoordinates, limits) {
     totalTimer = esGetTotalPharmacyHistogram.startTimer();
 
     const nowInTimezone = getDateTime().clone().tz(timezone);
-    const openPharmacies = await getOpenPharmacies(nowInTimezone, searchCoordinates, limits);
-    const nearbyPharmacies = await getNearbyPharmacies(searchCoordinates, limits);
+    const [openPharmacies, nearbyPharmacies] = await Promise.all([
+      getOpenPharmacies(nowInTimezone, searchCoordinates, limits),
+      getNearbyPharmacies(searchCoordinates, limits)
+    ]);
     return {
       nearbyServices: addMessages(nearbyPharmacies, nowInTimezone),
       openServices: addMessages(openPharmacies, nowInTimezone),
