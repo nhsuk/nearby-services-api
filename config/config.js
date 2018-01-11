@@ -8,11 +8,11 @@ module.exports = {
   resultLimits: {
     open: {
       min: 1,
-      max: 3,
+      max: process.env.RESULT_LIMIT_OPEN_MAX || 3,
     },
     nearby: {
       min: 1,
-      max: 10,
+      max: process.env.RESULT_LIMIT_NEARBY_MAX || 10,
     },
   },
   timezone: 'Europe/London'
