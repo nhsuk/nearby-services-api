@@ -1,13 +1,19 @@
+const limits = require('../../config/config').resultLimits;
 const getNearbyServices = require('../lib/getNearbyServices');
 const log = require('../lib/logger');
 
 async function validateRequest(req) {
+  const maxNearby = limits.nearby.max;
+  const minNearby = limits.nearby.min;
+  const maxOpen = limits.open.max;
+  const minOpen = limits.open.min;
+
   req.checkQuery('latitude', 'latitude is required').notEmpty();
   req.checkQuery('longitude', 'longitude is required').notEmpty();
   req.checkQuery('latitude', 'latitude must be between -90 and 90').isFloat({ min: -90, max: 90 });
   req.checkQuery('longitude', 'longitude must be between -180 and 180').isFloat({ min: -180, max: 180 });
-  req.checkQuery('limits:results:open', 'limits:results:open must be a number between 1 and 3').optional().isInt({ min: 1, max: 3 });
-  req.checkQuery('limits:results:nearby', 'limits:results:nearby must be a number between 1 and 10').optional().isInt({ min: 1, max: 10 });
+  req.checkQuery('limits:results:open', `limits:results:open must be a number between ${minOpen} and ${maxOpen}`).optional().isInt({ min: minOpen, max: maxOpen });
+  req.checkQuery('limits:results:nearby', `limits:results:nearby must be a number between ${minNearby} and ${maxNearby}`).optional().isInt({ min: minNearby, max: maxNearby });
   const result = await req.getValidationResult();
   return result.isEmpty() ? undefined : result.array();
 }

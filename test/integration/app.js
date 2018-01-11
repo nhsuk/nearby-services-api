@@ -226,6 +226,28 @@ describe('app', function test() {
       });
     });
 
+    describe('when the open limit is supplied and is greater than the allowed limit', () => {
+      it('should return a 400 response and descriptive error messages', (done) => {
+        chai.request(app)
+          .get('/nearby')
+          .query({
+            latitude: coords.latitude,
+            longitude: coords.longitude,
+            'limits:results:open': 4
+          })
+          .end((err, res) => {
+            expect(res).to.have.status(400);
+            // eslint-disable-next-line no-unused-expressions
+            expect(res).to.be.json;
+            expect(res.body).to.be.instanceof(Array);
+            expect(res.body.length).to.equal(1);
+            expect(res.body[0].param).to.equal('limits:results:open');
+            expect(res.body[0].msg).to.equal('limits:results:open must be a number between 1 and 3');
+            done();
+          });
+      });
+    });
+
     describe('when the nearby limit is supplied and is not a number', () => {
       it('should return a 400 response and descriptive error messages', (done) => {
         chai.request(app)
@@ -234,6 +256,28 @@ describe('app', function test() {
             latitude: coords.latitude,
             longitude: coords.longitude,
             'limits:results:nearby': 'invalid',
+          })
+          .end((err, res) => {
+            expect(res).to.have.status(400);
+            // eslint-disable-next-line no-unused-expressions
+            expect(res).to.be.json;
+            expect(res.body).to.be.instanceof(Array);
+            expect(res.body.length).to.equal(1);
+            expect(res.body[0].param).to.equal('limits:results:nearby');
+            expect(res.body[0].msg).to.equal('limits:results:nearby must be a number between 1 and 10');
+            done();
+          });
+      });
+    });
+
+    describe('when the nearby limit is supplied and is greater than the allowed limit', () => {
+      it('should return a 400 response and descriptive error messages', (done) => {
+        chai.request(app)
+          .get('/nearby')
+          .query({
+            latitude: coords.latitude,
+            longitude: coords.longitude,
+            'limits:results:nearby': 11
           })
           .end((err, res) => {
             expect(res).to.have.status(400);
