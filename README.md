@@ -16,6 +16,38 @@ such, a number of environment variables can be used, and in production, NEED to
 be set for the logging to work. Check out the README in that repo for additional
 information.
 
+## API Interface
+
+There are two endpoints available:
+- `/open?latitude=$latitude&longitude=$longitude[&limits:results=$numberResults]`
+- `/nearby?latitude=$latitude&longitude=$longitude[&limits:results=$numberResults]`
+
+All query string parameters are validated and return an informative message
+when incorrect.
+
+Mandatory query string parameters:
+- `latitude` - must be a valid latitude
+- `longitude` - must be a valid longitude
+
+Optional query string parameters:
+- `limits:results` - the default and limits are defined in the
+  [config](config/config.js)
+
+Both endpoints return an object containing an array of pharmacies against a
+field called `results` e.g.
+```json
+{
+  results: [
+  {
+   ...
+  },
+  {
+   ...
+  }
+  ]
+}
+```
+
 ## Environment variables
 
 Environment variables are expected to be managed by the environment in which
