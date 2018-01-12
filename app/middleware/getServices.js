@@ -1,12 +1,12 @@
-const limits = require('../../config/config').resultLimits;
+const config = require('../../config/config').result;
 const getNearbyServices = require('../lib/getNearbyServices');
 const log = require('../lib/logger');
 
 async function validateRequest(req) {
-  const maxNearby = limits.nearby.max;
-  const minNearby = limits.nearby.min;
-  const maxOpen = limits.open.max;
-  const minOpen = limits.open.min;
+  const maxNearby = config.limits.nearby.max;
+  const minNearby = config.limits.nearby.min;
+  const maxOpen = config.limits.open.max;
+  const minOpen = config.limits.open.min;
 
   req.checkQuery('latitude', 'latitude is required').notEmpty();
   req.checkQuery('longitude', 'longitude is required').notEmpty();
@@ -25,8 +25,8 @@ function getSearchCoordinates(req) {
 }
 
 function getLimits(req) {
-  const nearby = Number(req.query['limits:results:nearby']) || 3;
-  const open = Number(req.query['limits:results:open']) || 1;
+  const nearby = Number(req.query['limits:results:nearby']) || config.defaults.nearby;
+  const open = Number(req.query['limits:results:open']) || config.defaults.open;
   // Given how search performance is impacted by the radius of the search
   // it has intentionaly not been allowed to be specificed by the client
   const searchRadius = 20;
