@@ -23,15 +23,13 @@ async function getServices(searchCoordinates, limits, type) {
       pharmacies = await esFunctions.getOpenPharmacies(
         now,
         searchCoordinates,
-        limits.searchRadius,
-        limits.results
+        limits
       );
     } else {
       timer = esGetNearbyPharmacyHistogram.startTimer();
       pharmacies = await esFunctions.getPharmacies(
         searchCoordinates,
-        limits.searchRadius,
-        limits.results
+        limits
       );
     }
 

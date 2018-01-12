@@ -24,11 +24,7 @@ function getSearchCoordinates(req) {
 
 function getLimits(req, type) {
   const results = Number(req.query['limits:results']) || (type === 'open' ? config.defaults.open : config.defaults.nearby);
-  // Given how search performance is impacted by the radius of the search
-  // it has intentionaly not been allowed to be specificed by the client
-  // TODO: Check if the search radius can be got rid of
-  const searchRadius = 20;
-  return { results, searchRadius };
+  return results;
 }
 
 async function getNearbyServices(req, res, next) {
