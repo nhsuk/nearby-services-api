@@ -8,7 +8,7 @@ module.exports = {
   resultLimits: {
     open: {
       min: 1,
-      max: process.env.RESULT_LIMIT_OPEN_MAX || 3,
+      max: process.env.RESULT_LIMIT_OPEN_MAX || 10,
     },
     nearby: {
       min: 1,

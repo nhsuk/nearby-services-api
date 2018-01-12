@@ -1,6 +1,8 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
+
 const app = require('../../app');
+const limits = require('../../config/config').resultLimits;
 const utils = require('../lib/testUtils');
 
 const expect = chai.expect;
@@ -211,7 +213,7 @@ describe('app', function test() {
           .query({
             latitude: coords.latitude,
             longitude: coords.longitude,
-            'limits:results:open': 'invalid'
+            'limits:results:open': 'invalid',
           })
           .end((err, res) => {
             expect(res).to.have.status(400);
@@ -220,7 +222,7 @@ describe('app', function test() {
             expect(res.body).to.be.instanceof(Array);
             expect(res.body.length).to.equal(1);
             expect(res.body[0].param).to.equal('limits:results:open');
-            expect(res.body[0].msg).to.equal('limits:results:open must be a number between 1 and 3');
+            expect(res.body[0].msg).to.equal(`limits:results:open must be a number between ${limits.open.min} and ${limits.open.max}`);
             done();
           });
       });
@@ -233,7 +235,7 @@ describe('app', function test() {
           .query({
             latitude: coords.latitude,
             longitude: coords.longitude,
-            'limits:results:open': 4
+            'limits:results:open': 11,
           })
           .end((err, res) => {
             expect(res).to.have.status(400);
@@ -242,7 +244,7 @@ describe('app', function test() {
             expect(res.body).to.be.instanceof(Array);
             expect(res.body.length).to.equal(1);
             expect(res.body[0].param).to.equal('limits:results:open');
-            expect(res.body[0].msg).to.equal('limits:results:open must be a number between 1 and 3');
+            expect(res.body[0].msg).to.equal(`limits:results:open must be a number between ${limits.open.min} and ${limits.open.max}`);
             done();
           });
       });
@@ -264,7 +266,7 @@ describe('app', function test() {
             expect(res.body).to.be.instanceof(Array);
             expect(res.body.length).to.equal(1);
             expect(res.body[0].param).to.equal('limits:results:nearby');
-            expect(res.body[0].msg).to.equal('limits:results:nearby must be a number between 1 and 10');
+            expect(res.body[0].msg).to.equal(`limits:results:nearby must be a number between ${limits.nearby.min} and ${limits.nearby.max}`);
             done();
           });
       });
@@ -277,7 +279,7 @@ describe('app', function test() {
           .query({
             latitude: coords.latitude,
             longitude: coords.longitude,
-            'limits:results:nearby': 11
+            'limits:results:nearby': 11,
           })
           .end((err, res) => {
             expect(res).to.have.status(400);
@@ -286,7 +288,7 @@ describe('app', function test() {
             expect(res.body).to.be.instanceof(Array);
             expect(res.body.length).to.equal(1);
             expect(res.body[0].param).to.equal('limits:results:nearby');
-            expect(res.body[0].msg).to.equal('limits:results:nearby must be a number between 1 and 10');
+            expect(res.body[0].msg).to.equal(`limits:results:nearby must be a number between ${limits.nearby.min} and ${limits.nearby.max}`);
             done();
           });
       });
@@ -300,7 +302,7 @@ describe('app', function test() {
             latitude: coords.latitude,
             longitude: coords.longitude,
             'limits:results:open': '',
-            'limits:results:nearby': ''
+            'limits:results:nearby': '',
           })
           .end((err, res) => {
             expect(res).to.have.status(400);
@@ -309,10 +311,10 @@ describe('app', function test() {
             expect(res.body).to.be.instanceof(Array);
             expect(res.body.length).to.equal(2);
             expect(res.body[0].param).to.equal('limits:results:open');
-            expect(res.body[0].msg).to.equal('limits:results:open must be a number between 1 and 3');
+            expect(res.body[0].msg).to.equal(`limits:results:open must be a number between ${limits.open.min} and ${limits.open.max}`);
             expect(res.body[0].value).to.equal('');
             expect(res.body[1].param).to.equal('limits:results:nearby');
-            expect(res.body[1].msg).to.equal('limits:results:nearby must be a number between 1 and 10');
+            expect(res.body[1].msg).to.equal(`limits:results:nearby must be a number between ${limits.nearby.min} and ${limits.nearby.max}`);
             expect(res.body[1].value).to.equal('');
             done();
           });

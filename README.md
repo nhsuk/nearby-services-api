@@ -36,7 +36,7 @@ something because there is no value for an env var it was relying on.
 | `ES_INDEX`                | Name of index in the ElasticSearch image                           | pharmacies             |
 | `ES_HOST`                 | Name of ElasticSearch host                                         | es                     |
 | `ES_PORT`                 | The port used by ElasticSearch                                     | 27017                  |
-| `RESULT_LIMIT_OPEN_MAX`   | The maximum number of open results                                 | 3                      |
+| `RESULT_LIMIT_OPEN_MAX`   | The maximum number of open results                                 | 10                     |
 | `RESULT_LIMIT_NEARBY_MAX` | The maximum number of nearby results                               | 10                     |
 
 ## Running the application

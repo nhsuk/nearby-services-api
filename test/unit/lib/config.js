@@ -13,7 +13,7 @@ describe('config', () => {
 
   it('should return result limits defaults', () => {
     expect(config.resultLimits.open.min).to.be.equal(1);
-    expect(config.resultLimits.open.max).to.be.equal(3);
+    expect(config.resultLimits.open.max).to.be.equal(10);
     expect(config.resultLimits.nearby.min).to.be.equal(1);
     expect(config.resultLimits.nearby.max).to.be.equal(10);
   });
