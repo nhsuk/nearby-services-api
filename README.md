@@ -16,6 +16,38 @@ such, a number of environment variables can be used, and in production, NEED to
 be set for the logging to work. Check out the README in that repo for additional
 information.
 
+## API Interface
+
+There are two endpoints available:
+- `/open?latitude=$latitude&longitude=$longitude[&limits:results=$numberResults]`
+- `/nearby?latitude=$latitude&longitude=$longitude[&limits:results=$numberResults]`
+
+All query string parameters are validated and return an informative message
+when incorrect.
+
+Mandatory query string parameters:
+- `latitude` - must be a valid latitude
+- `longitude` - must be a valid longitude
+
+Optional query string parameters:
+- `limits:results` - the default and limits are defined in the
+  [config](config/config.js)
+
+Both endpoints return an object containing an array of pharmacies against a
+field called `results` e.g.
+```json
+{
+  results: [
+  {
+   ...
+  },
+  {
+   ...
+  }
+  ]
+}
+```
+
 ## Environment variables
 
 Environment variables are expected to be managed by the environment in which
@@ -28,14 +60,16 @@ is used to throw an error and prevent the application from starting up. Rather
 than it getting to point somewhere later in the life cycle where it can't do
 something because there is no value for an env var it was relying on.
 
-| Variable    | Description                                                       | Default               |
-| :-----------| :-----------------------------------------------------------------| :---------------------|
-| `NODE_ENV`  | Node environment                                                  | development           |
-| `LOG_LEVEL` | Numeric [log level](https://github.com/trentm/node-bunyan#levels) | Depends on `NODE_ENV` |
-| `PORT`      | Server port                                                       | 3001                  |
-| `ES_INDEX`  | Name of index in the ElasticSearch image                          | pharmacies            |
-| `ES_HOST`   | Name of ElasticSearch host                                        | es                    |
-| `ES_PORT`   | The port used by ElasticSearch                                    | 27017                 |
+| Variable                  | Description                                                        | Default                |
+| :------------------------ | :----------------------------------------------------------------- | :--------------------- |
+| `NODE_ENV`                | Node environment                                                   | development            |
+| `LOG_LEVEL`               | Numeric [log level](https://github.com/trentm/node-bunyan#levels)  | Depends on `NODE_ENV`  |
+| `PORT`                    | Server port                                                        | 3001                   |
+| `ES_INDEX`                | Name of index in the ElasticSearch image                           | pharmacies             |
+| `ES_HOST`                 | Name of ElasticSearch host                                         | es                     |
+| `ES_PORT`                 | The port used by ElasticSearch                                     | 27017                  |
+| `RESULT_LIMIT_OPEN_MAX`   | The maximum number of open results                                 | 10                     |
+| `RESULT_LIMIT_NEARBY_MAX` | The maximum number of nearby results                               | 10                     |
 
 ## Running the application
 

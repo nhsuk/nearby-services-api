@@ -30,19 +30,12 @@ describe('esFunctions', function test() {
       }).catch(done);
     });
 
-    it('reducing the radius should return fewer pharmacies', (done) => {
-      // Note: set the number of results limit high so it is not hit and causes a false failing test
-      const resultsLimit = 100;
-      Promise
-        .all([
-          esFunctions.getPharmacies(location, 5, resultsLimit),
-          esFunctions.getPharmacies(location, 1, resultsLimit)
-        ])
-        .then((pharmacies) => {
-          expect(pharmacies[0].length).to.be.greaterThan(pharmacies[1].length);
-          done();
-        })
-        .catch(done);
+    it('should return the number of pharmacies as per request', (done) => {
+      const resultsRequested = 13;
+      esFunctions.getPharmacies(location, resultsRequested).then((pharmacies) => {
+        expect(pharmacies.length).to.equal(resultsRequested);
+        done();
+      }).catch(done);
     });
   });
 });

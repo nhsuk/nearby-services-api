@@ -54,7 +54,7 @@ describe('esFunctions', function test() {
       const location = { longitude, latitude };
       const alterationsOpen = moment(`${FAQ27DateOfChange} 23:59:00`);
 
-      esFunctions.getOpenPharmacies(alterationsOpen, location, 25, 1).then((pharmacies) => {
+      esFunctions.getOpenPharmacies(alterationsOpen, location, 1).then((pharmacies) => {
         expect(pharmacies[0].identifier).to.not.equal(FAQ27);
         done();
       }).catch(done);
@@ -66,7 +66,7 @@ describe('esFunctions', function test() {
       const location = { longitude, latitude };
       const alterationsOpen = moment(`${FCJ43DateOfChange} 11:00:00`);
 
-      esFunctions.getOpenPharmacies(alterationsOpen, location, 25, 1).then((pharmacies) => {
+      esFunctions.getOpenPharmacies(alterationsOpen, location, 1).then((pharmacies) => {
         expect(pharmacies[0].identifier).to.equal(FCJ43);
         done();
       }).catch(done);
@@ -75,7 +75,7 @@ describe('esFunctions', function test() {
     it('should return pharmacies with an alteration that is closed', (done) => {
       const location = { longitude: -1.3601, latitude: 50.9778 };
       const alterationsClosed = moment('2017-04-15 08:45:00');
-      esFunctions.getOpenPharmacies(alterationsClosed, location, 25, 1).then((pharmacies) => {
+      esFunctions.getOpenPharmacies(alterationsClosed, location, 1).then((pharmacies) => {
         expect(pharmacies).to.be.an('array');
         expect(pharmacies.length).to.equal(1);
         expect(pharmacies[0].name).to.equal('Boots');

@@ -5,5 +5,21 @@ module.exports = {
     index: process.env.ES_INDEX || 'pharmacies',
     type: 'pharmacy',
   },
+  result: {
+    defaults: {
+      open: 10,
+      nearby: 10,
+    },
+    limits: {
+      open: {
+        min: 1,
+        max: process.env.RESULT_LIMIT_OPEN_MAX || 10,
+      },
+      nearby: {
+        min: 1,
+        max: process.env.RESULT_LIMIT_NEARBY_MAX || 10,
+      },
+    },
+  },
   timezone: 'Europe/London'
 };

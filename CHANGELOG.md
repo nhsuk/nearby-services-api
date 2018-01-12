@@ -1,7 +1,12 @@
-0.13.1 / TBD
+0.14.0 / TBD
 ===================
 - Extend tests to cover alterations changing standard times
 - Use latest data snapshot
+- New end point returning only services that are open available at `/open`
+- `/nearby` endpoint refactored to only return services that are nearby, regardless of open state
+- Removal of distance limitation for checking results are within a certain distance of the search point
+- Number of open results increased from 1 to 10
+- Documented API interface in `README`
 
 0.13.0 / 2017-12-12
 ===================

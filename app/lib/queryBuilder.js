@@ -29,18 +29,6 @@ function getBaseQuery(size) {
   };
 }
 
-function getGeoQuery(radius, location) {
-  return {
-    geo_distance: {
-      distance: `${radius}${unit}`,
-      'location.coordinates': {
-        lon: location.longitude,
-        lat: location.latitude
-      }
-    }
-  };
-}
-
 function getAlterationsDayQuery(dateString) {
   return {
     nested: {
@@ -119,7 +107,7 @@ function getSortByLocation(location) {
   ];
 }
 
-function getOpenAndNearestQuery(moment, radius, location) {
+function getOpenAndNearestQuery(moment) {
   const minutesSinceMidnightMonday = timeToMinutesSinceMidnightMonday(moment);
   const minutesSinceMidnight = timeToMinutesSinceMidnight(moment);
   const dateString = moment.format('YYYY-MM-DD');
@@ -148,8 +136,7 @@ function getOpenAndNearestQuery(moment, radius, location) {
                   }
                 ]
               }
-            },
-            getGeoQuery(radius, location)
+            }
           ]
         }
       }
@@ -157,16 +144,15 @@ function getOpenAndNearestQuery(moment, radius, location) {
   };
 }
 
-function buildNearestOpenQuery(moment, location, radius = 25, size = 4) {
+function buildNearestOpenQuery(moment, location, size) {
   const openQuery = getBaseQuery(size);
-  openQuery.body.query = getOpenAndNearestQuery(moment, radius, location);
+  openQuery.body.query = getOpenAndNearestQuery(moment, location);
   openQuery.body.sort = getSortByLocation(location);
   return openQuery;
 }
 
-function buildNearestQuery(location, radius = 25, size = 2500) {
+function buildNearestQuery(location, size) {
   const query = getBaseQuery(size);
-  query.body.query.bool.filter = getGeoQuery(radius, location);
   query.body.sort = getSortByLocation(location);
   return query;
 }

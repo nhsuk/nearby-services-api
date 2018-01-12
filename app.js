@@ -20,6 +20,7 @@ app.use(helmet({
   referrerPolicy: { policy: 'no-referrer' },
 }));
 app.use(validator());
-app.use('/nearby', getServices);
+app.use('/nearby', getServices.nearby);
+app.use('/open', getServices.open);
 
 module.exports = app;
