@@ -26,7 +26,7 @@ regardless of their opening state.
 
 The consequences of this change are:
 - The API will be less tightly coupled to `connecting-to-services` (the primary
-  consumer), increasing its' utility
+  consumer), increasing its utility
 - The API's interface will have a breaking change and rework will be needed by
   `connecting-to-services`
 - The API will be easier to use in part due to the query string parameter
