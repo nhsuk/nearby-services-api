@@ -161,7 +161,6 @@ describe('Midnight Span Corrector', () => {
 
       const newStatus = midnightSpanCorrector(openingTimes, status);
 
-      // eslint-disable-next-line no-unused-expressions
       expect(newStatus.nextClosed.isSame(nextWednesday2359)).to.be.true;
     });
 

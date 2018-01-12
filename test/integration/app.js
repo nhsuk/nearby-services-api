@@ -29,8 +29,6 @@ describe('app', function test() {
         .end((err, res) => {
           expect(err).to.equal(null);
           expect(res).to.have.status(200);
-          // TODO: Add eslint config file to tests to get rid of these statements
-          // eslint-disable-next-line no-unused-expressions
           expect(res).to.be.json;
 
           const results = res.body.results;
@@ -54,7 +52,6 @@ describe('app', function test() {
         .end((err, res) => {
           expect(err).to.equal(null);
           expect(res).to.have.status(200);
-          // eslint-disable-next-line no-unused-expressions
           expect(res).to.be.json;
 
           const results = res.body.results;
@@ -72,76 +69,6 @@ describe('app', function test() {
         .end((err, res) => {
           expect(err).to.equal(null);
           expect(res).to.have.status(200);
-          // eslint-disable-next-line no-unused-expressions
-          expect(res).to.be.json;
-
-          const results = res.body.results;
-
-          results.forEach((result) => {
-            expect(result.identifierType).to.equal('Pharmacy Contract');
-            expect(result.openingTimes).to.not.be.undefined;
-            expect(result.openingTimes.alterations).to.be.instanceof(Object);
-            expect(result.openingTimes.general).to.be.instanceof(Object);
-            expect(result.openingTimes.general.monday).to.be.instanceof(Array);
-            expect(result.openingTimes.general.tuesday).to.be.instanceof(Array);
-            expect(result.openingTimes.general.wednesday).to.be.instanceof(Array);
-            expect(result.openingTimes.general.thursday).to.be.instanceof(Array);
-            expect(result.openingTimes.general.friday).to.be.instanceof(Array);
-            expect(result.openingTimes.general.saturday).to.be.instanceof(Array);
-            expect(result.openingTimes.general.sunday).to.be.instanceof(Array);
-            expect(result.outOfHours).to.not.be.undefined;
-            expect(result.hasEps).to.be.a('boolean');
-            expect(result.address).to.be.instanceof(Object);
-            expect(result.address.line1).to.not.be.undefined;
-            expect(result.address.line2).to.not.be.undefined;
-            expect(result.address.line3).to.not.be.undefined;
-            expect(result.address.city).to.not.be.undefined;
-            expect(result.address.county).to.not.be.undefined;
-            expect(result.address.postcode).to.be.a('string');
-            expect(result.contacts).to.be.instanceof(Object);
-            expect(result.contacts.website).to.not.be.undefined;
-            expect(result.contacts.additionalContacts).to.be.instanceof(Array);
-            expect(result.contacts.telephoneNumber).to.be.a('string');
-            expect(result.contacts.isNonGeographicPhoneNumber).to.be.a('boolean');
-            expect(result.contacts.phoneChargeMethod).to.be.a('string');
-            expect(result.contacts.phoneChargeAmount).to.not.be.undefined;
-            expect(result.contacts.telephoneExtension).to.not.be.undefined;
-            expect(result.contacts.fax).to.not.be.undefined;
-            expect(result.contacts.email).to.not.be.undefined;
-            expect(result.directionsInformation).to.not.be.undefined;
-            expect(result.externalProfileUrl).to.not.be.undefined;
-            expect(result.identifier).to.be.a('string');
-            expect(result.name).to.be.a('string');
-            expect(result.organisationType).to.be.a('string');
-            expect(result.parkingInformation).to.not.be.undefined;
-            expect(result.provider).to.be.a('string');
-            expect(result.summary).to.not.be.undefined;
-            expect(result.links).to.be.instanceof(Array);
-            expect(result.location).to.be.instanceof(Object);
-            expect(result.location.type).to.be.a('string');
-            expect(result.location.coordinates).to.be.instanceof(Array);
-            expect(result.openingTimesAsOffset).to.be.instanceof(Array);
-            expect(result.openingTimesAlterationsAsOffset).to.be.instanceof(Array);
-            expect(result.distanceInMiles).to.be.a('number');
-            expect(result.openingTimesMessage).to.be.a('string');
-            expect(result.isOpen).to.be.a('boolean');
-            expect(result.nextOpen).to.be.a('string');
-          });
-
-          done();
-        });
-    });
-  });
-
-  describe('open happy path', () => {
-    it('should return an object containing the default number of open services', (done) => {
-      chai.request(app)
-        .get('/open')
-        .query({ latitude: coords.latitude, longitude: coords.longitude })
-        .end((err, res) => {
-          expect(err).to.equal(null);
-          expect(res).to.have.status(200);
-          // eslint-disable-next-line no-unused-expressions
           expect(res).to.be.json;
 
           const results = res.body.results;
@@ -165,7 +92,6 @@ describe('app', function test() {
         .end((err, res) => {
           expect(err).to.equal(null);
           expect(res).to.have.status(200);
-          // eslint-disable-next-line no-unused-expressions
           expect(res).to.be.json;
 
           const results = res.body.results;
@@ -183,7 +109,6 @@ describe('app', function test() {
         .end((err, res) => {
           expect(err).to.equal(null);
           expect(res).to.have.status(200);
-          // eslint-disable-next-line no-unused-expressions
           expect(res).to.be.json;
 
           const results = res.body.results;
@@ -251,7 +176,6 @@ describe('app', function test() {
           .get('/nearby')
           .end((err, res) => {
             expect(res).to.have.status(400);
-            // eslint-disable-next-line no-unused-expressions
             expect(res).to.be.json;
             expect(res.body).to.be.instanceof(Array);
             expect(res.body.length).to.equal(4);
@@ -275,7 +199,6 @@ describe('app', function test() {
           .query({ latitude })
           .end((err, res) => {
             expect(res).to.have.status(400);
-            // eslint-disable-next-line no-unused-expressions
             expect(res).to.be.json;
             expect(res.body).to.be.instanceof(Array);
             expect(res.body.length).to.equal(2);
@@ -295,7 +218,6 @@ describe('app', function test() {
           .query({ longitude })
           .end((err, res) => {
             expect(res).to.have.status(400);
-            // eslint-disable-next-line no-unused-expressions
             expect(res).to.be.json;
             expect(res.body).to.be.instanceof(Array);
             expect(res.body.length).to.equal(2);
@@ -319,7 +241,6 @@ describe('app', function test() {
           })
           .end((err, res) => {
             expect(res).to.have.status(400);
-            // eslint-disable-next-line no-unused-expressions
             expect(res).to.be.json;
             expect(res.body).to.be.instanceof(Array);
             expect(res.body.length).to.equal(1);
@@ -341,7 +262,6 @@ describe('app', function test() {
           })
           .end((err, res) => {
             expect(res).to.have.status(400);
-            // eslint-disable-next-line no-unused-expressions
             expect(res).to.be.json;
             expect(res.body).to.be.instanceof(Array);
             expect(res.body.length).to.equal(1);
@@ -360,7 +280,6 @@ describe('app', function test() {
           .get('/open')
           .end((err, res) => {
             expect(res).to.have.status(400);
-            // eslint-disable-next-line no-unused-expressions
             expect(res).to.be.json;
             expect(res.body).to.be.instanceof(Array);
             expect(res.body.length).to.equal(4);
@@ -384,7 +303,6 @@ describe('app', function test() {
           .query({ latitude })
           .end((err, res) => {
             expect(res).to.have.status(400);
-            // eslint-disable-next-line no-unused-expressions
             expect(res).to.be.json;
             expect(res.body).to.be.instanceof(Array);
             expect(res.body.length).to.equal(2);
@@ -404,7 +322,6 @@ describe('app', function test() {
           .query({ longitude })
           .end((err, res) => {
             expect(res).to.have.status(400);
-            // eslint-disable-next-line no-unused-expressions
             expect(res).to.be.json;
             expect(res.body).to.be.instanceof(Array);
             expect(res.body.length).to.equal(2);
@@ -428,7 +345,6 @@ describe('app', function test() {
           })
           .end((err, res) => {
             expect(res).to.have.status(400);
-            // eslint-disable-next-line no-unused-expressions
             expect(res).to.be.json;
             expect(res.body).to.be.instanceof(Array);
             expect(res.body.length).to.equal(1);
@@ -450,7 +366,6 @@ describe('app', function test() {
           })
           .end((err, res) => {
             expect(res).to.have.status(400);
-            // eslint-disable-next-line no-unused-expressions
             expect(res).to.be.json;
             expect(res.body).to.be.instanceof(Array);
             expect(res.body.length).to.equal(1);
