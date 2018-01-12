@@ -144,14 +144,14 @@ function getOpenAndNearestQuery(moment) {
   };
 }
 
-function buildNearestOpenQuery(moment, location, size = 4) {
+function buildNearestOpenQuery(moment, location, size) {
   const openQuery = getBaseQuery(size);
   openQuery.body.query = getOpenAndNearestQuery(moment, location);
   openQuery.body.sort = getSortByLocation(location);
   return openQuery;
 }
 
-function buildNearestQuery(location, size = 2500) {
+function buildNearestQuery(location, size) {
   const query = getBaseQuery(size);
   query.body.sort = getSortByLocation(location);
   return query;

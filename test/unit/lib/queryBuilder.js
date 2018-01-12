@@ -6,11 +6,6 @@ const expect = chai.expect;
 const location = { longitude: -1.46519099452929, latitude: 54.0095586395326 };
 
 describe('queryBuilder', () => {
-  it('buildNearestQuery number of results should default to 2500', () => {
-    const query = queryBuilder.buildNearestQuery(location);
-    expect(query.body.size).to.equal(2500);
-  });
-
   it('buildNearestQuery should accept location, and size parameters', () => {
     const size = 7;
     const query = queryBuilder.buildNearestQuery(location, size);
