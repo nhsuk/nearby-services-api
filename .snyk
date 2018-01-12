@@ -5,24 +5,34 @@ ignore:
   'npm:mime:20170907':
     - express > send > mime:
         reason: Express 4.16 has problems
-        expires: '2018-01-06T09:51:10.110Z'
+        expires: '2018-02-11T16:13:56.881Z'
     - express > serve-static > send > mime:
         reason: Express 4.16 has problems
-        expires: '2018-01-06T09:51:10.110Z'
+        expires: '2018-02-11T16:13:56.881Z'
   'npm:moment:20170905':
     - moment:
         reason: Not user facing
-        expires: '2018-01-06T09:51:10.110Z'
+        expires: '2018-02-11T16:13:56.881Z'
     - moment-opening-times > moment:
         reason: Not user facing
         expires: '2018-01-06T09:51:10.110Z'
+      moment-opening-times > moment-timezone > moment:
+        reason: Not user facing
+        expires: '2018-02-11T16:13:56.881Z'
     - moment-opening-times > moment-timezone > moment:
         reason: Not user facing
         expires: '2018-01-06T09:51:10.110Z'
+      moment-opening-times > moment:
+        reason: Not user facing
+        expires: '2018-02-11T16:13:56.881Z'
     - moment-timezone > moment:
         reason: Not user facing
-        expires: '2018-01-06T09:51:10.110Z'
+        expires: '2018-02-11T16:13:56.881Z'
     - nhsuk-bunyan-logger > bunyan > moment:
         reason: Not user facing
-        expires: '2018-01-06T09:51:10.110Z'
+        expires: '2018-02-11T16:13:56.881Z'
+  'npm:shelljs:20140723':
+    - eslint-config-nhsuk > eslint-plugin-json > jshint > shelljs:
+        reason: Not user facing
+        expires: '2018-02-11T16:13:56.881Z'
 patch: {}
