@@ -1,9 +1,9 @@
 const chai = require('chai');
-const formatOpeningTimes = require('../../../app/lib/formatOpeningTimes');
+const getOpeningTimesOverview = require('../../../app/lib/getOpeningTimesOverview');
 
 const expect = chai.expect;
 
-describe('formatOpeningTimes', () => {
+describe('getOpeningTimesOverview', () => {
   it('should return first open and last closes for each day as hour and am/pm', () => {
     const openingTimes = {
       general: {
@@ -17,22 +17,29 @@ describe('formatOpeningTimes', () => {
       }
     };
 
-    const weeklyOpensCloses = formatOpeningTimes(openingTimes.general);
+    const weeklyOpensCloses = getOpeningTimesOverview(openingTimes.general);
     expect(weeklyOpensCloses).to.exist;
     expect(weeklyOpensCloses[0].day).to.equal('Monday');
-    expect(weeklyOpensCloses[0].openingTimes).to.equal('8am - 5pm');
+    expect(weeklyOpensCloses[0].openingTimes.opens).to.equal('8am');
+    expect(weeklyOpensCloses[0].openingTimes.closes).to.equal('5pm');
     expect(weeklyOpensCloses[1].day).to.equal('Tuesday');
-    expect(weeklyOpensCloses[1].openingTimes).to.equal('9am - 6pm');
+    expect(weeklyOpensCloses[1].openingTimes.opens).to.equal('9am');
+    expect(weeklyOpensCloses[1].openingTimes.closes).to.equal('6pm');
     expect(weeklyOpensCloses[2].day).to.equal('Wednesday');
-    expect(weeklyOpensCloses[2].openingTimes).to.equal('10am - 7pm');
+    expect(weeklyOpensCloses[2].openingTimes.opens).to.equal('10am');
+    expect(weeklyOpensCloses[2].openingTimes.closes).to.equal('7pm');
     expect(weeklyOpensCloses[3].day).to.equal('Thursday');
-    expect(weeklyOpensCloses[3].openingTimes).to.equal('11am - 8pm');
+    expect(weeklyOpensCloses[3].openingTimes.opens).to.equal('11am');
+    expect(weeklyOpensCloses[3].openingTimes.closes).to.equal('8pm');
     expect(weeklyOpensCloses[4].day).to.equal('Friday');
-    expect(weeklyOpensCloses[4].openingTimes).to.equal('12pm - 9pm');
+    expect(weeklyOpensCloses[4].openingTimes.opens).to.equal('12pm');
+    expect(weeklyOpensCloses[4].openingTimes.closes).to.equal('9pm');
     expect(weeklyOpensCloses[5].day).to.equal('Saturday');
-    expect(weeklyOpensCloses[5].openingTimes).to.equal('1pm - 10pm');
+    expect(weeklyOpensCloses[5].openingTimes.opens).to.equal('1pm');
+    expect(weeklyOpensCloses[5].openingTimes.closes).to.equal('10pm');
     expect(weeklyOpensCloses[6].day).to.equal('Sunday');
-    expect(weeklyOpensCloses[6].openingTimes).to.equal('2pm - 11pm');
+    expect(weeklyOpensCloses[6].openingTimes.opens).to.equal('2pm');
+    expect(weeklyOpensCloses[6].openingTimes.closes).to.equal('11pm');
   });
 
   it('should return undefined opening times when closed all week', () => {
@@ -47,35 +54,61 @@ describe('formatOpeningTimes', () => {
         sunday: [],
       }
     };
-    const weeklyOpensCloses = formatOpeningTimes(openingTimes.general);
+    const weeklyOpensCloses = getOpeningTimesOverview(openingTimes.general);
     expect(weeklyOpensCloses).to.not.exist;
   });
 
-  it('should return CLOSED for a day with no opening times', () => {
+  it('should return undefined opening times for day when sessions undefined', () => {
+    const openingTimes = {
+      general: {
+        monday: undefined,
+        tuesday: [{ opens: '08:00', closes: '17:00' }],
+      }
+    };
+    const weeklyOpensCloses = getOpeningTimesOverview(openingTimes.general);
+    expect(weeklyOpensCloses).to.exist;
+    expect(weeklyOpensCloses[0].day).to.equal('Monday');
+    expect(weeklyOpensCloses[0].openingTimes).to.not.exist;
+  });
+
+  it('should return defined openingTimes, but undefined opens and closes for a day that is closed, i.e empty array of sessions', () => {
     const openingTimes = {
       general: {
         monday: [{ opens: '08:00', closes: '17:00' }],
         tuesday: [],
       }
     };
-    const weeklyOpensCloses = formatOpeningTimes(openingTimes.general);
+    const weeklyOpensCloses = getOpeningTimesOverview(openingTimes.general);
     expect(weeklyOpensCloses).to.exist;
     expect(weeklyOpensCloses[1].day).to.equal('Tuesday');
-    expect(weeklyOpensCloses[1].openingTimes).to.equal('CLOSED');
+    expect(weeklyOpensCloses[1].openingTimes).to.exist;
+    expect(weeklyOpensCloses[1].openingTimes.opens).to.not.exist;
+    expect(weeklyOpensCloses[1].openingTimes.closes).to.not.exist;
   });
 
   it('should not display minutes in opening time if they are zero', () => {
     const openingTimes = {
       general: {
         monday: [{ opens: '08:00', closes: '17:00' }],
-        tuesday: [{ opens: '08:30', closes: '17:30' }],
       }
     };
-    const weeklyOpensCloses = formatOpeningTimes(openingTimes.general);
+    const weeklyOpensCloses = getOpeningTimesOverview(openingTimes.general);
     expect(weeklyOpensCloses).to.exist;
     expect(weeklyOpensCloses[0].day).to.equal('Monday');
-    expect(weeklyOpensCloses[0].openingTimes).to.equal('8am - 5pm');
-    expect(weeklyOpensCloses[1].day).to.equal('Tuesday');
-    expect(weeklyOpensCloses[1].openingTimes).to.equal('8:30am - 5:30pm');
+    expect(weeklyOpensCloses[0].openingTimes.opens).to.equal('8am');
+    expect(weeklyOpensCloses[0].openingTimes.closes).to.equal('5pm');
+  });
+
+  it('should display minutes in opening time if they are not zero', () => {
+    const openingTimes = {
+      general: {
+        monday: [{ opens: '08:30', closes: '17:30' }],
+      }
+    };
+    const weeklyOpensCloses = getOpeningTimesOverview(openingTimes.general);
+    expect(weeklyOpensCloses).to.exist;
+    expect(weeklyOpensCloses[0].day).to.equal('Monday');
+    expect(weeklyOpensCloses[0].openingTimes.opens).to.equal('8:30am');
+    expect(weeklyOpensCloses[0].openingTimes.closes).to.equal('5:30pm');
   });
 });

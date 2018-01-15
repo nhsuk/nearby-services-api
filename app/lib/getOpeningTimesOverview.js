@@ -11,21 +11,16 @@ function formatTimeString(timeString) {
   return time.format(formatString);
 }
 
-function getFirstOpenLastClosed(sessions) {
+function getDayOpeningTimes(sessions) {
+  if (sessions === undefined) {
+    return undefined;
+  }
+  if (sessions.length === 0) {
+    return {};
+  }
   const firstOpen = sessions[0].opens;
   const lastOpen = sessions[sessions.length - 1] && sessions[sessions.length - 1].closes;
-  return `${formatTimeString(firstOpen)} - ${formatTimeString(lastOpen)}`;
-}
-
-function mapDay(sessions) {
-  if (sessions === undefined) {
-    return 'No information available';
-  }
-
-  if (sessions.length === 0) {
-    return 'CLOSED';
-  }
-  return getFirstOpenLastClosed(sessions);
+  return { opens: formatTimeString(firstOpen), closes: formatTimeString(lastOpen) };
 }
 
 function isOpen(times) {
@@ -35,7 +30,7 @@ function isOpen(times) {
   });
 }
 
-function formatOpeningTimes(times) {
+function getOpeningTimesOverview(times) {
   if (isOpen(times) === false) {
     return undefined;
   }
@@ -43,12 +38,11 @@ function formatOpeningTimes(times) {
 
   daysOfWeekOrderedForUi.forEach((day) => {
     const daySessions = times[day.toLowerCase()];
-    const openingTimes = mapDay(daySessions);
-
+    const openingTimes = getDayOpeningTimes(daySessions);
     openCloseTimes.push({ day, openingTimes });
   });
 
   return openCloseTimes;
 }
 
-module.exports = formatOpeningTimes;
+module.exports = getOpeningTimesOverview;
