@@ -18,10 +18,10 @@ function getDayOpeningTimes(sessions) {
   if (sessions.length === 0) {
     return {};
   }
-  const firstOpen = sessions[0].opens;
-  const lastSession = sessions.length - 1;
-  const lastOpen = sessions[lastSession] && sessions[lastSession].closes;
-  return { opens: formatTimeString(firstOpen), closes: formatTimeString(lastOpen) };
+  const firstOpens = sessions[0].opens;
+  const lastSession = sessions[sessions.length - 1];
+  const lastCloses = lastSession && lastSession.closes;
+  return { opens: formatTimeString(firstOpens), closes: formatTimeString(lastCloses) };
 }
 
 function isOpen(times) {
