@@ -86,17 +86,21 @@ describe('getOpeningTimesOverview', () => {
     expect(weeklyOpensCloses[1].openingTimes.closes).to.not.exist;
   });
 
-  it('should not display minutes in opening time if they are zero', () => {
+  it('should handle days with three sessions', () => {
     const openingTimes = {
       general: {
-        monday: [{ opens: '08:00', closes: '17:00' }],
+        monday: [
+          { opens: '08:00', closes: '12:00' },
+          { opens: '13:00', closes: '16:00' },
+          { opens: '17:00', closes: '19:00' },
+        ],
       }
     };
     const weeklyOpensCloses = getOpeningTimesOverview(openingTimes.general);
     expect(weeklyOpensCloses).to.exist;
     expect(weeklyOpensCloses[0].day).to.equal('Monday');
     expect(weeklyOpensCloses[0].openingTimes.opens).to.equal('8am');
-    expect(weeklyOpensCloses[0].openingTimes.closes).to.equal('5pm');
+    expect(weeklyOpensCloses[0].openingTimes.closes).to.equal('7pm');
   });
 
   it('should display minutes in opening time if they are not zero', () => {

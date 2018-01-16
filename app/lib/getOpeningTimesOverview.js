@@ -19,7 +19,8 @@ function getDayOpeningTimes(sessions) {
     return {};
   }
   const firstOpen = sessions[0].opens;
-  const lastOpen = sessions[sessions.length - 1] && sessions[sessions.length - 1].closes;
+  const lastSession = sessions.length - 1;
+  const lastOpen = sessions[lastSession] && sessions[lastSession].closes;
   return { opens: formatTimeString(firstOpen), closes: formatTimeString(lastOpen) };
 }
 
