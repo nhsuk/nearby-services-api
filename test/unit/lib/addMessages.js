@@ -22,7 +22,7 @@ describe('addMessages', () => {
     },
   };
 
-  it('should return the opening times message, open status and next open', () => {
+  it('should return the opening times message, open status, openingTimesOverview, and next open', () => {
     const momentString = '2017-01-02 11:00';
     const momentInstance = moment(momentString);
     const nextOpenDateString = momentInstance.format('ddd MMM DD YYYY');
@@ -33,6 +33,7 @@ describe('addMessages', () => {
     expect(openServices.length).to.be.equal(1);
     expect(openServices[0].isOpen).to.be.equal(true);
     expect(openServices[0].openingTimesMessage).to.be.equal('Open 24 hours');
+    expect(openServices[0].openingTimesOverview).to.not.be.undefined;
     expect(openServices[0].nextOpen).to.not.be.undefined;
     expect(new Date(openServices[0].nextOpen).toDateString()).to.be.equal(nextOpenDateString);
   });
@@ -61,6 +62,7 @@ describe('addMessages', () => {
     expect(openServices.length).to.be.equal(1);
     expect(openServices[0].openingTimesMessage).to.be.equal('Open until 8pm today');
     expect(openServices[0].isOpen).to.be.equal(true);
+    expect(openServices[0].openingTimesOverview).to.not.be.undefined;
     expect(openServices[0].nextOpen).to.not.be.undefined;
     expect(new Date(openServices[0].nextOpen).toDateString()).to.be.equal(nextOpenDateString);
   });
@@ -93,6 +95,7 @@ describe('addMessages', () => {
 
     expect(openServices[0].isOpen).to.be.equal(true);
     expect(openServices[0].openingTimesMessage).to.be.equal('Open until midnight');
+    expect(openServices[0].openingTimesOverview).to.be.undefined;
     expect(openServices[0].nextOpen).to.not.be.undefined;
     expect(new Date(openServices[0].nextOpen).toDateString()).to.be.equal(nextOpenDateString);
   });
@@ -114,6 +117,7 @@ describe('addMessages', () => {
 
     expect(openServices[0].isOpen).to.be.equal(false);
     expect(openServices[0].openingTimesMessage).to.be.equal('Closed until 12am tomorrow');
+    expect(openServices[0].openingTimesOverview).to.not.be.undefined;
     expect(openServices[0].nextOpen).to.not.be.undefined;
     expect(new Date(openServices[0].nextOpen).toDateString()).to.be.equal(nextOpenDateString);
   });
@@ -125,6 +129,7 @@ describe('addMessages', () => {
 
     expect(nearbyServices.length).to.be.equal(1);
     expect(nearbyServices[0].isOpen).to.be.equal(false);
+    expect(nearbyServices[0].openingTimesOverview).to.be.undefined;
     expect(nearbyServices[0].openingTimesMessage).to.be.equal('Call for opening times');
     expect(nearbyServices[0].nextOpen).to.be.undefined;
   });

@@ -7,6 +7,7 @@
 - Removal of distance limitation for checking results are within a certain distance of the search point
 - Number of open results increased from 1 to 10
 - Documented API interface in `README`
+- Add `openingTimesOverview` to results containing first opening and last closing times for each day
 
 0.13.0 / 2017-12-12
 ===================

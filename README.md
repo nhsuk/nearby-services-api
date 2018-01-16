@@ -48,6 +48,55 @@ field called `results` e.g.
 }
 ```
 
+## Opening Times Overview
+
+Each result contains an `openingTimesOverview` object listing the first opening and last closing time for each day in the format:
+```json
+{
+openingTimesOverview: [
+  {
+    day: "Monday",
+    openingTimes: {
+      opens:"9am",
+      closes:"5:30pm"
+    }
+  },
+  {
+    day: "Tuesday",
+    openingTimes: {
+      opens:"9am",
+      closes:"5:30pm"
+    }
+  },
+  ...
+]
+}
+```
+
+When a service is closed the `openingTimes` field will be an empty object, i.e.
+```json
+{
+openingTimesOverview: [
+  {
+    day: "Sunday",
+    openingTimes:  {}
+  },
+  ...
+]
+}
+```
+When no opening times data is available, the `openingTimes` field will not be defined, i.e.
+```json
+{
+  openingTimesOverview: [
+    {
+      day: "Sunday",
+    },
+    ...
+  ]
+}
+```
+
 ## Environment variables
 
 Environment variables are expected to be managed by the environment in which
