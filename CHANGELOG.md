@@ -1,4 +1,4 @@
-0.14.0 / TBD
+0.14.0 / 2018-01-18
 ===================
 - Extend tests to cover alterations changing standard times
 - Use latest data snapshot
