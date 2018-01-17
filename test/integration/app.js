@@ -1,6 +1,8 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
+
 const app = require('../../app');
+const config = require('../../config/config').result;
 const utils = require('../lib/testUtils');
 
 const expect = chai.expect;
@@ -20,69 +22,96 @@ describe('app', function test() {
   const coords = { latitude, longitude };
 
   describe('nearby happy path', () => {
-    it('should return an object containing 3 nearby and 1 open services by default', (done) => {
+    it('should return an object containing the default number of nearby services', (done) => {
       chai.request(app)
         .get('/nearby')
         .query({ latitude: coords.latitude, longitude: coords.longitude })
         .end((err, res) => {
           expect(err).to.equal(null);
           expect(res).to.have.status(200);
-          // eslint-disable-next-line no-unused-expressions
           expect(res).to.be.json;
 
-          const nearby = res.body.nearby;
-          const open = res.body.open;
+          const results = res.body.results;
 
-          expect(nearby).to.be.instanceof(Array);
-          expect(open).to.be.instanceof(Array);
-          expect(nearby.length).to.be.equal(3);
-          expect(open.length).to.be.equal(1);
+          expect(results).to.be.instanceof(Array);
+          expect(results.length).to.be.equal(config.defaults.nearby);
           done();
         });
     });
 
-    it('should return an object containing the number of nearby and open services that were requested', (done) => {
-      const openResults = 2;
-      const nearbyResults = 5;
+    it('should return an object containing the number of nearby services that were requested', (done) => {
+      const resultsRequested = 5;
 
       chai.request(app)
         .get('/nearby')
         .query({
           latitude: coords.latitude,
           longitude: coords.longitude,
-          'limits:results:open': openResults,
-          'limits:results:nearby': nearbyResults,
+          'limits:results': resultsRequested,
         })
         .end((err, res) => {
           expect(err).to.equal(null);
           expect(res).to.have.status(200);
-          // eslint-disable-next-line no-unused-expressions
           expect(res).to.be.json;
 
-          const nearby = res.body.nearby;
-          const open = res.body.open;
+          const results = res.body.results;
 
-          expect(nearby).to.be.instanceof(Array);
-          expect(open).to.be.instanceof(Array);
-          expect(nearby.length).to.be.equal(nearbyResults);
-          expect(open.length).to.be.equal(openResults);
+          expect(results).to.be.instanceof(Array);
+          expect(results.length).to.be.equal(resultsRequested);
           done();
         });
     });
 
-    it('should return an object containing all required properties for both nearby and open services', (done) => {
+    it('should return an object containing all required properties for nearby services', (done) => {
       chai.request(app)
         .get('/nearby')
         .query({ latitude: coords.latitude, longitude: coords.longitude })
         .end((err, res) => {
           expect(err).to.equal(null);
           expect(res).to.have.status(200);
-          // eslint-disable-next-line no-unused-expressions
           expect(res).to.be.json;
 
-          const nearby = res.body.nearby;
-          const open = res.body.open;
-          const results = nearby.concat(open);
+          const results = res.body.results;
+
+          expect(results).to.be.instanceof(Array);
+          expect(results.length).to.be.equal(config.defaults.open);
+          done();
+        });
+    });
+
+    it('should return an object containing the number of open services that were requested', (done) => {
+      const resultsRequested = 5;
+
+      chai.request(app)
+        .get('/open')
+        .query({
+          latitude: coords.latitude,
+          longitude: coords.longitude,
+          'limits:results': resultsRequested,
+        })
+        .end((err, res) => {
+          expect(err).to.equal(null);
+          expect(res).to.have.status(200);
+          expect(res).to.be.json;
+
+          const results = res.body.results;
+
+          expect(results).to.be.instanceof(Array);
+          expect(results.length).to.be.equal(resultsRequested);
+          done();
+        });
+    });
+
+    it('should return an object containing all required properties for open services', (done) => {
+      chai.request(app)
+        .get('/open')
+        .query({ latitude: coords.latitude, longitude: coords.longitude })
+        .end((err, res) => {
+          expect(err).to.equal(null);
+          expect(res).to.have.status(200);
+          expect(res).to.be.json;
+
+          const results = res.body.results;
 
           results.forEach((result) => {
             expect(result.identifierType).to.equal('Pharmacy Contract');
@@ -96,24 +125,24 @@ describe('app', function test() {
             expect(result.openingTimes.general.friday).to.be.instanceof(Array);
             expect(result.openingTimes.general.saturday).to.be.instanceof(Array);
             expect(result.openingTimes.general.sunday).to.be.instanceof(Array);
-            expect(result.outOfHours).to.be.a('string');
+            expect(result.outOfHours).to.not.be.undefined;
             expect(result.hasEps).to.be.a('boolean');
             expect(result.address).to.be.instanceof(Object);
-            expect(result.address.line1).to.be.a('string');
+            expect(result.address.line1).to.not.be.undefined;
             expect(result.address.line2).to.not.be.undefined;
-            expect(result.address.line3).to.be.a('string');
-            expect(result.address.city).to.be.a('string');
-            expect(result.address.county).to.be.a('string');
+            expect(result.address.line3).to.not.be.undefined;
+            expect(result.address.city).to.not.be.undefined;
+            expect(result.address.county).to.not.be.undefined;
             expect(result.address.postcode).to.be.a('string');
             expect(result.contacts).to.be.instanceof(Object);
-            expect(result.contacts.website).to.be.a('string');
+            expect(result.contacts.website).to.not.be.undefined;
             expect(result.contacts.additionalContacts).to.be.instanceof(Array);
             expect(result.contacts.telephoneNumber).to.be.a('string');
             expect(result.contacts.isNonGeographicPhoneNumber).to.be.a('boolean');
             expect(result.contacts.phoneChargeMethod).to.be.a('string');
             expect(result.contacts.phoneChargeAmount).to.not.be.undefined;
             expect(result.contacts.telephoneExtension).to.not.be.undefined;
-            expect(result.contacts.fax).to.be.a('string');
+            expect(result.contacts.fax).to.not.be.undefined;
             expect(result.contacts.email).to.not.be.undefined;
             expect(result.directionsInformation).to.not.be.undefined;
             expect(result.externalProfileUrl).to.not.be.undefined;
@@ -122,7 +151,7 @@ describe('app', function test() {
             expect(result.organisationType).to.be.a('string');
             expect(result.parkingInformation).to.not.be.undefined;
             expect(result.provider).to.be.a('string');
-            expect(result.summary).to.be.a('string');
+            expect(result.summary).to.not.be.undefined;
             expect(result.links).to.be.instanceof(Array);
             expect(result.location).to.be.instanceof(Object);
             expect(result.location.type).to.be.a('string');
@@ -147,7 +176,6 @@ describe('app', function test() {
           .get('/nearby')
           .end((err, res) => {
             expect(res).to.have.status(400);
-            // eslint-disable-next-line no-unused-expressions
             expect(res).to.be.json;
             expect(res.body).to.be.instanceof(Array);
             expect(res.body.length).to.equal(4);
@@ -171,7 +199,6 @@ describe('app', function test() {
           .query({ latitude })
           .end((err, res) => {
             expect(res).to.have.status(400);
-            // eslint-disable-next-line no-unused-expressions
             expect(res).to.be.json;
             expect(res.body).to.be.instanceof(Array);
             expect(res.body.length).to.equal(2);
@@ -191,7 +218,110 @@ describe('app', function test() {
           .query({ longitude })
           .end((err, res) => {
             expect(res).to.have.status(400);
-            // eslint-disable-next-line no-unused-expressions
+            expect(res).to.be.json;
+            expect(res.body).to.be.instanceof(Array);
+            expect(res.body.length).to.equal(2);
+            expect(res.body[0].param).to.equal('latitude');
+            expect(res.body[0].msg).to.equal('latitude is required');
+            expect(res.body[1].param).to.equal('latitude');
+            expect(res.body[1].msg).to.equal('latitude must be between -90 and 90');
+            done();
+          });
+      });
+    });
+
+    describe('when the nearby limit is supplied and is not a number', () => {
+      it('should return a 400 response and descriptive error messages', (done) => {
+        chai.request(app)
+          .get('/nearby')
+          .query({
+            latitude: coords.latitude,
+            longitude: coords.longitude,
+            'limits:results': 'invalid',
+          })
+          .end((err, res) => {
+            expect(res).to.have.status(400);
+            expect(res).to.be.json;
+            expect(res.body).to.be.instanceof(Array);
+            expect(res.body.length).to.equal(1);
+            expect(res.body[0].param).to.equal('limits:results');
+            expect(res.body[0].msg).to.equal(`limits:results must be a number between ${config.limits.nearby.min} and ${config.limits.nearby.max}`);
+            done();
+          });
+      });
+    });
+
+    describe('when the nearby limit is supplied and is greater than the allowed limit', () => {
+      it('should return a 400 response and descriptive error messages', (done) => {
+        chai.request(app)
+          .get('/nearby')
+          .query({
+            latitude: coords.latitude,
+            longitude: coords.longitude,
+            'limits:results': config.limits.nearby.max + 1,
+          })
+          .end((err, res) => {
+            expect(res).to.have.status(400);
+            expect(res).to.be.json;
+            expect(res.body).to.be.instanceof(Array);
+            expect(res.body.length).to.equal(1);
+            expect(res.body[0].param).to.equal('limits:results');
+            expect(res.body[0].msg).to.equal(`limits:results must be a number between ${config.limits.nearby.min} and ${config.limits.nearby.max}`);
+            done();
+          });
+      });
+    });
+  });
+
+  describe('open error handling', () => {
+    describe('when both latitude and longitude are not included', () => {
+      it('should return a 400 response and descriptive error messages', (done) => {
+        chai.request(app)
+          .get('/open')
+          .end((err, res) => {
+            expect(res).to.have.status(400);
+            expect(res).to.be.json;
+            expect(res.body).to.be.instanceof(Array);
+            expect(res.body.length).to.equal(4);
+            expect(res.body[0].param).to.equal('latitude');
+            expect(res.body[0].msg).to.equal('latitude is required');
+            expect(res.body[1].param).to.equal('longitude');
+            expect(res.body[1].msg).to.equal('longitude is required');
+            expect(res.body[2].param).to.equal('latitude');
+            expect(res.body[2].msg).to.equal('latitude must be between -90 and 90');
+            expect(res.body[3].param).to.equal('longitude');
+            expect(res.body[3].msg).to.equal('longitude must be between -180 and 180');
+            done();
+          });
+      });
+    });
+
+    describe('when longitude is not included', () => {
+      it('should return a 400 response and descriptive error messages', (done) => {
+        chai.request(app)
+          .get('/open')
+          .query({ latitude })
+          .end((err, res) => {
+            expect(res).to.have.status(400);
+            expect(res).to.be.json;
+            expect(res.body).to.be.instanceof(Array);
+            expect(res.body.length).to.equal(2);
+            expect(res.body[0].param).to.equal('longitude');
+            expect(res.body[0].msg).to.equal('longitude is required');
+            expect(res.body[1].param).to.equal('longitude');
+            expect(res.body[1].msg).to.equal('longitude must be between -180 and 180');
+            done();
+          });
+      });
+    });
+
+    describe('when latitude is not included', () => {
+      it('should return a 400 response and descriptive error messages', (done) => {
+        chai.request(app)
+          .get('/open')
+          .query({ longitude })
+          .end((err, res) => {
+            expect(res).to.have.status(400);
             expect(res).to.be.json;
             expect(res.body).to.be.instanceof(Array);
             expect(res.body.length).to.equal(2);
@@ -207,69 +337,40 @@ describe('app', function test() {
     describe('when the open limit is supplied and is not a number', () => {
       it('should return a 400 response and descriptive error messages', (done) => {
         chai.request(app)
-          .get('/nearby')
+          .get('/open')
           .query({
             latitude: coords.latitude,
             longitude: coords.longitude,
-            'limits:results:open': 'invalid'
+            'limits:results': 'invalid',
           })
           .end((err, res) => {
             expect(res).to.have.status(400);
-            // eslint-disable-next-line no-unused-expressions
             expect(res).to.be.json;
             expect(res.body).to.be.instanceof(Array);
             expect(res.body.length).to.equal(1);
-            expect(res.body[0].param).to.equal('limits:results:open');
-            expect(res.body[0].msg).to.equal('limits:results:open must be a number between 1 and 3');
+            expect(res.body[0].param).to.equal('limits:results');
+            expect(res.body[0].msg).to.equal(`limits:results must be a number between ${config.limits.open.min} and ${config.limits.open.max}`);
             done();
           });
       });
     });
 
-    describe('when the nearby limit is supplied and is not a number', () => {
+    describe('when the open limit is supplied and is greater than the allowed limit', () => {
       it('should return a 400 response and descriptive error messages', (done) => {
         chai.request(app)
-          .get('/nearby')
+          .get('/open')
           .query({
             latitude: coords.latitude,
             longitude: coords.longitude,
-            'limits:results:nearby': 'invalid',
+            'limits:results': config.limits.open.max + 1,
           })
           .end((err, res) => {
             expect(res).to.have.status(400);
-            // eslint-disable-next-line no-unused-expressions
             expect(res).to.be.json;
             expect(res.body).to.be.instanceof(Array);
             expect(res.body.length).to.equal(1);
-            expect(res.body[0].param).to.equal('limits:results:nearby');
-            expect(res.body[0].msg).to.equal('limits:results:nearby must be a number between 1 and 10');
-            done();
-          });
-      });
-    });
-
-    describe('when nearby and open limits are supplied as empty values', () => {
-      it('should return a 400 response and descriptive error messages', (done) => {
-        chai.request(app)
-          .get('/nearby')
-          .query({
-            latitude: coords.latitude,
-            longitude: coords.longitude,
-            'limits:results:open': '',
-            'limits:results:nearby': ''
-          })
-          .end((err, res) => {
-            expect(res).to.have.status(400);
-            // eslint-disable-next-line no-unused-expressions
-            expect(res).to.be.json;
-            expect(res.body).to.be.instanceof(Array);
-            expect(res.body.length).to.equal(2);
-            expect(res.body[0].param).to.equal('limits:results:open');
-            expect(res.body[0].msg).to.equal('limits:results:open must be a number between 1 and 3');
-            expect(res.body[0].value).to.equal('');
-            expect(res.body[1].param).to.equal('limits:results:nearby');
-            expect(res.body[1].msg).to.equal('limits:results:nearby must be a number between 1 and 10');
-            expect(res.body[1].value).to.equal('');
+            expect(res.body[0].param).to.equal('limits:results');
+            expect(res.body[0].msg).to.equal(`limits:results must be a number between ${config.limits.open.min} and ${config.limits.open.max}`);
             done();
           });
       });

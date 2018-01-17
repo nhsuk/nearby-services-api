@@ -1,6 +1,6 @@
 {
   "name": "nearby-services-api",
-  "version": "0.13.1",
+  "version": "0.14.0",
   "private": true,
   "description": "nearby services api",
   "main": "server.js",
@@ -36,6 +36,7 @@
     "express-prom-bundle": "^3.1.0",
     "express-validator": "^4.0.0",
     "helmet": "^3.8.1",
+    "mime-db": "^1.32.0",
     "moment": "^2.16.0",
     "moment-opening-times": "^2.3.0",
     "moment-timezone": "^0.5.13",
