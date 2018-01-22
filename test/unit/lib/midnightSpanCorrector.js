@@ -99,6 +99,7 @@ describe('Midnight Span Corrector', () => {
       const status = openingTimes.getStatus(moment, { next: true });
       const newStatus = midnightSpanCorrector(openingTimes, status);
       momentsShouldBeSame(newStatus.nextClosed, getMoment('tuesday', 20, 0, timeZone));
+      expect(newStatus.nextOpen).to.not.be.a('string');
     });
 
     it('should use next day\'s closing time for a close at 00:00 and open at 00:00 the next day', () => {
@@ -108,6 +109,7 @@ describe('Midnight Span Corrector', () => {
       const status = openingTimes.getStatus(moment, { next: true });
       const newStatus = midnightSpanCorrector(openingTimes, status);
       momentsShouldBeSame(newStatus.nextClosed, getMoment('tuesday', 20, 0, timeZone));
+      expect(newStatus.nextOpen).to.not.be.a('string');
     });
 
     it('should not correct time if closes at 23:59 opens later than 00:00 the next day', () => {
@@ -117,6 +119,7 @@ describe('Midnight Span Corrector', () => {
       const status = openingTimes.getStatus(moment, { next: true });
       const newStatus = midnightSpanCorrector(openingTimes, status);
       expect(newStatus).to.be.equal(status);
+      expect(newStatus.nextOpen).to.not.be.a('string');
     });
 
     it('should not correct time if closes at 00:00 and opens later than 00:00 the next day', () => {
@@ -126,6 +129,7 @@ describe('Midnight Span Corrector', () => {
       const status = openingTimes.getStatus(moment, { next: true });
       const newStatus = midnightSpanCorrector(openingTimes, status);
       expect(newStatus).to.be.equal(status);
+      expect(newStatus.nextOpen).to.not.be.a('string');
     });
 
     it('should use next days closing time for a close at 23:59 and open at 00:00 the next day at 23:59', () => {
@@ -135,6 +139,7 @@ describe('Midnight Span Corrector', () => {
       const status = openingTimes.getStatus(moment, { next: true });
       const newStatus = midnightSpanCorrector(openingTimes, status);
       momentsShouldBeSame(newStatus.nextClosed, getMoment('tuesday', 20, 0, timeZone));
+      expect(newStatus.nextOpen).to.not.be.a('string');
     });
 
     it('should use Saturday\'s closing time for a close at 23:59 and open at 00:00 Monday to Saturday', () => {
@@ -144,6 +149,7 @@ describe('Midnight Span Corrector', () => {
       const status = openingTimes.getStatus(moment, { next: true });
       const newStatus = midnightSpanCorrector(openingTimes, status);
       momentsShouldBeSame(newStatus.nextClosed, getMoment('Saturday', 23, 59, timeZone, 1));
+      expect(newStatus.nextOpen).to.not.be.a('string');
     });
 
     it('should use alterations\'s closing time for a close at 23:59 and open at 00:00 Monday to Saturday', () => {
@@ -162,6 +168,7 @@ describe('Midnight Span Corrector', () => {
       const newStatus = midnightSpanCorrector(openingTimes, status);
 
       expect(newStatus.nextClosed.isSame(nextWednesday2359)).to.be.true;
+      expect(newStatus.nextOpen).to.not.be.a('string');
     });
 
     it('open24Hours should be true if open all week 00:00 to 23:59', () => {
@@ -172,6 +179,7 @@ describe('Midnight Span Corrector', () => {
       const newStatus = midnightSpanCorrector(openingTimes, status);
       expect(newStatus.open24Hours).to.be.equal(true);
       momentsShouldBeSame(newStatus.nextClosed, getMoment('tuesday', 23, 59, timeZone, 1));
+      expect(newStatus.nextOpen).to.not.be.a('string');
     });
   });
 });

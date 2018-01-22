@@ -1,6 +1,6 @@
 {
   "name": "nearby-services-api",
-  "version": "0.14.0",
+  "version": "0.14.1",
   "private": true,
   "description": "nearby services api",
   "main": "server.js",
