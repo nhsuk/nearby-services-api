@@ -123,7 +123,7 @@ describe('addMessages', () => {
   });
 
   it('should say call for opening times when the org does not have any opening times', () => {
-    const toFilter = [{ obj: {} }];
+    const toFilter = [{ contacts: { telephoneNumber: '01234567890' }, obj: {} }];
 
     const nearbyServices = addMessages(toFilter, moment());
 
@@ -131,6 +131,18 @@ describe('addMessages', () => {
     expect(nearbyServices[0].isOpen).to.be.equal(false);
     expect(nearbyServices[0].openingTimesOverview).to.be.undefined;
     expect(nearbyServices[0].openingTimesMessage).to.be.equal('Call for opening times');
+    expect(nearbyServices[0].nextOpen).to.be.undefined;
+  });
+
+  it('should say we can\' find any opening times when the org does not have any opening times or a phone number', () => {
+    const toFilter = [{ obj: {} }];
+
+    const nearbyServices = addMessages(toFilter, moment());
+
+    expect(nearbyServices.length).to.be.equal(1);
+    expect(nearbyServices[0].isOpen).to.be.equal(false);
+    expect(nearbyServices[0].openingTimesOverview).to.be.undefined;
+    expect(nearbyServices[0].openingTimesMessage).to.be.equal('We can\'t find any opening times');
     expect(nearbyServices[0].nextOpen).to.be.undefined;
   });
 });

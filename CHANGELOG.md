@@ -1,6 +1,7 @@
 0.14.1 / 2018-01-23
 ===================
 - Fix bug where opening time moment was changed to a string when spanning midnight
+- Display message for orgs with no opening times and no telephone number
 
 0.14.0 / 2018-01-18
 ===================
