@@ -20,15 +20,24 @@ function getOpeningInfo(openingTimes, now) {
   };
 }
 
-function getDefault() {
+function getDefault(msg) {
   return {
-    openingTimesMessage: 'Call for opening times',
+    openingTimesMessage: msg,
     isOpen: false,
   };
 }
 
 function addMessage(item, now) {
-  const openingInfo = item.openingTimes ? getOpeningInfo(item.openingTimes, now) : getDefault();
+  let openingInfo;
+
+  if (item.openingTimes) {
+    openingInfo = getOpeningInfo(item.openingTimes, now);
+  } else if (item.contacts && item.contacts.telephoneNumber) {
+    openingInfo = getDefault('Call for opening times');
+  } else {
+    openingInfo = getDefault('We can\'t find any opening times');
+  }
+
   /* eslint-disable no-param-reassign */
   item.openingTimesMessage = openingInfo.openingTimesMessage;
   item.isOpen = openingInfo.isOpen;
