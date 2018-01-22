@@ -1,3 +1,7 @@
+0.14.1 / 2018-01-23
+===================
+- Fix bug where opening time moment was changed to a string when spanning midnight
+
 0.14.0 / 2018-01-18
 ===================
 - Extend tests to cover alterations changing standard times

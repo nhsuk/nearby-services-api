@@ -25,10 +25,11 @@ function setNextCloseToTomorrow(openingTimes, status) {
     nextClosed = getNextClosedIgnoringMidnightSpan(openingTimes, nextClosed);
     count += 1;
   }
-  const newStatus = utils.deepClone(status);
-  newStatus.nextClosed = nextClosed;
-  newStatus.open24Hours = count === maxDays;
-  return newStatus;
+  /* eslint-disable no-param-reassign */
+  status.nextClosed = nextClosed;
+  status.open24Hours = count === maxDays;
+  /* eslint-enable */
+  return status;
 }
 
 function midnightSpanCorrector(openingTimes, status) {
