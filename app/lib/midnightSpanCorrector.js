@@ -18,7 +18,7 @@ function getNextClosedIgnoringMidnightSpan(openingTimes, nextClosed) {
   return tomorrowOpenStatus.nextClosed;
 }
 
-function setNextCloseToTomorrow(openingTimes, status) {
+function setNextClosedToTomorrow(openingTimes, status) {
   let nextClosed = getNextClosedIgnoringMidnightSpan(openingTimes, status.nextClosed);
   let count = 0;
   while (openingSpansMidnight(openingTimes, nextClosed) && count < maxDays) {
@@ -32,9 +32,17 @@ function setNextCloseToTomorrow(openingTimes, status) {
   return status;
 }
 
+function correctClosedAt2359(status) {
+  if (status.isOpen === false && status.moment.format('HH:mm') === '23:59') {
+    // eslint-disable-next-line no-param-reassign
+    status.isOpen = true;
+  }
+}
+
 function midnightSpanCorrector(openingTimes, status) {
   if (openingSpansMidnight(openingTimes, status.nextClosed)) {
-    return setNextCloseToTomorrow(openingTimes, status);
+    correctClosedAt2359(status);
+    return setNextClosedToTomorrow(openingTimes, status);
   }
   return status;
 }
