@@ -68,14 +68,14 @@ describe('addMessages', () => {
     expect(new Date(openServices[0].nextOpen).toDateString()).to.be.equal(nextOpenDateString);
   });
 
-  it('should return the opening times message, open status and next open when between 12:00am and 01:00am British Summer Time', () => {
-    const justAfterMidnightSundayBST = '2017-10-15T22:00:53.000Z';
-    const nextOpenDateString = new Date(justAfterMidnightSundayBST).toDateString();
+  it('should return the opening times message, open status and next open when before 12:00am British Summer Time', () => {
+    const beforeMidnightSundayBST = '2017-10-15T22:00:53.000Z';
+    const nextOpenDateString = new Date(beforeMidnightSundayBST).toDateString();
 
     const pharmacies = [spanningSundayMidnightOrg];
 
     // timezone required for correct results
-    const momentTime = moment(justAfterMidnightSundayBST).clone().tz('Europe/London');
+    const momentTime = moment(beforeMidnightSundayBST).clone().tz('Europe/London');
     const openServices = addMessages(pharmacies, momentTime);
     expect(openServices.length).to.be.equal(1);
     expect(openServices[0].openingTimesMessage).to.be.equal('Open until 8pm tomorrow');
@@ -85,14 +85,14 @@ describe('addMessages', () => {
     expect(new Date(openServices[0].nextOpen).toDateString()).to.be.equal(nextOpenDateString);
   });
 
-  it('should return the opening times message, open status and next open when between 12:00am and 01:00am British Summer Time', () => {
-    const justAfterMidnightSundayBST = '2017-10-15T22:59:00.000Z';
-    const nextOpenDateString = new Date(justAfterMidnightSundayBST).toDateString();
+  it('should return the opening times message, open status and next open when one minute before 12:00am British Summer Time', () => {
+    const justBeforeMidnightSundayBST = '2017-10-15T22:59:00.000Z';
+    const nextOpenDateString = new Date(justBeforeMidnightSundayBST).toDateString();
 
     const pharmacies = [spanningSundayMidnightOrg];
 
     // timezone required for correct results
-    const momentTime = moment(justAfterMidnightSundayBST).clone().tz('Europe/London');
+    const momentTime = moment(justBeforeMidnightSundayBST).clone().tz('Europe/London');
     const openServices = addMessages(pharmacies, momentTime);
     expect(openServices.length).to.be.equal(1);
     expect(openServices[0].openingTimesMessage).to.be.equal('Open until 8pm tomorrow');
