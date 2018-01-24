@@ -21,6 +21,19 @@ describe('addMessages', () => {
       },
     },
   };
+  const spanningSundayMidnightOrg = {
+    openingTimes: {
+      general: {
+        monday: [{ opens: '00:00', closes: '20:00' }, { opens: '23:00', closes: '23:59' }],
+        tuesday: [{ opens: '00:00', closes: '23:59' }],
+        wednesday: [{ opens: '00:00', closes: '23:59' }],
+        thursday: [{ opens: '00:00', closes: '23:59' }],
+        friday: [{ opens: '00:00', closes: '23:59' }],
+        saturday: [{ opens: '00:00', closes: '23:59' }],
+        sunday: [{ opens: '10:00', closes: '16:00' }, { opens: '23:00', closes: '23:59' }],
+      },
+    },
+  };
 
   it('should return the opening times message, open status, openingTimesOverview, and next open', () => {
     const momentString = '2017-01-02 11:00';
@@ -41,19 +54,7 @@ describe('addMessages', () => {
   it('should return the opening times message, open status and next open when between 12:00am and 01:00am British Summer Time', () => {
     const justAfterMidnightSundayBST = '2017-10-15T23:00:53.000Z';
     const nextOpenDateString = new Date(justAfterMidnightSundayBST).toDateString();
-    const spanningSundayMidnightOrg = {
-      openingTimes: {
-        general: {
-          monday: [{ opens: '00:00', closes: '20:00' }, { opens: '23:00', closes: '23:59' }],
-          tuesday: [{ opens: '00:00', closes: '23:59' }],
-          wednesday: [{ opens: '00:00', closes: '23:59' }],
-          thursday: [{ opens: '00:00', closes: '23:59' }],
-          friday: [{ opens: '00:00', closes: '23:59' }],
-          saturday: [{ opens: '00:00', closes: '23:59' }],
-          sunday: [{ opens: '10:00', closes: '16:00' }, { opens: '23:00', closes: '23:59' }],
-        },
-      },
-    };
+
     const pharmacies = [spanningSundayMidnightOrg];
 
     // timezone required for correct results
@@ -61,6 +62,40 @@ describe('addMessages', () => {
     const openServices = addMessages(pharmacies, momentTime);
     expect(openServices.length).to.be.equal(1);
     expect(openServices[0].openingTimesMessage).to.be.equal('Open until 8pm today');
+    expect(openServices[0].isOpen).to.be.equal(true);
+    expect(openServices[0].openingTimesOverview).to.not.be.undefined;
+    expect(openServices[0].nextOpen).to.not.be.undefined;
+    expect(new Date(openServices[0].nextOpen).toDateString()).to.be.equal(nextOpenDateString);
+  });
+
+  it('should return the opening times message, open status and next open when before 12:00am British Summer Time', () => {
+    const beforeMidnightSundayBST = '2017-10-15T22:00:53.000Z';
+    const nextOpenDateString = new Date(beforeMidnightSundayBST).toDateString();
+
+    const pharmacies = [spanningSundayMidnightOrg];
+
+    // timezone required for correct results
+    const momentTime = moment(beforeMidnightSundayBST).clone().tz('Europe/London');
+    const openServices = addMessages(pharmacies, momentTime);
+    expect(openServices.length).to.be.equal(1);
+    expect(openServices[0].openingTimesMessage).to.be.equal('Open until 8pm tomorrow');
+    expect(openServices[0].isOpen).to.be.equal(true);
+    expect(openServices[0].openingTimesOverview).to.not.be.undefined;
+    expect(openServices[0].nextOpen).to.not.be.undefined;
+    expect(new Date(openServices[0].nextOpen).toDateString()).to.be.equal(nextOpenDateString);
+  });
+
+  it('should return the opening times message, open status and next open when one minute before 12:00am British Summer Time', () => {
+    const justBeforeMidnightSundayBST = '2017-10-15T22:59:00.000Z';
+    const nextOpenDateString = new Date(justBeforeMidnightSundayBST).toDateString();
+
+    const pharmacies = [spanningSundayMidnightOrg];
+
+    // timezone required for correct results
+    const momentTime = moment(justBeforeMidnightSundayBST).clone().tz('Europe/London');
+    const openServices = addMessages(pharmacies, momentTime);
+    expect(openServices.length).to.be.equal(1);
+    expect(openServices[0].openingTimesMessage).to.be.equal('Open until 8pm tomorrow');
     expect(openServices[0].isOpen).to.be.equal(true);
     expect(openServices[0].openingTimesOverview).to.not.be.undefined;
     expect(openServices[0].nextOpen).to.not.be.undefined;

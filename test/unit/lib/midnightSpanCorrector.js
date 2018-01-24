@@ -112,6 +112,18 @@ describe('Midnight Span Corrector', () => {
       expect(newStatus.nextOpen).to.be.instanceOf(Moment);
     });
 
+    it('should say open and use next day\'s closing time for a close at 23:59 and open at 00:00 the next day', () => {
+      const openingTimesJson = getRegularWorkingWeekAbuttingMidnightAt2359();
+      const openingTimes = getNewOpeningTimes(openingTimesJson, timeZone);
+      const moment = getMoment('monday', 23, 59, timeZone);
+      const status = openingTimes.getStatus(moment, { next: true });
+
+      const newStatus = midnightSpanCorrector(openingTimes, status);
+      momentsShouldBeSame(newStatus.nextClosed, getMoment('tuesday', 20, 0, timeZone));
+      expect(newStatus.nextOpen).to.be.instanceOf(Moment);
+      expect(newStatus.isOpen).to.be.true;
+    });
+
     it('should not correct time if closes at 23:59 opens later than 00:00 the next day', () => {
       const openingTimesJson = getRegularWorkingWeekAbuttingMidnightAt2359();
       const openingTimes = getNewOpeningTimes(openingTimesJson, timeZone);
