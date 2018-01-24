@@ -32,16 +32,18 @@ function setNextClosedToTomorrow(openingTimes, status) {
   return status;
 }
 
-function correctClosedAt2359(status) {
+function correctClosedForOpeningSpansMidnight(status) {
   if (status.isOpen === false && status.moment.format('HH:mm') === '23:59') {
-    // eslint-disable-next-line no-param-reassign
+    /* eslint-disable no-param-reassign */
     status.isOpen = true;
+    status.nextOpen = status.moment;
+    /* eslint-enable */
   }
 }
 
 function midnightSpanCorrector(openingTimes, status) {
   if (openingSpansMidnight(openingTimes, status.nextClosed)) {
-    correctClosedAt2359(status);
+    correctClosedForOpeningSpansMidnight(status);
     return setNextClosedToTomorrow(openingTimes, status);
   }
   return status;
