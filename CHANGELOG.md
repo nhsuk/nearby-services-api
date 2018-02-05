@@ -1,3 +1,7 @@
+0.15.0 / 2018-02-06
+===================
+- Remove `openingTimesOverview` field from results
+
 0.14.2 / 2018-01-25
 ===================
 - Fix bug where closing time was wrong for service open past midnight when checking at 23:59
