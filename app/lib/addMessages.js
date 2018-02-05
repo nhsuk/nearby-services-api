@@ -3,7 +3,6 @@ const OpeningTimes = require('moment-opening-times');
 const timezone = require('../../config/config').timezone;
 const getOpeningHoursMessage = require('../lib/getOpeningTimesMessage');
 const midnightSpanCorrector = require('../lib/midnightSpanCorrector');
-const getOpeningTimesOverview = require('../lib/getOpeningTimesOverview');
 
 function getOpeningInfo(openingTimes, now) {
   const openingTimesMoment = new OpeningTimes(
@@ -42,9 +41,6 @@ function addMessage(item, now) {
   item.openingTimesMessage = openingInfo.openingTimesMessage;
   item.isOpen = openingInfo.isOpen;
   item.nextOpen = openingInfo.nextOpen;
-  if (item.openingTimes && item.openingTimes.general) {
-    item.openingTimesOverview = getOpeningTimesOverview(item.openingTimes.general);
-  }
   /* eslint-enable */
   return item;
 }
