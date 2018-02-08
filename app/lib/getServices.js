@@ -1,14 +1,15 @@
 require('moment-timezone');
 
-const timezone = require('../../config/config').timezone;
-const log = require('../lib/logger');
-const esFunctions = require('./esFunctions');
-const addMessages = require('./addMessages');
-const getDateTime = require('./getDateTime');
 const VError = require('verror').VError;
+
+const addMessages = require('./addMessages');
+const esFunctions = require('./esFunctions');
 const esGetNearbyPharmacyHistogram = require('./promHistograms').esGetNearbyPharmacy;
 const esGetOpenPharmacyHistogram = require('./promHistograms').esGetOpenPharmacy;
 const esGetTotalPharmacyHistogram = require('./promHistograms').esGetTotalPharmacy;
+const getDateTime = require('./getDateTime');
+const log = require('../lib/logger');
+const timezone = require('../../config/config').timezone;
 
 async function getServices(searchCoordinates, limits, type) {
   let pharmacies;
@@ -35,8 +36,9 @@ async function getServices(searchCoordinates, limits, type) {
 
     return addMessages(pharmacies, now);
   } catch (err) {
-    log.error({ err: new VError(err) });
-    throw err;
+    const error = new VError(err);
+    log.error({ err: error });
+    throw error;
   } finally {
     timer();
     totalTimer();

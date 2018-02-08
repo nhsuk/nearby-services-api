@@ -1,3 +1,7 @@
+0.16.0 / 2018-02-08
+===================
+- Wrap thrown errors in `VError`
+
 0.15.0 / 2018-02-06
 ===================
 - Remove `openingTimesOverview` field from results

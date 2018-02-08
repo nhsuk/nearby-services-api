@@ -1,3 +1,5 @@
+const VError = require('verror').VError;
+
 const buildNearestQuery = require('./queryBuilder').buildNearestQuery;
 const buildNearestOpenQuery = require('./queryBuilder').buildNearestOpenQuery;
 const client = require('./esClient').client;
@@ -14,7 +16,7 @@ function mapResults(results) {
 
 function validateResults(results) {
   if (!results || !results.hits || !results.hits.hits) {
-    throw new Error('ES results.hits.hits undefined');
+    throw new VError('ES results.hits.hits undefined');
   }
 }
 
@@ -26,10 +28,11 @@ async function getPharmacies(location, size) {
       numberOfResults: results.hits.total, location, size
     }, 'ES results returned from get nearby pharmacies.');
     return mapResults(results);
-  } catch (error) {
-    log.error({
-      location, size, errorMessage: error.message
+  } catch (err) {
+    const error = new VError({
+      cause: err, info: { location, size }
     });
+    log.error({ err: error });
     throw error;
   }
 }
@@ -42,10 +45,11 @@ async function getOpenPharmacies(time, location, size) {
       numberOfResults: results.hits.total, time, location, size
     }, 'ES results returned from get open pharmacies.');
     return mapResults(results);
-  } catch (error) {
-    log.error({
-      location, size, errorMessage: error.message
+  } catch (err) {
+    const error = new VError({
+      cause: err, info: { location, size }
     });
+    log.error({ err: error });
     throw error;
   }
 }
