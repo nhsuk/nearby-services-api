@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "elasticsearch": "^14.0.0",
-    "express": "4.15.5",
+    "express": "4.16.0",
     "express-prom-bundle": "^3.1.0",
     "express-validator": "^5.0.0",
     "helmet": "^3.8.1",
