@@ -14,8 +14,10 @@ services:
       - .:/code
       - api-deps:/code/node_modules
     environment:
-      NODE_ENV: development
       DATETIME: ${DATETIME}
+      NODE_ENV: development
+      NEW_RELIC_LICENSE_KEY: ${NEW_RELIC_LICENSE_KEY}
+      NEW_RELIC_LOG_LEVEL: ${NEW_RELIC_LOG_LEVEL}
     links:
       - pharmacy-db-elastic:es
 

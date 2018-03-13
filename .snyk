@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.7.1
+version: v1.10.2
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   'npm:mime:20170907':
@@ -16,23 +16,70 @@ ignore:
     - moment-opening-times > moment:
         reason: Not user facing
         expires: '2018-01-06T09:51:10.110Z'
-      moment-opening-times > moment-timezone > moment:
-        reason: Not user facing
-        expires: '2018-02-11T16:13:56.881Z'
     - moment-opening-times > moment-timezone > moment:
         reason: Not user facing
         expires: '2018-01-06T09:51:10.110Z'
-      moment-opening-times > moment:
-        reason: Not user facing
-        expires: '2018-02-11T16:13:56.881Z'
     - moment-timezone > moment:
         reason: Not user facing
         expires: '2018-02-11T16:13:56.881Z'
     - nhsuk-bunyan-logger > bunyan > moment:
         reason: Not user facing
         expires: '2018-02-11T16:13:56.881Z'
+    - moment-opening-times > moment-timezone > moment:
+        reason: Not user facing
+        expires: '2018-02-11T16:13:56.881Z'
+    - moment-opening-times > moment:
+        reason: Not user facing
+        expires: '2018-02-11T16:13:56.881Z'
   'npm:shelljs:20140723':
     - eslint-config-nhsuk > eslint-plugin-json > jshint > shelljs:
         reason: Not user facing
         expires: '2018-02-11T16:13:56.881Z'
+  'npm:hoek:20180212':
+    - boom > hoek:
+        reason: No upgrade path
+        expires: '2018-04-12T08:03:14.880Z'
+    - cryptiles > boom > hoek:
+        reason: No upgrade path
+        expires: '2018-04-12T08:03:14.880Z'
+    - hawk > hoek:
+        reason: No upgrade path
+        expires: '2018-04-12T08:03:14.880Z'
+    - hawk > boom > hoek:
+        reason: No upgrade path
+        expires: '2018-04-12T08:03:14.880Z'
+    - hawk > sntp > hoek:
+        reason: No upgrade path
+        expires: '2018-04-12T08:03:14.880Z'
+    - hawk > cryptiles > boom > hoek:
+        reason: No upgrade path
+        expires: '2018-04-12T08:03:14.880Z'
+    - node-pre-gyp > hawk > hoek:
+        reason: No upgrade path
+        expires: '2018-04-12T08:03:14.880Z'
+    - node-pre-gyp > hawk > boom > hoek:
+        reason: No upgrade path
+        expires: '2018-04-12T08:03:14.880Z'
+    - node-pre-gyp > hawk > sntp > hoek:
+        reason: No upgrade path
+        expires: '2018-04-12T08:03:14.880Z'
+    - node-pre-gyp > hawk > cryptiles > boom > hoek:
+        reason: No upgrade path
+        expires: '2018-04-12T08:03:14.880Z'
+    - node-pre-gyp > request > hawk > hoek:
+        reason: No upgrade path
+        expires: '2018-04-12T08:03:14.880Z'
+    - node-pre-gyp > request > hawk > boom > hoek:
+        reason: No upgrade path
+        expires: '2018-04-12T08:03:14.880Z'
+    - node-pre-gyp > request > hawk > sntp > hoek:
+        reason: No upgrade path
+        expires: '2018-04-12T08:03:14.880Z'
+    - node-pre-gyp > request > hawk > cryptiles > boom > hoek:
+        reason: No upgrade path
+        expires: '2018-04-12T08:03:14.880Z'
+  'npm:lodash:20180130':
+    - elasticsearch > lodash:
+        reason: No upgrade path
+        expires: '2018-04-12T08:03:14.880Z'
 patch: {}

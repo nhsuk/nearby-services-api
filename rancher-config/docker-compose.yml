@@ -5,10 +5,12 @@ services:
   nearby-services-api:
     image: "nhsuk/nearby-services-api:${DOCKER_IMAGE_TAG}"
     environment:
-      NODE_ENV: production
       ES_HOST: ${ES_HOST}
       ES_INDEX: ${ES_INDEX}
       ES_PORT: ${ES_PORT}
+      NEW_RELIC_LICENSE_KEY: ${NEW_RELIC_LICENSE_KEY}
+      NEW_RELIC_LOG_LEVEL: ${NEW_RELIC_LOG_LEVEL}
+      NODE_ENV: production
     labels:
       traefik.enable: true
       traefik.frontend.rule: $TRAEFIK_RULE
