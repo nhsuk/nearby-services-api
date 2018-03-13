@@ -1,3 +1,7 @@
+0.17.0 / 2018-03-15
+===================
+- Add newrelic application monitoring
+
 0.16.0 / 2018-02-08
 ===================
 - Wrap thrown errors in `VError`
