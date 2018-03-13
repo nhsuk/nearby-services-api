@@ -1199,9 +1199,9 @@ eslint-config-airbnb-base@^12.0.0:
   dependencies:
     eslint-restricted-globals "^0.1.1"
 
-eslint-config-nhsuk@^0.8.0:
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-nhsuk/-/eslint-config-nhsuk-0.8.0.tgz#a8f2913d6e0fa871dd7f3824a277fcafcbf98346"
+eslint-config-nhsuk@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-nhsuk/-/eslint-config-nhsuk-0.9.0.tgz#75bf03abd52b0e78ca9d5e1d83c9b02d96cb92be"
   dependencies:
     eslint "^4.0.0"
     eslint-config-airbnb-base "^12.0.0"
@@ -2947,8 +2947,8 @@ mocha@^5.0.0:
     supports-color "4.4.0"
 
 moment-opening-times@^2.3.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/moment-opening-times/-/moment-opening-times-2.6.0.tgz#2ed8f68744d8360a8fa90179ae607d2cf1aa6197"
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/moment-opening-times/-/moment-opening-times-2.7.0.tgz#9c8a0990c9160db2db693025d413c7ef2c7a408b"
   dependencies:
     moment "^2.0.0"
     moment-timezone "^0.5.0"
@@ -3056,8 +3056,8 @@ newrelic@^3.0.0:
     "@newrelic/native-metrics" "^2.1.0"
 
 nhsuk-bunyan-logger@^1.4.1:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/nhsuk-bunyan-logger/-/nhsuk-bunyan-logger-1.7.0.tgz#f7ab2c288fe5e7ca97493ac1887c84771e4f2ee9"
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/nhsuk-bunyan-logger/-/nhsuk-bunyan-logger-1.8.0.tgz#d69f46b7c277932de2cd07105e8c42320fb1fb13"
   dependencies:
     bunyan "^1.0.0"
     is-nan "^1.0.0"
