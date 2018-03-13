@@ -33,8 +33,8 @@ ignore:
         expires: '2018-02-11T16:13:56.881Z'
   'npm:shelljs:20140723':
     - eslint-config-nhsuk > eslint-plugin-json > jshint > shelljs:
-        reason: Not user facing
-        expires: '2018-02-11T16:13:56.881Z'
+        reason: No upgrade path
+        expires: '2018-04-12T12:12:26.687Z'
   'npm:hoek:20180212':
     - boom > hoek:
         reason: No upgrade path
@@ -82,4 +82,7 @@ ignore:
     - elasticsearch > lodash:
         reason: No upgrade path
         expires: '2018-04-12T08:03:14.880Z'
+      eslint-config-nhsuk > eslint-plugin-json > jshint > lodash:
+        reason: No upgrade path
+        expires: '2018-04-12T12:12:26.687Z'
 patch: {}
