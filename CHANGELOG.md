@@ -1,6 +1,8 @@
 0.17.0 / 2018-03-15
 ===================
 - Add newrelic application monitoring
+- Update npm dependencies
+- Upgrade Docker container to `node:8.10.0-alpine`
 
 0.16.0 / 2018-02-08
 ===================
