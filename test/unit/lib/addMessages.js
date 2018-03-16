@@ -8,6 +8,7 @@ const utils = require('../../../app/lib/utils');
 const expect = chai.expect;
 
 describe('addMessages', () => {
+  /* eslint-disable sort-keys */
   const alwaysOpenOrg = {
     openingTimes: {
       general: {
@@ -34,6 +35,7 @@ describe('addMessages', () => {
       },
     },
   };
+  /* eslint-enable sort-keys */
 
   it('should return the opening times message, open status and next open', () => {
     const momentString = '2017-01-02 11:00';
@@ -103,10 +105,13 @@ describe('addMessages', () => {
     const nextOpenDateString = new Date(momentDate).toDateString();
     const nowDate = moment(momentDate).format('YYYY-MM-DD');
     const alterations = {};
+    // eslint-disable-next-line sort-keys
     alterations[nowDate] = [{ opens: '00:00', closes: '23:59' }];
 
+    /* eslint-disable sort-keys */
     const orgWithAlterations = {
       openingTimes: {
+        alterations,
         general: {
           monday: [],
           tuesday: [],
@@ -116,9 +121,9 @@ describe('addMessages', () => {
           saturday: [],
           sunday: [],
         },
-        alterations,
       },
     };
+    /* eslint-enable sort-keys */
 
     const pharmacies = [orgWithAlterations];
 

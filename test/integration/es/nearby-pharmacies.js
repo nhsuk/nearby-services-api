@@ -12,7 +12,7 @@ describe('esFunctions', function test() {
   });
 
   describe('getPharmacies', () => {
-    const location = { longitude: -1.46519099452929, latitude: 54.0095586395326 };
+    const location = { latitude: 54.0095586395326, longitude: -1.46519099452929 };
 
     it('should return pharmacies as an array', (done) => {
       esFunctions.getPharmacies(location).then((pharmacies) => {

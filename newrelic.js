@@ -1,10 +1,6 @@
 exports.config = {
-  app_name: ['nearby-services-api'],
-  license_key: process.env.NEW_RELIC_LICENSE_KEY,
-  logging: {
-    level: process.env.NEW_RELIC_LOG_LEVEL || 'info'
-  },
   allow_all_headers: true,
+  app_name: ['nearby-services-api'],
   attributes: {
     exclude: [
       'request.headers.cookie',
@@ -16,7 +12,11 @@ exports.config = {
       'response.headers.authorization',
       'response.headers.proxyAuthorization',
       'response.headers.setCookie*',
-      'response.headers.x*'
-    ]
-  }
+      'response.headers.x*',
+    ],
+  },
+  license_key: process.env.NEW_RELIC_LICENSE_KEY,
+  logging: {
+    level: process.env.NEW_RELIC_LOG_LEVEL || 'info',
+  },
 };

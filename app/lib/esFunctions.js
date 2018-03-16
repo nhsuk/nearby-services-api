@@ -25,12 +25,12 @@ async function getPharmacies(location, size) {
     const results = await client.search(buildNearestQuery(location, size));
     validateResults(results);
     log.info({
-      numberOfResults: results.hits.total, location, size
+      location, numberOfResults: results.hits.total, size,
     }, 'ES results returned from get nearby pharmacies.');
     return mapResults(results);
   } catch (err) {
     const error = new VError({
-      cause: err, info: { location, size }
+      cause: err, info: { location, size },
     });
     log.error({ err: error });
     throw error;
@@ -42,12 +42,12 @@ async function getOpenPharmacies(time, location, size) {
     const results = await client.search(buildNearestOpenQuery(time, location, size));
     validateResults(results);
     log.info({
-      numberOfResults: results.hits.total, time, location, size
+      location, numberOfResults: results.hits.total, size, time,
     }, 'ES results returned from get open pharmacies.');
     return mapResults(results);
   } catch (err) {
     const error = new VError({
-      cause: err, info: { location, size }
+      cause: err, info: { location, size },
     });
     log.error({ err: error });
     throw error;
@@ -55,6 +55,6 @@ async function getOpenPharmacies(time, location, size) {
 }
 
 module.exports = {
-  getPharmacies,
   getOpenPharmacies,
+  getPharmacies,
 };

@@ -3,7 +3,7 @@ const moment = require('moment');
 const queryBuilder = require('../../../app/lib/queryBuilder');
 
 const expect = chai.expect;
-const location = { longitude: -1.46519099452929, latitude: 54.0095586395326 };
+const location = { latitude: 54.0095586395326, longitude: -1.46519099452929 };
 
 describe('queryBuilder', () => {
   it('buildNearestQuery should accept location, and size parameters', () => {

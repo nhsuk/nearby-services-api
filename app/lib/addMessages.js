@@ -13,16 +13,16 @@ function getOpeningInfo(openingTimes, now) {
   let status = openingTimesMoment.getStatus(now, { next: true });
   status = midnightSpanCorrector(openingTimesMoment, status);
   return {
-    openingTimesMessage: getOpeningHoursMessage(status),
     isOpen: status.isOpen,
     nextOpen: status.nextOpen,
+    openingTimesMessage: getOpeningHoursMessage(status),
   };
 }
 
 function getDefault(msg) {
   return {
-    openingTimesMessage: msg,
     isOpen: false,
+    openingTimesMessage: msg,
   };
 }
 
