@@ -19,11 +19,11 @@ function removeWhitespace(text) {
 
 async function updateAndConfirmChanges(id, body) {
   await esClient.client.update({
-    refresh: 'true',
-    index,
-    type,
-    id,
     body,
+    id,
+    index,
+    refresh: 'true',
+    type,
   });
 }
 

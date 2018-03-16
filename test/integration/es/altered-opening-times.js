@@ -22,15 +22,15 @@ describe('esFunctions', function test() {
         openingTimes: {
           alterations: {
             '201704-16': [{
-              opens: '10:00',
               closes: '12:00',
-            }]
+              opens: '10:00',
+            }],
           },
         },
         openingTimesAlterationsAsOffset: [{
+          closes: 720,
           date: FCJ43DateOfChange,
           opens: 600,
-          closes: 720,
         }],
       },
     };
@@ -51,7 +51,7 @@ describe('esFunctions', function test() {
     it('should not return a pharmacy that is normally open but is closed by alterations', (done) => {
       const latitude = '50.816619873046875';
       const longitude = '-1.0798419713974';
-      const location = { longitude, latitude };
+      const location = { latitude, longitude };
       const alterationsOpen = moment(`${FAQ27DateOfChange} 23:59:00`);
 
       esFunctions.getOpenPharmacies(alterationsOpen, location, 1).then((pharmacies) => {
@@ -63,7 +63,7 @@ describe('esFunctions', function test() {
     it('should return a pharmacy that is normally closed but is open by alterations', (done) => {
       const latitude = '50.9777946472168';
       const longitude = '-1.3598793745040894';
-      const location = { longitude, latitude };
+      const location = { latitude, longitude };
       const alterationsOpen = moment(`${FCJ43DateOfChange} 11:00:00`);
 
       esFunctions.getOpenPharmacies(alterationsOpen, location, 1).then((pharmacies) => {
@@ -73,7 +73,7 @@ describe('esFunctions', function test() {
     });
 
     it('should return pharmacies with an alteration that is closed', (done) => {
-      const location = { longitude: -1.3601, latitude: 50.9778 };
+      const location = { latitude: 50.9778, longitude: -1.3601 };
       const alterationsClosed = moment('2017-04-15 08:45:00');
       esFunctions.getOpenPharmacies(alterationsClosed, location, 1).then((pharmacies) => {
         expect(pharmacies).to.be.an('array');

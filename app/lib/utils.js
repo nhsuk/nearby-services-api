@@ -8,6 +8,6 @@ function closesAtMidnight(moment) {
 }
 
 module.exports = {
-  deepClone,
   closesAtMidnight,
+  deepClone,
 };

@@ -18,14 +18,14 @@ function timeToMinutesSinceMidnight(moment) {
 
 function getBaseQuery(size) {
   return {
+    body: {
+      query: {
+        bool: {},
+      },
+      size,
+    },
     index: esConfig.index,
     type: 'pharmacy',
-    body: {
-      size,
-      query: {
-        bool: {}
-      }
-    }
   };
 }
 
@@ -37,11 +37,11 @@ function getAlterationsDayQuery(dateString) {
         bool: {
           filter: [
             { range: { 'openingTimesAlterationsAsOffset.date': { lte: dateString } } },
-            { range: { 'openingTimesAlterationsAsOffset.date': { gte: dateString } } }
-          ]
-        }
-      }
-    }
+            { range: { 'openingTimesAlterationsAsOffset.date': { gte: dateString } } },
+          ],
+        },
+      },
+    },
   };
 }
 
@@ -55,11 +55,11 @@ function getAlterationsDayTimeQuery(dateString, minutesSinceMidnight) {
             { range: { 'openingTimesAlterationsAsOffset.date': { lte: dateString } } },
             { range: { 'openingTimesAlterationsAsOffset.date': { gte: dateString } } },
             { range: { 'openingTimesAlterationsAsOffset.opens': { lte: minutesSinceMidnight } } },
-            { range: { 'openingTimesAlterationsAsOffset.closes': { gte: minutesSinceMidnight } } }
-          ]
-        }
-      }
-    }
+            { range: { 'openingTimesAlterationsAsOffset.closes': { gte: minutesSinceMidnight } } },
+          ],
+        },
+      },
+    },
   };
 }
 
@@ -73,21 +73,21 @@ function getDailyOpeningTimesQuery(minutesSinceMidnightSunday) {
             {
               range: {
                 'openingTimesAsOffset.opens': {
-                  lte: minutesSinceMidnightSunday
-                }
-              }
+                  lte: minutesSinceMidnightSunday,
+                },
+              },
             },
             {
               range: {
                 'openingTimesAsOffset.closes': {
-                  gte: minutesSinceMidnightSunday
-                }
-              }
-            }
-          ]
-        }
-      }
-    }
+                  gte: minutesSinceMidnightSunday,
+                },
+              },
+            },
+          ],
+        },
+      },
+    },
   };
 }
 
@@ -95,15 +95,15 @@ function getSortByLocation(location) {
   return [
     {
       _geo_distance: {
+        distance_type: 'arc',
         'location.coordinates': {
+          lat: location.latitude,
           lon: location.longitude,
-          lat: location.latitude
         },
         order: 'asc',
         unit,
-        distance_type: 'arc'
-      }
-    }
+      },
+    },
   ];
 }
 
@@ -122,25 +122,25 @@ function getOpenAndNearestQuery(moment) {
                   {
                     bool: {
                       must: [
-                        getDailyOpeningTimesQuery(minutesSinceMidnightMonday)
+                        getDailyOpeningTimesQuery(minutesSinceMidnightMonday),
                       ],
                       must_not: [
-                        getAlterationsDayQuery(dateString)
-                      ]
-                    }
+                        getAlterationsDayQuery(dateString),
+                      ],
+                    },
                   },
                   {
                     bool: {
-                      must: [getAlterationsDayTimeQuery(dateString, minutesSinceMidnight)]
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      }
-    }
+                      must: [getAlterationsDayTimeQuery(dateString, minutesSinceMidnight)],
+                    },
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+    },
   };
 }
 
@@ -158,6 +158,6 @@ function buildNearestQuery(location, size) {
 }
 
 module.exports = {
-  buildNearestQuery,
   buildNearestOpenQuery,
+  buildNearestQuery,
 };

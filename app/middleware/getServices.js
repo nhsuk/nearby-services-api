@@ -9,9 +9,9 @@ async function validateRequest(req, type) {
 
   req.checkQuery('latitude', 'latitude is required').notEmpty();
   req.checkQuery('longitude', 'longitude is required').notEmpty();
-  req.checkQuery('latitude', 'latitude must be between -90 and 90').isFloat({ min: -90, max: 90 });
-  req.checkQuery('longitude', 'longitude must be between -180 and 180').isFloat({ min: -180, max: 180 });
-  req.checkQuery('limits:results', `limits:results must be a number between ${min} and ${max}`).optional().isInt({ min, max });
+  req.checkQuery('latitude', 'latitude must be between -90 and 90').isFloat({ max: 90, min: -90 });
+  req.checkQuery('longitude', 'longitude must be between -180 and 180').isFloat({ max: 180, min: -180 });
+  req.checkQuery('limits:results', `limits:results must be a number between ${min} and ${max}`).optional().isInt({ max, min });
   const result = await req.getValidationResult();
   return result.isEmpty() ? undefined : result.array();
 }
@@ -19,7 +19,7 @@ async function validateRequest(req, type) {
 function getSearchCoordinates(req) {
   const latitude = parseFloat(req.query.latitude);
   const longitude = parseFloat(req.query.longitude);
-  return { longitude, latitude };
+  return { latitude, longitude };
 }
 
 function getLimits(req, type) {
