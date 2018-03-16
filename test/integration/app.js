@@ -46,8 +46,8 @@ describe('app', function test() {
         .get('/nearby')
         .query({
           latitude: coords.latitude,
-          longitude: coords.longitude,
           'limits:results': resultsRequested,
+          longitude: coords.longitude,
         })
         .end((err, res) => {
           expect(err).to.equal(null);
@@ -86,8 +86,8 @@ describe('app', function test() {
         .get('/open')
         .query({
           latitude: coords.latitude,
-          longitude: coords.longitude,
           'limits:results': resultsRequested,
+          longitude: coords.longitude,
         })
         .end((err, res) => {
           expect(err).to.equal(null);
@@ -236,8 +236,8 @@ describe('app', function test() {
           .get('/nearby')
           .query({
             latitude: coords.latitude,
-            longitude: coords.longitude,
             'limits:results': 'invalid',
+            longitude: coords.longitude,
           })
           .end((err, res) => {
             expect(res).to.have.status(400);
@@ -257,8 +257,8 @@ describe('app', function test() {
           .get('/nearby')
           .query({
             latitude: coords.latitude,
-            longitude: coords.longitude,
             'limits:results': config.limits.nearby.max + 1,
+            longitude: coords.longitude,
           })
           .end((err, res) => {
             expect(res).to.have.status(400);
@@ -340,8 +340,8 @@ describe('app', function test() {
           .get('/open')
           .query({
             latitude: coords.latitude,
-            longitude: coords.longitude,
             'limits:results': 'invalid',
+            longitude: coords.longitude,
           })
           .end((err, res) => {
             expect(res).to.have.status(400);
@@ -361,8 +361,8 @@ describe('app', function test() {
           .get('/open')
           .query({
             latitude: coords.latitude,
-            longitude: coords.longitude,
             'limits:results': config.limits.open.max + 1,
+            longitude: coords.longitude,
           })
           .end((err, res) => {
             expect(res).to.have.status(400);

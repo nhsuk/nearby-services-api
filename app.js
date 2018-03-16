@@ -14,9 +14,9 @@ applicationStarts.inc(1);
 
 app.use(promBundle.middleware);
 app.use(helmet({
+  contentSecurityPolicy: { directives: { defaultSrc: ['\'self\''] } },
   frameguard: { action: 'deny' },
   hsts: { includeSubDomains: false },
-  contentSecurityPolicy: { directives: { defaultSrc: ['\'self\''] } },
   referrerPolicy: { policy: 'no-referrer' },
 }));
 app.use(validator());

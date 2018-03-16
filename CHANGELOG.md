@@ -1,3 +1,8 @@
+0.18.0 / TBD
+===================
+- Upgrade to `eslint-config-nhsuk@0.13.0` and apply fixes
+- Downgrade Docker container to `node:8.9.4-alpine`
+
 0.17.0 / 2018-03-15
 ===================
 - Add newrelic application monitoring

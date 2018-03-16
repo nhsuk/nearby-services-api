@@ -11,6 +11,7 @@ const expect = chai.expect;
 const aSunday = new Moment('2016-07-24T00:00:00+00:00');
 const timeZone = 'Europe/London';
 
+/* eslint-disable sort-keys */
 function getAbuttingMidnightDay2359() {
   return [
     { opens: '00:00', closes: '20:00' },
@@ -30,6 +31,7 @@ function get24HourDay() {
     { opens: '00:00', closes: '23:59' },
   ];
 }
+/* eslint-enable sort-keys */
 
 function getClosedDay() {
   return [];

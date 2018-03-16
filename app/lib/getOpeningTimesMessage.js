@@ -2,11 +2,11 @@ const utils = require('../lib/utils');
 
 function getDayDescriptor(moment, referenceMoment) {
   const dayDescriptors = {
-    sameDay: '[today]',
-    nextDay: '[tomorrow]',
-    nextWeek: 'dddd',
     lastDay: '[yesterday]',
     lastWeek: '[last] dddd',
+    nextDay: '[tomorrow]',
+    nextWeek: 'dddd',
+    sameDay: '[today]',
     sameElse: 'DD/MM/YYYY',
   };
   return moment.calendar(referenceMoment, dayDescriptors);
