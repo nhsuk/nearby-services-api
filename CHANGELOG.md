@@ -2,6 +2,7 @@
 ===================
 - Upgrade to `eslint-config-nhsuk@0.14.0` and apply fixes
 - Downgrade Docker container to `node:8.9.4-alpine`
+- Update npm dependencies
 
 0.17.0 / 2018-03-15
 ===================
