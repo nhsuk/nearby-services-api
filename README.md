@@ -4,7 +4,6 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/nhsuk/nearby-services-api.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/nhsuk/nearby-services-api.svg?branch=master)](https://travis-ci.org/nhsuk/nearby-services-api)
 [![Coverage Status](https://coveralls.io/repos/github/nhsuk/nearby-services-api/badge.svg)](https://coveralls.io/github/nhsuk/nearby-services-api)
-[![Known Vulnerabilities](https://snyk.io/test/github/nhsuk/nearby-services-api/badge.svg)](https://snyk.io/test/github/nhsuk/nearby-services-api)
 
 An API focusing on services near to a specific search point.
 
@@ -97,13 +96,6 @@ API. Sample format to set:
 And to remove:
 `unset DATETIME`
 
-## Running the tests
-
-Before running the tests (via the test script) for the first time you need to
-have a Snyk auth token as `SNYK_TOKEN=`, either created in an `.env` file or
-added to the `docker-compose-test.yml`
-*NB* Your secrets should not be checked into the repo.
-
 ## FAQ
 
 1. When I run `docker-compose` I get errors about packages missing. Often it
@@ -117,11 +109,7 @@ added to the `docker-compose-test.yml`
 
 ## Contributing to the application
 
-Make your changes but before you commit them you need to have couple of things
-set up.  You need to authorize/have an account with [snyk](https://snyk.io/).
-We use [husky](https://github.com/typicode/husky) to run tests in git hooks so
-we are sure that we maintain a high standard, so please run the tests alongside
-your application.
+Make your changes but before you commit them run the tests.
 
 ## Architecture Decision Records
 
