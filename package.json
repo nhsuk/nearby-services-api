@@ -49,7 +49,7 @@
     "chai-http": "^4.0.0",
     "chai-moment": "^0.1.0",
     "coveralls": "^3.0.0",
-    "eslint": "^4.6.1",
+    "eslint": "^5.0.0",
     "eslint-config-airbnb-base": "^12.0.0",
     "eslint-config-nhsuk": "^0.15.0",
     "eslint-plugin-import": "^2.7.0",
