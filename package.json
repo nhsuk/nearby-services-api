@@ -35,7 +35,7 @@
     "express": "4.16.0",
     "express-prom-bundle": "^3.1.0",
     "express-validator": "^5.0.0",
-    "helmet": "^3.8.1",
+    "helmet": "^3.15.1",
     "mime-db": "^1.32.0",
     "moment": "^2.16.0",
     "moment-opening-times": "^2.3.0",
