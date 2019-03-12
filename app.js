@@ -1,7 +1,7 @@
 const express = require('express');
 const helmet = require('helmet');
-const getServices = require('./app/middleware/getServices');
 const validator = require('express-validator');
+const getServices = require('./app/middleware/getServices');
 const promBundle = require('./app/lib/promBundle');
 const applicationStarts = require('./app/lib/promCounters').applicationStarts;
 
