@@ -1,6 +1,6 @@
 0.18.0 / TBD
 ===================
-- Upgrade Docker container to `node:10.15.3-alpine`
+- Upgrade Docker container to latest version of node alpine LTS
 - Update npm dependencies
 - Remove snyk
 - Remove newrelic application monitoring
