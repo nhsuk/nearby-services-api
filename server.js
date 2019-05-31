@@ -1,4 +1,3 @@
-require('newrelic');
 const log = require('./app/lib/logger');
 const app = require('./app');
 

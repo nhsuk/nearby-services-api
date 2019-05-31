@@ -36,8 +36,8 @@ function getClosedMessage(status) {
     const unit = timeUntilOpen > 1 ? 'minutes' : 'minute';
     return `Open in ${timeUntilOpen} ${unit}`;
   }
-  return `Closed until ${formatTime(status.nextOpen)} ` +
-    `${getDayDescriptor(status.nextOpen, status.moment)}`;
+  return `Closed until ${formatTime(status.nextOpen)} `
+    + `${getDayDescriptor(status.nextOpen, status.moment)}`;
 }
 
 function nextTimeMissing(status) {
@@ -45,8 +45,8 @@ function nextTimeMissing(status) {
 }
 
 function getOpenUntilMessage(status) {
-  return `Open until ${formatTime(status.nextClosed)} ` +
-    `${getDayDescriptor(status.nextClosed, status.moment)}`;
+  return `Open until ${formatTime(status.nextClosed)} `
+    + `${getDayDescriptor(status.nextClosed, status.moment)}`;
 }
 
 function getOpeningHoursMessage(status) {

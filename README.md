@@ -69,8 +69,6 @@ something because there is no value for an env var it was relying on.
 | `ES_PORT`                 | The port used by ElasticSearch                                                                                                            | 27017                  |
 | `RESULT_LIMIT_OPEN_MAX`   | The maximum number of open results                                                                                                        | 10                     |
 | `RESULT_LIMIT_NEARBY_MAX` | The maximum number of nearby results                                                                                                      | 10                     |
-| `NEW_RELIC_LICENSE_KEY`   | [New Relic license key](https://docs.newrelic.com/docs/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration#license) |                        |
-| `NEW_RELIC_LOG_LEVEL`     | [New Relic log level](https://docs.newrelic.com/docs/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration#log_level) | info                   |
 
 ## Running the application
 
