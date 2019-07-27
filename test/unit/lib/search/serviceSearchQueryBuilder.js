@@ -26,7 +26,7 @@ describe('queryBuilder', () => {
     const searchOrigin = { location: { lat: 54.12, lon: -1.55 } };
     const queryType = constants.queryTypes.openNearby;
     const size = 10;
-    const date = new Date('July 26, 19 07:20');
+    const datetime = new Date('July 26, 19 07:20');
     const expectedFilter = `
     OrganisationTypeID eq 'PHA' and
       ( OpeningTimesV2/any(time:
@@ -47,7 +47,7 @@ describe('queryBuilder', () => {
                     and time/AdditionalOpeningDate eq 'Jul 26 2019')
           )`;
 
-    const output = queryBuilder(searchOrigin, { date, queryType, size });
+    const output = queryBuilder(searchOrigin, { datetime, queryType, size });
 
     expect(output).to.be.an('object');
     expect(output).to.have.property('count').and.equal(true);

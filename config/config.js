@@ -21,5 +21,11 @@ module.exports = {
       },
     },
   },
+  search: {
+    apiKey: process.env.SEARCH_API_KEY,
+    host: process.env.SEARCH_API_HOST || 'api.nhs.uk',
+    maxNumberOfResults: 30,
+    version: process.env.SEARCH_API_VERSION || '1',
+  },
   timezone: 'Europe/London',
 };

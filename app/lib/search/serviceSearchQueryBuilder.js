@@ -37,7 +37,7 @@ function build(searchOrigin, options) {
       filter = '';
       break;
     case queryTypes.openNearby:
-      filter = getOpeningTimesFilter(options.date);
+      filter = getOpeningTimesFilter(options.datetime);
       break;
     default:
       throw new VError(`Unknown queryType: ${options.queryType}`);

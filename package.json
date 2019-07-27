@@ -46,6 +46,7 @@
     "moment-timezone": "^0.5.13",
     "nhsuk-bunyan-logger": "^1.4.1",
     "prom-client": "^11.2.1",
+    "request-promise-native": "^1.0.7",
     "verror": "^1.9.0"
   },
   "devDependencies": {
