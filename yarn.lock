@@ -2712,9 +2712,10 @@ neo-async@^2.6.0:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
 
-nhsuk-bunyan-logger@^1.4.1:
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/nhsuk-bunyan-logger/-/nhsuk-bunyan-logger-1.11.0.tgz#d577c6da649d0ee2f99897dea415b778634dd897"
+nhsuk-bunyan-logger@^1.12.1:
+  version "1.12.1"
+  resolved "https://registry.yarnpkg.com/nhsuk-bunyan-logger/-/nhsuk-bunyan-logger-1.12.1.tgz#2576151cb552e9560c37deb145d8ec902f3b4260"
+  integrity sha512-YgExAar03HlPiiQbqUEDn6+sIH7cHF9b9VsFqI5P6IIp9SKcmYVIVIQUOQUfNua64NJ+tgg8AF49lj4/xYeJmw==
   dependencies:
     bunyan "^1.0.0"
     is-nan "^1.0.0"
