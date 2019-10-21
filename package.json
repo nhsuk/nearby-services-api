@@ -57,7 +57,7 @@
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-config-nhsuk": "^0.17.0",
     "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-json": "^1.2.0",
+    "eslint-plugin-json": "^2.0.0",
     "eslint-plugin-mocha": "^5.0.0",
     "eslint-watch": "^5.0.1",
     "husky": "^2.3.0",
