@@ -63,7 +63,7 @@
     "husky": "^2.3.0",
     "istanbul": "^1.1.0-alpha.1",
     "mocha": "^6.0.2",
-    "nodemon": "^1.11.0"
+    "nodemon": "^2.0.1"
   },
   "author": "",
   "license": "MIT"
