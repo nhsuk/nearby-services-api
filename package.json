@@ -38,7 +38,7 @@
     "elasticsearch": "^16.1.0",
     "express": "^4.17.1",
     "express-prom-bundle": "^5.0.2",
-    "express-validator": "^5.0.0",
+    "express-validator": "^6.3.0",
     "helmet": "^3.8.1",
     "mime-db": "^1.32.0",
     "moment": "^2.16.0",
