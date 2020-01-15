@@ -1,3 +1,7 @@
+# **DEPRECATED** - no longer actively maintained
+
+---
+
 # Nearby services API
 
 [![GitHub Release](https://img.shields.io/github/release/nhsuk/nearby-services-api.svg)](https://github.com/nhsuk/nearby-services-api/releases/latest/)
